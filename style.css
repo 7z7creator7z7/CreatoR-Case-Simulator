@@ -1,0 +1,119 @@
+:root {
+    --bg-dark: #0d1117;
+    --panel-bg: #161b22;
+    --accent: #5865f2;
+    --gold: #ffcc00;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: white;
+    font-family: 'Rajdhani', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+    user-select: none;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background: var(--panel-bg);
+    border-bottom: 1px solid #30363d;
+}
+
+.balance-container {
+    background: #000;
+    padding: 6px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--accent);
+    color: #44ff44;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 0 10px rgba(88, 101, 242, 0.3);
+}
+
+.case-viewer {
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.spinner-container {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    background: #000;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #30363d;
+}
+
+.center-line {
+    position: absolute;
+    left: 50%;
+    width: 3px;
+    height: 100%;
+    background: var(--gold);
+    z-index: 10;
+    box-shadow: 0 0 15px var(--gold);
+}
+
+.carousel {
+    display: flex;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    align-items: center;
+    transition: transform 5s cubic-bezier(0.1, 0, 0.1, 1);
+}
+
+.skin-card {
+    min-width: 110px;
+    height: 90px;
+    margin: 0 2px;
+    background: #1c2128;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    border-bottom: 4px solid #4b69ff;
+}
+
+.skin-card img { width: 65px; }
+
+#open-btn {
+    width: 90%;
+    padding: 15px;
+    background: linear-gradient(90deg, #5865f2, #4752c4);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 16px;
+    box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+}
+
+.inventory-box { padding: 15px; margin-bottom: 80px; }
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.footer-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: var(--panel-bg);
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+    border-top: 1px solid #30363d;
+}
+
+.nav-item { color: #8b949e; font-size: 12px; font-weight: bold; }
+.nav-item.active { color: var(--accent); }

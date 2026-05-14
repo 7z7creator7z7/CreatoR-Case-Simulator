@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CS2 Elite Case</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="user-profile">
+                <div class="avatar-circle"></div>
+                <span>PLAYER</span>
+            </div>
+            <div class="balance-container">
+                <img src="https://cdn-icons-png.flaticon.com/512/1490/1490844.png" width="20">
+                <span id="balance">50.00</span>
+            </div>
+        </header>
+
+        <main class="case-viewer">
+            <h1 class="case-name">SNAKEBITE CASE</h1>
+            <div class="spinner-container">
+                <div class="center-line"></div>
+                <div id="carousel" class="carousel">
+                    </div>
+            </div>
+            
+            <div class="action-bar">
+                <button id="open-btn" onclick="openCase()">OCHISH (10.00 COIN)</button>
+            </div>
+        </main>
+
+        <section class="inventory-box">
+            <h3>Mening Inventarim</h3>
+            <div id="inventory-list" class="inventory-grid"></div>
+        </section>
+
+        <nav class="footer-nav">
+            <div class="nav-item active">📦 KEYSLAR</div>
+            <div class="nav-item" onclick="alert('Tez kunda: CRASH')">📈 CRASH</div>
+            <div class="nav-item" onclick="alert('Tez kunda: MINES')">💣 MINES</div>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
