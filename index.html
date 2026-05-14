@@ -2,49 +2,63 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CS2 Elite Case</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 Case Simulator</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div id="app">
-        <header class="header">
-            <div class="user-profile">
-                <div class="avatar-circle"></div>
-                <span>PLAYER</span>
+        <header>
+            <div class="user-info" onclick="showSection('profile')">
+                <img id="user-photo" src="https://via.placeholder.com/40" alt="Avatar">
+                <span id="user-name">Yuklanmoqda...</span>
             </div>
-            <div class="balance-container">
-                <img src="https://cdn-icons-png.flaticon.com/512/1490/1490844.png" width="20">
-                <span id="balance">50.00</span>
+            <div class="balance-info">
+                💰 <span id="balance">0.00</span> $
             </div>
         </header>
 
-        <main class="case-viewer">
-            <h1 class="case-name">SNAKEBITE CASE</h1>
-            <div class="spinner-container">
-                <div class="center-line"></div>
-                <div id="carousel" class="carousel">
-                    </div>
-            </div>
-            
-            <div class="action-bar">
-                <button id="open-btn" onclick="openCase()">OCHISH (10.00 COIN)</button>
-            </div>
-        </main>
+        <nav>
+            <button onclick="showSection('cases')" id="nav-cases">Keyslar</button>
+            <button onclick="showSection('inventory')" id="nav-inv">Inventar</button>
+            <button onclick="showSection('profile')" id="nav-profile">Profil</button>
+        </nav>
 
-        <section class="inventory-box">
-            <h3>Mening Inventarim</h3>
-            <div id="inventory-list" class="inventory-grid"></div>
+        <section id="cases-section">
+            <h2 id="title-cases">Keys Tanlang</h2>
+            <div class="case-grid" id="case-list"></div>
         </section>
 
-        <nav class="footer-nav">
-            <div class="nav-item active">📦 KEYSLAR</div>
-            <div class="nav-item" onclick="alert('Tez kunda: CRASH')">📈 CRASH</div>
-            <div class="nav-item" onclick="alert('Tez kunda: MINES')">💣 MINES</div>
-        </nav>
-    </div>
+        <section id="inventory-section" class="hidden">
+            <h2 id="title-inv">Mening Inventarim</h2>
+            <div id="inventory-list"></div>
+        </section>
 
+        <section id="profile-section" class="hidden">
+            <h2 id="title-profile">Profil</h2>
+            <div class="profile-card">
+                <p id="label-lang">Tilni tanlang:</p>
+                <div class="lang-buttons">
+                    <button onclick="changeLanguage('uz')">🇺🇿 O'zbekcha</button>
+                    <button onclick="changeLanguage('en')">🇺🇸 English</button>
+                </div>
+                <hr>
+                <p id="label-stats">Statistika tez kunda...</p>
+            </div>
+        </section>
+
+        <div id="game-modal" class="hidden">
+            <div class="modal-content">
+                <h3 id="opening-text">Ochilmoqda...</h3>
+                <div id="case-window">
+                    <div id="line"></div>
+                    <div id="carousel"></div>
+                </div>
+                <button id="close-modal" class="hidden" onclick="closeModal()">Yopish</button>
+            </div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
