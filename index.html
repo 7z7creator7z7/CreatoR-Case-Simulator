@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CreatoR BullDrop v2.0</title>
+    <title>CreatoR BullDrop</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -11,7 +11,9 @@
     <div id="app">
         <header onclick="showSection('profile')">
             <div class="user-info">
-                <img id="user-photo" src="https://via.placeholder.com/40" alt="Avatar">
+                <div class="avatar-container">
+                    <img id="user-photo" src="https://img.icons8.com/bubbles/100/000000/user.png" alt="Avatar">
+                </div>
                 <span id="user-name">『CreatoR』</span>
             </div>
             <div class="balance-info">💰 <span id="balance">100.00</span> $</div>
@@ -23,65 +25,36 @@
             </section>
 
             <section id="games-section" class="hidden">
-                <div class="games-menu">
-                    <button onclick="switchGame('crash')">🚀 Crash</button>
-                    <button onclick="switchGame('mines')">💣 Mines</button>
-                    <button onclick="switchGame('upgrade')">⚡ Upgrade</button>
-                    <button onclick="switchGame('plinko')">🟢 Plinko</button>
+                <div class="game-selector">
+                    <button onclick="openMiniGame('crash')">🚀 Crash</button>
+                    <button onclick="openMiniGame('mines')">💣 Mines</button>
+                    <button onclick="openMiniGame('upgrade')">⚡ Upgrade</button>
                 </div>
-                <div id="minigame-area"></div>
+                <div id="minigame-content"></div>
             </section>
 
             <section id="profile-section" class="hidden">
-                <div class="profile-nav">
-                    <button onclick="showProfileTab('inv')" class="p-btn active">🎒</button>
-                    <button onclick="showProfileTab('top')" class="p-btn">🏆</button>
-                    <button onclick="showProfileTab('promo')" class="p-btn">🎁</button>
-                    <button onclick="showProfileTab('ref')" class="p-btn">👥</button>
-                    <button onclick="showProfileTab('daily')" class="p-btn">📅</button>
+                <div class="profile-tabs">
+                    <button onclick="showTab('inv')">🎒</button>
+                    <button onclick="showTab('top')">🏆</button>
+                    <button onclick="showTab('promo')">🎁</button>
                 </div>
-
-                <div id="p-inv" class="p-tab"><h3>Inventar</h3><div id="inventory-list"></div></div>
-                
-                <div id="p-top" class="p-tab hidden">
-                    <h3>Top 30 Reyting</h3>
-                    <div id="leaderboard"></div>
-                </div>
-
-                <div id="p-promo" class="p-tab hidden">
-                    <h3>Promo Kod</h3>
-                    <div class="promo-box">
-                        <input type="text" id="promo-input" placeholder="Kodni yozing...">
-                        <button onclick="activatePromo()">OK</button>
-                    </div>
-                </div>
-
-                <div id="p-ref" class="p-tab hidden">
-                    <h3>Do'stlarni taklif qilish</h3>
-                    <div class="ref-card">
-                        <p>Har bir do'st uchun: <b>500$</b></p>
-                        <button onclick="inviteFriend()">Taklif qilish</button>
-                        <div id="ref-status">Takliflar: 0 ta</div>
-                    </div>
-                </div>
-
-                <div id="p-daily" class="p-tab hidden">
-                    <h3>7 Kunlik Bonus</h3>
-                    <div class="daily-grid" id="daily-grid"></div>
-                    <button onclick="claimDaily()" id="daily-btn" class="main-btn">Bonusni olish</button>
-                </div>
+                <div id="tab-content"></div>
             </section>
         </main>
 
         <nav class="bottom-nav">
-            <div class="nav-item" onclick="showSection('cases')">🏠<br><span>Home</span></div>
-            <div class="nav-item" onclick="showSection('games')">🎮<br><span>Games</span></div>
-            <div class="nav-item" onclick="showSection('profile')">👤<br><span>Profile</span></div>
+            <div class="nav-item" onclick="showSection('cases')">🏠<span>Asosiy</span></div>
+            <div class="nav-item" onclick="showSection('games')">🎮<span>O'yinlar</span></div>
+            <div class="nav-item" onclick="showSection('profile')">👤<span>Profil</span></div>
         </nav>
 
-        <div id="game-modal" class="hidden">
+        <div id="case-modal" class="hidden">
             <div class="modal-content">
-                <div id="case-window"><div id="line"></div><div id="carousel"></div></div>
+                <div class="roller-container">
+                    <div id="roller-line"></div>
+                    <div id="roller-items"></div>
+                </div>
                 <button id="close-modal" class="hidden" onclick="closeModal()">Yopish</button>
             </div>
         </div>
