@@ -3,61 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 Case Simulator</title>
+    <title>CreatoR BullDrop</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div id="app">
-        <header>
-            <div class="user-info" onclick="showSection('profile')">
+        <header onclick="showSection('profile')">
+            <div class="user-info">
                 <img id="user-photo" src="https://via.placeholder.com/40" alt="Avatar">
-                <span id="user-name">Yuklanmoqda...</span>
+                <span id="user-name">『CreatoR』</span>
             </div>
-            <div class="balance-info">
-                💰 <span id="balance">0.00</span> $
-            </div>
+            <div class="balance-info">💰 <span id="balance">100.00</span> $</div>
         </header>
 
-        <nav>
-            <button onclick="showSection('cases')" id="nav-cases">Keyslar</button>
-            <button onclick="showSection('inventory')" id="nav-inv">Inventar</button>
-            <button onclick="showSection('profile')" id="nav-profile">Profil</button>
+        <main>
+            <section id="cases-section"></section>
+            <section id="games-section" class="hidden"></section>
+
+            <section id="profile-section" class="hidden">
+                <div class="profile-nav">
+                    <button onclick="showProfileTab('inv')">🎒</button>
+                    <button onclick="showProfileTab('top')">🏆</button>
+                    <button onclick="showProfileTab('promo')">🎁</button>
+                    <button onclick="showProfileTab('ref')">👥</button>
+                    <button onclick="showProfileTab('daily')">📅</button>
+                </div>
+
+                <div id="p-inv" class="p-tab"><h3>Inventar</h3><div id="inventory-list"></div></div>
+                
+                <div id="p-top" class="p-tab hidden">
+                    <h3>Top 30 Reyting</h3>
+                    <div id="leaderboard"></div>
+                </div>
+
+                <div id="p-promo" class="p-tab hidden">
+                    <h3>Promo Kod</h3>
+                    <input type="text" id="promo-input" placeholder="Kodni yozing...">
+                    <button onclick="activatePromo()">Faollashtirish</button>
+                </div>
+
+                <div id="p-ref" class="p-tab hidden">
+                    <h3>Takliflarim</h3>
+                    <p>Har bir do'stingiz uchun 500$!</p>
+                    <button onclick="inviteFriend()">Do'stni taklif qilish</button>
+                    <div id="friends-list">Siz hali hech kimni taklif qilmadingiz.</div>
+                </div>
+
+                <div id="p-daily" class="p-tab hidden">
+                    <h3>7 Kunlik Bonus</h3>
+                    <div class="daily-grid" id="daily-bonus-grid"></div>
+                    <button onclick="claimDaily()" id="claim-btn">Bonusni olish</button>
+                </div>
+            </section>
+        </main>
+
+        <nav class="bottom-nav">
+            <div class="nav-item" onclick="showSection('cases')">🏠<br><span>Home</span></div>
+            <div class="nav-item" onclick="showSection('games')">🎮<br><span>Games</span></div>
+            <div class="nav-item" onclick="showSection('profile')">👤<br><span>Profile</span></div>
         </nav>
-
-        <section id="cases-section">
-            <h2 id="title-cases">Keys Tanlang</h2>
-            <div class="case-grid" id="case-list"></div>
-        </section>
-
-        <section id="inventory-section" class="hidden">
-            <h2 id="title-inv">Mening Inventarim</h2>
-            <div id="inventory-list"></div>
-        </section>
-
-        <section id="profile-section" class="hidden">
-            <h2 id="title-profile">Profil</h2>
-            <div class="profile-card">
-                <p id="label-lang">Tilni tanlang:</p>
-                <div class="lang-buttons">
-                    <button onclick="changeLanguage('uz')">🇺🇿 O'zbekcha</button>
-                    <button onclick="changeLanguage('en')">🇺🇸 English</button>
-                </div>
-                <hr>
-                <p id="label-stats">Statistika tez kunda...</p>
-            </div>
-        </section>
-
-        <div id="game-modal" class="hidden">
-            <div class="modal-content">
-                <h3 id="opening-text">Ochilmoqda...</h3>
-                <div id="case-window">
-                    <div id="line"></div>
-                    <div id="carousel"></div>
-                </div>
-                <button id="close-modal" class="hidden" onclick="closeModal()">Yopish</button>
-            </div>
-        </div>
     </div>
     <script src="script.js"></script>
 </body>
