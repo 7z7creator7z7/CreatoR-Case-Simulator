@@ -1,28 +1,36 @@
-:root { --main-bg: #0d1117; --card-bg: #161b22; --accent: #4f46e5; --border: #30363d; }
-body { background: var(--main-bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 70px; overflow-x: hidden; }
+:root { --bg: #0d1117; --card: #161b22; --nav: #13171e; --accent: #4f46e5; --text: #ffffff; --dim: #8b949e; }
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; user-select: none; }
+header { display: flex; justify-content: space-between; padding: 15px; background: var(--card); border-bottom: 1px solid #21262d; }
+.user-info { display: flex; align-items: center; gap: 10px; }
+#user-photo { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--accent); }
+.balance-display { font-weight: bold; color: #facc15; }
 
-header { display: flex; justify-content: space-between; padding: 15px; background: var(--card-bg); border-bottom: 1px solid var(--border); }
-.avatar-container img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent); }
+/* Bottom Nav */
+.bottom-navbar { position: fixed; bottom: 0; width: 100%; height: 70px; background: var(--nav); display: flex; border-top: 1px solid #21262d; z-index: 100; }
+.nav-btn { flex: 1; text-align: center; color: var(--dim); padding: 10px 0; cursor: pointer; }
+.nav-btn.active { color: var(--text); }
+.nav-btn span { display: block; font-size: 24px; }
+.nav-btn p { font-size: 10px; margin: 4px 0 0; }
 
-.bottom-nav { position: fixed; bottom: 0; width: 100%; display: flex; background: var(--card-bg); padding: 10px 0; border-top: 1px solid var(--border); }
-.nav-item { flex: 1; text-align: center; font-size: 11px; cursor: pointer; color: #8b949e; }
-.nav-item:hover { color: white; }
+/* Cases */
+.category-title { display: flex; align-items: center; padding: 15px; gap: 8px; }
+.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px 100px; }
+.case-card { background: linear-gradient(180deg, #1e232b 0%, #13171e 100%); border-radius: 15px; padding: 20px; text-align: center; border: 1px solid #2d3139; }
+.price-tag { background: #1a1d23; padding: 6px 12px; border-radius: 10px; font-size: 13px; margin-top: 10px; display: inline-block; }
 
-.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
-.case-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; text-align: center; }
-.case-card button { width: 100%; background: #238636; border: none; color: white; padding: 8px; border-radius: 6px; font-weight: bold; }
+/* Games UI */
+.game-nav { display: flex; justify-content: space-around; padding: 10px; background: var(--card); }
+.game-btn-tab { background: none; border: none; color: var(--dim); padding: 10px; font-weight: bold; }
+.game-btn-tab.active { color: var(--text); border-bottom: 2px solid var(--accent); }
 
-/* Crash Game UI */
-.crash-box { text-align: center; padding: 20px; }
-#crash-multiplier { font-size: 60px; color: var(--accent); font-weight: 800; margin: 20px 0; }
-.bet-controls { display: flex; flex-direction: column; gap: 10px; max-width: 250px; margin: 0 auto; }
-input { background: #0d1117; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 6px; }
-
-/* Modal & Roller */
-#case-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center; }
-.roller-container { width: 320px; height: 120px; border: 2px solid var(--border); position: relative; overflow: hidden; background: #000; }
-#roller-items { display: flex; transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1); position: absolute; }
-.roll-item { min-width: 100px; height: 120px; border-right: 1px solid #222; display: flex; align-items: center; justify-content: center; flex-direction: column; }
-#roller-line { position: absolute; left: 50%; width: 2px; height: 100%; background: gold; z-index: 10; box-shadow: 0 0 10px gold; }
+/* Mines & Crash specific */
+.mines-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin: 20px auto; max-width: 280px; }
+.cell { width: 50px; height: 50px; background: #2d3139; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.cell.open { background: #238636; }
+.cell.bomb { background: #d73a49; }
 
 .hidden { display: none !important; }
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.modal-content { background: var(--card); padding: 30px; border-radius: 20px; text-align: center; width: 80%; }
+input { width: 100%; padding: 12px; margin: 10px 0; background: var(--bg); border: 1px solid #333; color: white; border-radius: 8px; }
+button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 5px; }
