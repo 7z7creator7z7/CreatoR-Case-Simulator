@@ -1,46 +1,35 @@
-body { background: #0d1117; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 10px; overflow-x: hidden; }
-header { display: flex; justify-content: space-between; align-items: center; background: #161b22; padding: 10px; border-radius: 12px; border: 1px solid #30363d; }
-#user-photo { border-radius: 50%; width: 40px; border: 2px solid #4f46e5; }
-.user-info { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+:root { --bg: #0b0e14; --panel: #1a1d23; --accent: #4f46e5; --border: #2d3139; }
+body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 80px; user-select: none; }
+header { display: flex; justify-content: space-between; padding: 15px; background: var(--panel); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+#user-photo { border-radius: 50%; width: 35px; border: 2px solid var(--accent); }
+.user-info { display: flex; align-items: center; gap: 8px; font-weight: bold; }
 
-nav { display: flex; gap: 8px; margin: 15px 0; }
-nav button { flex: 1; padding: 12px; background: #21262d; border: 1px solid #30363d; color: white; border-radius: 8px; font-weight: bold; }
+.bottom-nav { position: fixed; bottom: 0; width: 100%; display: flex; background: var(--panel); padding: 12px 0; border-top: 1px solid var(--border); z-index: 100; }
+.nav-item { flex: 1; text-align: center; font-size: 11px; color: #94a3b8; }
+.nav-item:active { transform: scale(0.9); color: white; }
 
-.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.case-card { background: #161b22; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #30363d; transition: 0.3s; }
-.case-card:active { transform: scale(0.95); }
-.case-card button { background: #238636; color: white; border: none; padding: 10px 20px; border-radius: 6px; width: 100%; margin-top: 10px; font-weight: bold; }
+.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
+.case-card { background: var(--panel); border-radius: 15px; padding: 15px; text-align: center; border: 1px solid var(--border); }
+.case-card button { width: 100%; background: #238636; color: white; border: none; padding: 10px; border-radius: 8px; margin-top: 10px; font-weight: bold; }
 
-/* Rarity Ranglari */
+/* Profil & Tabs */
+.profile-nav { display: flex; justify-content: space-around; background: var(--panel); margin: 15px; border-radius: 12px; padding: 10px; }
+.p-btn { background: none; border: none; font-size: 22px; cursor: pointer; filter: grayscale(1); transition: 0.3s; }
+.p-btn.active { filter: grayscale(0); transform: scale(1.2); }
+.p-tab { padding: 0 20px; }
+
+.leaderboard-item { display: flex; justify-content: space-between; padding: 12px; background: var(--panel); margin-bottom: 6px; border-radius: 10px; border-left: 4px solid var(--accent); }
+.daily-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+.day-box { background: var(--panel); padding: 10px; border-radius: 8px; text-align: center; opacity: 0.4; font-size: 12px; }
+.day-box.active { opacity: 1; border: 1px solid gold; box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+
+/* Rarity */
 .rarity-blue { border-bottom: 4px solid #4b69ff; }
-.rarity-darkblue { border-bottom: 4px solid #00008b; }
 .rarity-gold { border-bottom: 4px solid #ebca44; }
-.rarity-legendary { border-bottom: 4px solid #eb4b4b; box-shadow: inset 0 -10px 20px rgba(235, 75, 75, 0.2); }
-.rarity-rainbow { 
-    border-bottom: 4px solid;
-    border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1;
-    animation: rainbow-anim 2s infinite linear;
-}
+.rarity-legendary { border-bottom: 4px solid #eb4b4b; box-shadow: 0 0 15px rgba(235, 75, 75, 0.3); }
 
-@keyframes rainbow-anim { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
-
-/* Modal va Karusel */
-#game-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; z-index: 1000; }
 .hidden { display: none !important; }
-#case-window { width: 320px; height: 140px; border: 2px solid #30363d; overflow: hidden; position: relative; background: #0d1117; border-radius: 8px; }
+#game-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+#case-window { width: 300px; height: 120px; overflow: hidden; position: relative; border: 2px solid var(--border); background: #000; }
 #carousel { display: flex; position: absolute; left: 0; }
-.skin-card { min-width: 110px; height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #1c2128; margin-right: 2px; text-align: center; }
-.skin-card img { width: 80px; }
-.skin-card span { font-size: 10px; padding: 0 5px; }
-#line { position: absolute; left: 50%; width: 3px; height: 100%; background: #ebca44; z-index: 50; box-shadow: 0 0 15px #ebca44; }
-
-/* Profil */
-.profile-card { background: #161b22; padding: 20px; border-radius: 12px; border: 1px solid #30363d; }
-.lang-buttons { display: flex; gap: 10px; margin-top: 10px; }
-.lang-buttons button { flex: 1; padding: 10px; background: #30363d; color: white; border: none; border-radius: 8px; }
-
-/* Inventar */
-#inventory-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.inv-item { background: #161b22; padding: 8px; border-radius: 8px; text-align: center; font-size: 11px; border: 1px solid #30363d; }
-.inv-item img { width: 100%; }
-.inv-item button { background: #da3633; border: none; color: white; width: 100%; padding: 5px; border-radius: 4px; margin-top: 5px; }
+#line { position: absolute; left: 50%; width: 2px; height: 100%; background: gold; z-index: 10; box-shadow: 0 0 10px gold; }
