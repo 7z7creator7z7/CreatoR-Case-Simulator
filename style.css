@@ -1,35 +1,28 @@
-:root { --bg: #0b0e14; --panel: #1a1d23; --accent: #4f46e5; --border: #2d3139; }
-body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 80px; user-select: none; }
-header { display: flex; justify-content: space-between; padding: 15px; background: var(--panel); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
-#user-photo { border-radius: 50%; width: 35px; border: 2px solid var(--accent); }
-.user-info { display: flex; align-items: center; gap: 8px; font-weight: bold; }
+:root { --main-bg: #0d1117; --card-bg: #161b22; --accent: #4f46e5; --border: #30363d; }
+body { background: var(--main-bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 70px; overflow-x: hidden; }
 
-.bottom-nav { position: fixed; bottom: 0; width: 100%; display: flex; background: var(--panel); padding: 12px 0; border-top: 1px solid var(--border); z-index: 100; }
-.nav-item { flex: 1; text-align: center; font-size: 11px; color: #94a3b8; }
-.nav-item:active { transform: scale(0.9); color: white; }
+header { display: flex; justify-content: space-between; padding: 15px; background: var(--card-bg); border-bottom: 1px solid var(--border); }
+.avatar-container img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--accent); }
 
-.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-.case-card { background: var(--panel); border-radius: 15px; padding: 15px; text-align: center; border: 1px solid var(--border); }
-.case-card button { width: 100%; background: #238636; color: white; border: none; padding: 10px; border-radius: 8px; margin-top: 10px; font-weight: bold; }
+.bottom-nav { position: fixed; bottom: 0; width: 100%; display: flex; background: var(--card-bg); padding: 10px 0; border-top: 1px solid var(--border); }
+.nav-item { flex: 1; text-align: center; font-size: 11px; cursor: pointer; color: #8b949e; }
+.nav-item:hover { color: white; }
 
-/* Profil & Tabs */
-.profile-nav { display: flex; justify-content: space-around; background: var(--panel); margin: 15px; border-radius: 12px; padding: 10px; }
-.p-btn { background: none; border: none; font-size: 22px; cursor: pointer; filter: grayscale(1); transition: 0.3s; }
-.p-btn.active { filter: grayscale(0); transform: scale(1.2); }
-.p-tab { padding: 0 20px; }
+.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
+.case-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; text-align: center; }
+.case-card button { width: 100%; background: #238636; border: none; color: white; padding: 8px; border-radius: 6px; font-weight: bold; }
 
-.leaderboard-item { display: flex; justify-content: space-between; padding: 12px; background: var(--panel); margin-bottom: 6px; border-radius: 10px; border-left: 4px solid var(--accent); }
-.daily-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
-.day-box { background: var(--panel); padding: 10px; border-radius: 8px; text-align: center; opacity: 0.4; font-size: 12px; }
-.day-box.active { opacity: 1; border: 1px solid gold; box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+/* Crash Game UI */
+.crash-box { text-align: center; padding: 20px; }
+#crash-multiplier { font-size: 60px; color: var(--accent); font-weight: 800; margin: 20px 0; }
+.bet-controls { display: flex; flex-direction: column; gap: 10px; max-width: 250px; margin: 0 auto; }
+input { background: #0d1117; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 6px; }
 
-/* Rarity */
-.rarity-blue { border-bottom: 4px solid #4b69ff; }
-.rarity-gold { border-bottom: 4px solid #ebca44; }
-.rarity-legendary { border-bottom: 4px solid #eb4b4b; box-shadow: 0 0 15px rgba(235, 75, 75, 0.3); }
+/* Modal & Roller */
+#case-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.roller-container { width: 320px; height: 120px; border: 2px solid var(--border); position: relative; overflow: hidden; background: #000; }
+#roller-items { display: flex; transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1); position: absolute; }
+.roll-item { min-width: 100px; height: 120px; border-right: 1px solid #222; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+#roller-line { position: absolute; left: 50%; width: 2px; height: 100%; background: gold; z-index: 10; box-shadow: 0 0 10px gold; }
 
 .hidden { display: none !important; }
-#game-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-#case-window { width: 300px; height: 120px; overflow: hidden; position: relative; border: 2px solid var(--border); background: #000; }
-#carousel { display: flex; position: absolute; left: 0; }
-#line { position: absolute; left: 50%; width: 2px; height: 100%; background: gold; z-index: 10; box-shadow: 0 0 10px gold; }
