@@ -1,192 +1,158 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-// 1. MA'LUMOTLAR
-let balance = parseFloat(localStorage.getItem('balance')) || 100.00;
-let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
-let currentLang = 'uz';
+let balance = parseFloat(localStorage.getItem('balance')) || 16324.05;
+let usedPromos = JSON.parse(localStorage.getItem('usedPromos')) || [];
 
-const cases = [
-    { name: "Lite", price: 10, max: 50 }, { name: "Basic", price: 50, max: 250 },
-    { name: "Common", price: 75, max: 375 }, { name: "Pro", price: 100, max: 500 },
-    { name: "Elite", price: 150, max: 750 }, { name: "Ultra", price: 250, max: 1250 },
-    { name: "King", price: 500, max: 2500 }, { name: "God", price: 1000, max: 5000 }
-];
-
-// 2. INITIAL LOAD
+// INITIALIZATION
 window.onload = () => {
-    // Profil rasmini o'rnatish
+    updateUI();
+    renderCases();
+    switchGame('crash');
     if (tg.initDataUnsafe.user?.photo_url) {
         document.getElementById('user-photo').src = tg.initDataUnsafe.user.photo_url;
     }
-    document.getElementById('user-name').innerText = `『${tg.initDataUnsafe.user?.first_name || "CreatoR"}』`;
-    
-    renderCases();
-    updateUI();
 };
 
 function updateUI() {
-    document.getElementById('balance').innerText = balance.toFixed(2);
+    document.getElementById('balance').innerText = balance.toLocaleString('en-US', {minimumFractionDigits: 2});
     localStorage.setItem('balance', balance);
-    localStorage.setItem('inventory', JSON.stringify(inventory));
 }
 
-// 3. CASE OPENING LOGIC
+// 🏠 CASES
+const cases = [
+    { name: "Armiya", price: 4768, rarity: "armiya" },
+    { name: "Taqiqlangan", price: 16115, rarity: "taqiqlangan" },
+    { name: "Tasniflangan", price: 62489, rarity: "tasniflangan" },
+    { name: "Sir", price: 132415, rarity: "sir" }
+];
+
 function renderCases() {
-    const container = document.getElementById('case-list');
-    container.innerHTML = cases.map((c, i) => `
-        <div class="case-card">
+    const list = document.getElementById('case-list');
+    list.innerHTML = cases.map(c => `
+        <div class="case-card" onclick="openCase(${c.price})">
+            <div class="glow" style="background: ${getRarityColor(c.rarity)}"></div>
+            <img src="https://bulldrop.uz/static/media/case-preview.png" width="100%">
             <h3>${c.name}</h3>
-            <p>${c.price} $</p>
-            <button onclick="startRoll(${i})">Ochish</button>
+            <div class="price-tag">${c.price.toLocaleString()} UZS</div>
         </div>
     `).join('');
 }
 
-function startRoll(idx) {
-    const c = cases[idx];
-    if (balance < c.price) return alert("Mablag' yetarli emas!");
-    balance -= c.price;
+function getRarityColor(r) {
+    const colors = { armiya: "#4ade80", taqiqlangan: "#8b5cf6", tasniflangan: "#ec4899", sir: "#ef4444" };
+    return colors[r];
+}
+
+function openCase(price) {
+    if (balance < (price / 12600)) return alert("Mablag' yetarli emas!");
+    balance -= (price / 12600);
     updateUI();
+    const win = (Math.random() * (price / 12600) * 2).toFixed(2);
+    alert(`Siz yutdingiz: ${win} $!`);
+    balance += parseFloat(win);
+    updateUI();
+}
 
-    const roller = document.getElementById('roller-items');
-    const modal = document.getElementById('case-modal');
-    modal.classList.remove('hidden');
-    roller.style.transition = 'none';
-    roller.style.transform = 'translateX(0)';
-    
-    // Yutuqni hisoblash (Max 5x)
-    const winAmount = (Math.random() * c.max).toFixed(2);
-    
-    // Karusel uchun itemlar yaratish
-    let itemsHTML = '';
-    for(let i=0; i<40; i++) {
-        const randomVal = (Math.random() * c.max).toFixed(2);
-        itemsHTML += `<div class="roll-item" style="background:#1a1d23">
-            <span style="color:gold; font-weight:bold">${randomVal}$</span>
+// 🎮 GAMES SWITCHER
+function showSection(id) {
+    document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+    document.getElementById(id + '-section').classList.remove('hidden');
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('nav-' + id).classList.add('active');
+}
+
+function switchGame(game) {
+    const area = document.getElementById('game-area');
+    document.querySelectorAll('.game-btn-tab').forEach(b => b.classList.remove('active'));
+    if (game === 'crash') renderCrash(area);
+    if (game === 'mines') renderMines(area);
+    if (game === 'upgrade') renderUpgrade(area);
+}
+
+// 🚀 CRASH GAME
+let crashInt;
+function renderCrash(area) {
+    area.innerHTML = `
+        <div class="game-container">
+            <h1 id="mult" style="font-size: 50px; color: var(--accent);">1.00x</h1>
+            <input type="number" id="c-bet" placeholder="Tikish ($)">
+            <input type="number" id="c-auto" placeholder="Avto-stop (Masalan: 2.0)">
+            <button id="c-btn" onclick="startCrash()">TIKISH</button>
         </div>`;
-    }
-    roller.innerHTML = itemsHTML;
-
-    // Animatsiya
-    setTimeout(() => {
-        roller.style.transition = 'transform 4s cubic-bezier(0.1, 0, 0.1, 1)';
-        const move = (30 * 100) + 50; // 30-item yutuq
-        roller.style.transform = `translateX(-${move}px)`;
-    }, 100);
-
-    setTimeout(() => {
-        inventory.push({ name: "Skin", price: parseFloat(winAmount) });
-        alert(`Siz yutdingiz: ${winAmount} $`);
-        document.getElementById('close-modal').classList.remove('hidden');
-        updateUI();
-    }, 4500);
-}
-
-// 4. CRASH GAME LOGIC (Avto-to'xtash bilan)
-let crashInterval;
-let crashRunning = false;
-let currentMult = 1.0;
-
-function openMiniGame(game) {
-    const area = document.getElementById('minigame-content');
-    if (game === 'crash') {
-        area.innerHTML = `
-            <div class="crash-box">
-                <h1 id="crash-multiplier">1.00x</h1>
-                <div class="bet-controls">
-                    <input type="number" id="crash-bet" placeholder="Tikish miqdori ($)">
-                    <input type="number" id="crash-auto" placeholder="Avto-to'xtash (masalan: 2.0)">
-                    <button id="crash-btn" onclick="toggleCrash()" style="background:var(--accent); color:white; border:none; padding:15px; border-radius:10px; font-weight:bold">TIKISH</button>
-                </div>
-            </div>`;
-    } else {
-        area.innerHTML = `<h3 style="text-align:center; padding:50px">${game} tez kunda...</h3>`;
-    }
-}
-
-function toggleCrash() {
-    if (crashRunning) {
-        cashOut();
-    } else {
-        startCrash();
-    }
 }
 
 function startCrash() {
-    const bet = parseFloat(document.getElementById('crash-bet').value);
-    const auto = parseFloat(document.getElementById('crash-auto').value) || 0;
+    const bet = parseFloat(document.getElementById('c-bet').value);
+    const auto = parseFloat(document.getElementById('c-auto').value) || 0;
+    if (balance < bet) return;
     
-    if (isNaN(bet) || balance < bet) return alert("Bet xato!");
-    
-    balance -= bet;
-    updateUI();
-    
-    crashRunning = true;
-    currentMult = 1.0;
-    document.getElementById('crash-btn').innerText = "CASH OUT";
-    document.getElementById('crash-btn').style.background = "#d73a49";
-    
-    // Crash nuqtasi (Mantiq: Kamdan kam holatda katta ×)
-    const crashPoint = generateCrashPoint();
-    
-    crashInterval = setInterval(() => {
-        currentMult += 0.01;
-        document.getElementById('crash-multiplier').innerText = currentMult.toFixed(2) + "x";
-        
-        // Avto-to'xtash
-        if (auto > 1 && currentMult >= auto) {
-            cashOut();
-        }
-        
-        // Crash holati
-        if (currentMult >= crashPoint) {
-            clearInterval(crashInterval);
-            crashRunning = false;
-            document.getElementById('crash-multiplier').style.color = "red";
-            document.getElementById('crash-btn').innerText = "CRASHED!";
-            setTimeout(() => {
-                document.getElementById('crash-multiplier').style.color = "var(--accent)";
-                document.getElementById('crash-btn').innerText = "TIKISH";
-                document.getElementById('crash-btn').style.background = "var(--accent)";
-            }, 2000);
+    balance -= bet; updateUI();
+    let m = 1.0;
+    const crashAt = (Math.random() * 5 + 1).toFixed(2);
+    document.getElementById('c-btn').innerText = "CASH OUT";
+    document.getElementById('c-btn').onclick = () => {
+        clearInterval(crashInt);
+        balance += bet * m; updateUI();
+        alert(`Yutdingiz: ${(bet * m).toFixed(2)}$`);
+        resetCrash();
+    };
+
+    crashInt = setInterval(() => {
+        m += 0.01;
+        document.getElementById('mult').innerText = m.toFixed(2) + "x";
+        if (auto > 1 && m >= auto) document.getElementById('c-btn').click();
+        if (m >= crashAt) {
+            clearInterval(crashInt);
+            document.getElementById('mult').style.color = "red";
+            alert("Crash!");
+            resetCrash();
         }
     }, 100);
 }
 
-function cashOut() {
-    if (!crashRunning) return;
-    clearInterval(crashInterval);
-    crashRunning = false;
+function resetCrash() {
+    document.getElementById('c-btn').innerText = "TIKISH";
+    document.getElementById('c-btn').onclick = startCrash;
+    document.getElementById('mult').style.color = "var(--accent)";
+}
+
+// 💣 MINES GAME
+function renderMines(area) {
+    area.innerHTML = `<div class="mines-grid" id="m-grid"></div><button onclick="startMines()">Boshlash</button>`;
+    const g = document.getElementById('m-grid');
+    for(let i=0; i<25; i++) g.innerHTML += `<div class="cell" onclick="hitMine(${i}, this)">?</div>`;
+}
+
+let minePos = [];
+function startMines() {
+    minePos = [];
+    while(minePos.length < 5) {
+        let r = Math.floor(Math.random()*25);
+        if(!minePos.includes(r)) minePos.push(r);
+    }
+    alert("O'yin boshlandi! 5 ta bomba yashirildi.");
+}
+
+function hitMine(i, el) {
+    if(minePos.includes(i)) { el.classList.add('bomb'); el.innerText="💣"; alert("Yutqazdingiz!"); renderMines(document.getElementById('game-area')); }
+    else { el.classList.add('open'); el.innerText="💎"; }
+}
+
+// 🎁 PROMO SYSTEM
+function openPromo() { document.getElementById('promo-modal').classList.remove('hidden'); }
+function closePromo() { document.getElementById('promo-modal').classList.add('hidden'); }
+
+function applyPromo() {
+    const code = document.getElementById('promo-input').value;
+    if (usedPromos.includes(code)) return alert("Ishlatilgan!");
+    if (code === "CreatoR") { balance += 15000; }
+    else if (code === "FreeCoin") { balance += 10000; }
+    else { return alert("Xato!"); }
     
-    const bet = parseFloat(document.getElementById('crash-bet').value);
-    const win = bet * currentMult;
-    balance += win;
-    
-    alert(`Yutuq: ${win.toFixed(2)} $`);
-    document.getElementById('crash-btn').innerText = "TIKISH";
-    document.getElementById('crash-btn').style.background = "var(--accent)";
+    usedPromos.push(code);
+    localStorage.setItem('usedPromos', JSON.stringify(usedPromos));
     updateUI();
-}
-
-function generateCrashPoint() {
-    const r = Math.random();
-    if (r < 0.1) return 1.05; // 10% darhol crash
-    if (r < 0.7) return 1.1 + Math.random() * 1.4; // 60% 1.1x-2.5x
-    if (r < 0.95) return 2.5 + Math.random() * 7.5; // 25% 2.5x-10x
-    return 10 + Math.random() * 90; // 5% 10x-100x
-}
-
-// 5. NAVIGATSIYA
-function showSection(id) {
-    ['cases-section', 'games-section', 'profile-section'].forEach(s => {
-        document.getElementById(s).classList.add('hidden');
-    });
-    document.getElementById(id + '-section').classList.remove('hidden');
-    if (id === 'games') openMiniGame('crash');
-}
-
-function closeModal() {
-    document.getElementById('case-modal').classList.add('hidden');
-    document.getElementById('close-modal').classList.add('hidden');
+    alert("Bonus qo'shildi!");
+    closePromo();
 }
