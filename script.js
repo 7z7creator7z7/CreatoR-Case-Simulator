@@ -1,154 +1,182 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-// Til ma'lumotlari
-const i18n = {
-    uz: {
-        nav_cases: "Keyslar", nav_inv: "Inventar", nav_profile: "Profil",
-        title_cases: "Keys Tanlang", title_inv: "Mening Inventarim", title_profile: "Sozlamalar",
-        label_lang: "Tilni tanlang:", label_stats: "Sizning natijangiz yaqin orada bu yerda bo'ladi.",
-        btn_open: "Ochish", btn_sell: "Sotish", btn_close: "Yopish",
-        msg_money: "Mablag' yetarli emas!", msg_win: "Tabriklaymiz! Siz yutdingiz: ",
-        opening: "Keys ochilmoqda..."
-    },
-    en: {
-        nav_cases: "Cases", nav_inv: "Inventory", nav_profile: "Profile",
-        title_cases: "Select Case", title_inv: "My Inventory", title_profile: "Settings",
-        label_lang: "Select Language:", label_stats: "Your statistics will be here soon.",
-        btn_open: "Open", btn_sell: "Sell", btn_close: "Close",
-        msg_money: "Not enough money!", msg_win: "Congratulations! You won: ",
-        opening: "Opening case..."
-    }
-};
-
-let currentLang = localStorage.getItem('lang') || 'uz';
-let balance = parseFloat(localStorage.getItem('balance')) || 1000.00;
+// 1. DATA INITIALIZATION
+let balance = parseFloat(localStorage.getItem('balance')) || 100.00;
 let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+let usedPromos = JSON.parse(localStorage.getItem('usedPromos')) || [];
+let lastDaily = localStorage.getItem('lastDaily') || 0;
+let dailyStreak = parseInt(localStorage.getItem('dailyStreak')) || 0;
+let invitedCount = parseInt(localStorage.getItem('invitedCount')) || 0;
 
-// Skinlar bazasi (Siz aytgan ranglar va narxlar bilan)
-const allSkins = [
-    { name: "P250 | Sand", price: 2, rarity: "rarity-blue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujbXzZk2p_Lcm7_v4mJhInFxfXnO67ummJW4NE_2-qS99SmiwS3_hU6Y236I9SUI1RvZAnR_VTrle_vgsS06J_AmnVru3I8pSGKw_9u9fE/200fx200f" },
-    { name: "AK-47 | Slate", price: 45, rarity: "rarity-darkblue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjx2jJemkV09-5lpKKqPrxN7LEmyVQ7p0o3-uUrNms2wXsr0o9Z27ycY_AdlA6ZArR_FPrw7u508Xv6p_MyHphu3Ih4S7D30vgfU9_v_o/200fx200f" },
-    { name: "AWP | Asiimov", price: 280, rarity: "rarity-gold", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2D8B65cn37mXpIn32Aex_Uo9am_7d46ScAI_M1vXq1C_x7-8hJ7u78_Bz3Rqu3U8pSGKezYVpGk/200fx200f" },
-    { name: "M9 | Crimson", price: 4500, rarity: "rarity-legendary", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1f_BYi5H49KZlY2Ek_P7Nrfum25V4dB8xOzA_In0iVbkq0o5ZTr0J9TAdw9sYFvYr1S6x7u508S96ZzKy3pgvCJx4X7D30vgr6vY66E/200fx200f" },
-    { name: "AWP | Gungnir", price: 18000, rarity: "rarity-rainbow", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2G9X7sB3i7rE8I_0iVax-kY9YDrzLYCWcVU2M1rV-Fi2xLu50Ze56J_IzHdg6HQ8pSGKr2YyK_Y/200fx200f" }
+// 2. CONFIGURATIONS
+const caseConfigs = [
+    { name: "Lite", price: 10, max: 50 }, { name: "Basic", price: 50, max: 250 },
+    { name: "Common", price: 75, max: 375 }, { name: "Pro", price: 100, max: 500 },
+    { name: "Elite", price: 150, max: 750 }, { name: "Ultra", price: 250, max: 1250 },
+    { name: "Whale", price: 500, max: 2500 }, { name: "King", price: 750, max: 3750 },
+    { name: "Legend", price: 1000, max: 5000 }, { name: "CreatoR", price: 1500, max: 7500 }
 ];
 
-const caseData = [
-    { name: "Standard", price: 10, skins: allSkins.slice(0, 3) },
-    { name: "Elite", price: 100, skins: allSkins.slice(1, 4) },
-    { name: "Godlike", price: 1000, skins: allSkins.slice(2, 5) }
-];
-
-function updateLanguageUI() {
-    const l = i18n[currentLang];
-    document.getElementById('nav-cases').innerText = l.nav_cases;
-    document.getElementById('nav-inv').innerText = l.nav_inv;
-    document.getElementById('nav-profile').innerText = l.nav_profile;
-    document.getElementById('title-cases').innerText = l.title_cases;
-    document.getElementById('title-inv').innerText = l.title_inv;
-    document.getElementById('title-profile').innerText = l.title_profile;
-    document.getElementById('label-lang').innerText = l.label_lang;
-    document.getElementById('label-stats').innerText = l.label_stats;
-    document.getElementById('opening-text').innerText = l.opening;
-    document.getElementById('close-modal').innerText = l.btn_close;
-    renderCases();
+// 3. CORE FUNCTIONS
+function updateUI() {
+    document.getElementById('balance').innerText = balance.toFixed(2);
+    document.getElementById('user-name').innerText = `『${tg.initDataUnsafe.user?.first_name || "CreatoR"}』`;
+    localStorage.setItem('balance', balance);
+    localStorage.setItem('inventory', JSON.stringify(inventory));
+    renderInventory();
+    renderLeaderboard();
+    renderDaily();
 }
 
+// 🛒 CASE OPENING
 function renderCases() {
-    const container = document.getElementById('case-list');
-    container.innerHTML = '';
-    caseData.forEach((c, idx) => {
-        const div = document.createElement('div');
-        div.className = 'case-card';
-        div.innerHTML = `<h3>${c.name}</h3><p>${c.price} $</p><button onclick="openCase(${idx})">${i18n[currentLang].btn_open}</button>`;
-        container.appendChild(div);
+    const list = document.getElementById('case-list');
+    list.innerHTML = '';
+    caseConfigs.forEach((c, i) => {
+        list.innerHTML += `<div class="case-card"><h3>${c.name}</h3><p>${c.price}$</p><button onclick="openCase(${i})">Ochish</button></div>`;
     });
 }
 
 function openCase(idx) {
-    const c = caseData[idx];
-    if (balance < c.price) return alert(i18n[currentLang].msg_money);
-
+    const c = caseConfigs[idx];
+    if (balance < c.price) return alert("Pul yetarli emas!");
     balance -= c.price;
-    updateGlobalData();
+    updateUI();
 
-    const modal = document.getElementById('game-modal');
-    const carousel = document.getElementById('carousel');
-    modal.classList.remove('hidden');
-    carousel.innerHTML = '';
-    carousel.style.transition = 'none';
-    carousel.style.transform = 'translateX(0)';
-
-    const winIndex = 30;
-    let winner;
-
-    for (let i = 0; i < 45; i++) {
-        const item = c.skins[Math.floor(Math.random() * c.skins.length)];
-        const card = document.createElement('div');
-        card.className = `skin-card ${item.rarity}`;
-        card.innerHTML = `<img src="${item.img}"><span>${item.name}</span><b>${item.price}$</b>`;
-        carousel.appendChild(card);
-        if (i === winIndex) winner = item;
-    }
-
+    const winAmount = (Math.random() * c.max).toFixed(2);
+    const item = { name: "Item " + Math.floor(Math.random()*999), price: parseFloat(winAmount), rarity: getRarity(winAmount) };
+    
+    document.getElementById('game-modal').classList.remove('hidden');
+    // Animation simulyatsiyasi
     setTimeout(() => {
-        carousel.style.transition = 'transform 5s cubic-bezier(0.1, 0, 0.1, 1)';
-        carousel.style.transform = `translateX(-${(winIndex * 112) - 104}px)`;
+        inventory.push(item);
+        alert(`Yutdingiz: ${item.price}$`);
+        document.getElementById('game-modal').classList.add('hidden');
+        updateUI();
+    }, 2500);
+}
+
+function getRarity(p) {
+    if (p < 50) return "rarity-blue";
+    if (p < 500) return "rarity-gold";
+    return "rarity-legendary";
+}
+
+// 🏆 REYTING (TOP 30)
+function renderLeaderboard() {
+    const board = document.getElementById('leaderboard');
+    let players = [
+        {name: "Admin", balance: 50000}, {name: "Shadow", balance: 12000}, {name: "Boss", balance: 9000},
+        {name: tg.initDataUnsafe.user?.first_name || "Siz", balance: balance}
+    ];
+    players.sort((a,b) => b.balance - a.balance);
+    board.innerHTML = players.slice(0, 30).map((p, i) => `
+        <div class="leaderboard-item"><span>${i+1}. ${p.name}</span><b>${p.balance.toLocaleString()}$</b></div>
+    `).join('');
+}
+
+// 🎁 PROMO KODLAR
+function activatePromo() {
+    const input = document.getElementById('promo-input').value;
+    if (usedPromos.includes(input)) return alert("Ishlatilgan!");
+    
+    if (input === "CreatoR") { balance += 15000; }
+    else if (input === "FreeCoin") { balance += 10000; }
+    else { return alert("Xato kod!"); }
+
+    usedPromos.push(input);
+    localStorage.setItem('usedPromos', JSON.stringify(usedPromos));
+    updateUI();
+    alert("Muvaffaqiyatli!");
+}
+
+// 👥 REFERAL
+function inviteFriend() {
+    invitedCount++;
+    balance += 500;
+    localStorage.setItem('invitedCount', invitedCount);
+    document.getElementById('ref-status').innerText = `Takliflar: ${invitedCount} ta`;
+    updateUI();
+    tg.openTelegramLink(`https://t.me/share/url?url=t.me/SizningBot&text=Kir va 500$ ol!`);
+}
+
+// 📅 DAILY BONUS
+function renderDaily() {
+    const grid = document.getElementById('daily-grid');
+    grid.innerHTML = Array.from({length: 7}).map((_, i) => `
+        <div class="day-box ${i < dailyStreak ? 'active' : ''}">Kun ${i+1}<br>100$</div>
+    `).join('');
+}
+
+function claimDaily() {
+    const now = Date.now();
+    if (now - lastDaily < 86400000) return alert("Hali vaqt bor!");
+    balance += 100;
+    dailyStreak = (dailyStreak >= 7) ? 1 : dailyStreak + 1;
+    lastDaily = now;
+    localStorage.setItem('lastDaily', lastDaily);
+    localStorage.setItem('dailyStreak', dailyStreak);
+    updateUI();
+}
+
+// 🚀 MINIGAMES (CRASH)
+let multiplier = 1.0;
+function switchGame(game) {
+    const area = document.getElementById('minigame-area');
+    if (game === 'crash') {
+        area.innerHTML = `
+            <div style="text-align:center">
+                <h1 id="crash-val" style="font-size:50px;color:var(--accent)">1.00x</h1>
+                <button onclick="startCrash()" class="main-btn" style="background:var(--accent);padding:15px 30px;border:none;border-radius:10px;color:white">START</button>
+            </div>`;
+    } else { area.innerHTML = `<h3>${game} tez kunda...</h3>`; }
+}
+
+function startCrash() {
+    multiplier = 1.0;
+    const target = Math.random() < 0.8 ? (1 + Math.random()*2) : (2 + Math.random()*10);
+    const interval = setInterval(() => {
+        multiplier += 0.05;
+        document.getElementById('crash-val').innerText = multiplier.toFixed(2) + "x";
+        if (multiplier >= target) {
+            clearInterval(interval);
+            alert("Crash! at " + target.toFixed(2));
+        }
     }, 100);
+}
 
-    setTimeout(() => {
-        inventory.push(winner);
-        updateGlobalData();
-        document.getElementById('close-modal').classList.remove('hidden');
-        alert(i18n[currentLang].msg_win + winner.name);
-    }, 5600);
+// 4. NAVIGATION
+function showSection(id) {
+    ['cases', 'games', 'profile'].forEach(s => document.getElementById(s + '-section').classList.add('hidden'));
+    document.getElementById(id + '-section').classList.remove('hidden');
+}
+
+function showProfileTab(tab) {
+    document.querySelectorAll('.p-tab').forEach(t => t.classList.add('hidden'));
+    document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('p-' + tab).classList.remove('hidden');
+    event.currentTarget.classList.add('active');
 }
 
 function renderInventory() {
-    const container = document.getElementById('inventory-list');
-    container.innerHTML = '';
-    inventory.forEach((item, i) => {
-        const div = document.createElement('div');
-        div.className = `inv-item ${item.rarity}`;
-        div.innerHTML = `<img src="${item.img}"><b>${item.price}$</b><button onclick="sellItem(${i})">${i18n[currentLang].btn_sell}</button>`;
-        container.appendChild(div);
-    });
+    const inv = document.getElementById('inventory-list');
+    inv.innerHTML = inventory.map((item, i) => `
+        <div class="leaderboard-item ${item.rarity}">
+            <span>${item.name}</span>
+            <button onclick="sellItem(${i})" style="background:#da3633;border:none;color:white;padding:5px;border-radius:5px">${item.price}$ Sotish</button>
+        </div>
+    `).join('');
 }
 
 function sellItem(i) {
     balance += inventory[i].price;
     inventory.splice(i, 1);
-    updateGlobalData();
+    updateUI();
 }
 
-function changeLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('lang', lang);
-    updateLanguageUI();
-    renderInventory();
-}
-
-function updateGlobalData() {
-    document.getElementById('balance').innerText = balance.toFixed(2);
-    localStorage.setItem('balance', balance);
-    localStorage.setItem('inventory', JSON.stringify(inventory));
-    renderInventory();
-}
-
-function showSection(name) {
-    document.getElementById('cases-section').classList.toggle('hidden', name !== 'cases');
-    document.getElementById('inventory-section').classList.toggle('hidden', name !== 'inventory');
-    document.getElementById('profile-section').classList.toggle('hidden', name !== 'profile');
-}
-
-function closeModal() {
-    document.getElementById('game-modal').classList.add('hidden');
-    document.getElementById('close-modal').classList.add('hidden');
-}
-
-// Initial Load
-document.getElementById('user-name').innerText = tg.initDataUnsafe.user?.first_name || "User";
-if(tg.initDataUnsafe.user?.photo_url) document.getElementById('user-photo').src = tg.initDataUnsafe.user.photo_url;
-updateLanguageUI();
-updateGlobalData();
+window.onload = () => {
+    renderCases();
+    updateUI();
+    switchGame('crash');
+};
