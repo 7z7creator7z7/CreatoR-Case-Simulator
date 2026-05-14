@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CreatoR BullDrop</title>
+    <title>CreatoR BullDrop v2.0</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -18,16 +18,27 @@
         </header>
 
         <main>
-            <section id="cases-section"></section>
-            <section id="games-section" class="hidden"></section>
+            <section id="cases-section">
+                <div class="case-grid" id="case-list"></div>
+            </section>
+
+            <section id="games-section" class="hidden">
+                <div class="games-menu">
+                    <button onclick="switchGame('crash')">🚀 Crash</button>
+                    <button onclick="switchGame('mines')">💣 Mines</button>
+                    <button onclick="switchGame('upgrade')">⚡ Upgrade</button>
+                    <button onclick="switchGame('plinko')">🟢 Plinko</button>
+                </div>
+                <div id="minigame-area"></div>
+            </section>
 
             <section id="profile-section" class="hidden">
                 <div class="profile-nav">
-                    <button onclick="showProfileTab('inv')">🎒</button>
-                    <button onclick="showProfileTab('top')">🏆</button>
-                    <button onclick="showProfileTab('promo')">🎁</button>
-                    <button onclick="showProfileTab('ref')">👥</button>
-                    <button onclick="showProfileTab('daily')">📅</button>
+                    <button onclick="showProfileTab('inv')" class="p-btn active">🎒</button>
+                    <button onclick="showProfileTab('top')" class="p-btn">🏆</button>
+                    <button onclick="showProfileTab('promo')" class="p-btn">🎁</button>
+                    <button onclick="showProfileTab('ref')" class="p-btn">👥</button>
+                    <button onclick="showProfileTab('daily')" class="p-btn">📅</button>
                 </div>
 
                 <div id="p-inv" class="p-tab"><h3>Inventar</h3><div id="inventory-list"></div></div>
@@ -39,21 +50,25 @@
 
                 <div id="p-promo" class="p-tab hidden">
                     <h3>Promo Kod</h3>
-                    <input type="text" id="promo-input" placeholder="Kodni yozing...">
-                    <button onclick="activatePromo()">Faollashtirish</button>
+                    <div class="promo-box">
+                        <input type="text" id="promo-input" placeholder="Kodni yozing...">
+                        <button onclick="activatePromo()">OK</button>
+                    </div>
                 </div>
 
                 <div id="p-ref" class="p-tab hidden">
-                    <h3>Takliflarim</h3>
-                    <p>Har bir do'stingiz uchun 500$!</p>
-                    <button onclick="inviteFriend()">Do'stni taklif qilish</button>
-                    <div id="friends-list">Siz hali hech kimni taklif qilmadingiz.</div>
+                    <h3>Do'stlarni taklif qilish</h3>
+                    <div class="ref-card">
+                        <p>Har bir do'st uchun: <b>500$</b></p>
+                        <button onclick="inviteFriend()">Taklif qilish</button>
+                        <div id="ref-status">Takliflar: 0 ta</div>
+                    </div>
                 </div>
 
                 <div id="p-daily" class="p-tab hidden">
                     <h3>7 Kunlik Bonus</h3>
-                    <div class="daily-grid" id="daily-bonus-grid"></div>
-                    <button onclick="claimDaily()" id="claim-btn">Bonusni olish</button>
+                    <div class="daily-grid" id="daily-grid"></div>
+                    <button onclick="claimDaily()" id="daily-btn" class="main-btn">Bonusni olish</button>
                 </div>
             </section>
         </main>
@@ -63,6 +78,13 @@
             <div class="nav-item" onclick="showSection('games')">🎮<br><span>Games</span></div>
             <div class="nav-item" onclick="showSection('profile')">👤<br><span>Profile</span></div>
         </nav>
+
+        <div id="game-modal" class="hidden">
+            <div class="modal-content">
+                <div id="case-window"><div id="line"></div><div id="carousel"></div></div>
+                <button id="close-modal" class="hidden" onclick="closeModal()">Yopish</button>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
