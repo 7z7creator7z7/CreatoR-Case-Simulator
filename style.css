@@ -1,331 +1,373 @@
-/* =========================
-   BODY
-========================= */
+/* STYLE.CSS 1-QISM */
 
-body{
+*{
     margin:0;
-    padding:10px;
-    background:#050816;
-    color:white;
+    padding:0;
+    box-sizing:border-box;
     font-family:Arial;
 }
 
-/* =========================
-   HEADER
-========================= */
+body{
+    background:#020617;
+    color:white;
+    padding:15px;
+}
 
-header{
+.top-profile{
+    background:#08122f;
+    border:2px solid #1e3a8a;
+    border-radius:25px;
+    padding:18px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:#0f1729;
-    border:2px solid #1d2942;
-    padding:12px;
-    border-radius:20px;
-    margin-bottom:15px;
-}
-
-.user-info{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-#user-photo{
-    width:55px;
-    height:55px;
-    border-radius:50%;
-    border:3px solid gold;
-}
-
-#user-name{
-    font-size:18px;
-    font-weight:bold;
-}
-
-.balance-info{
-    font-size:20px;
-    font-weight:bold;
-    color:gold;
-}
-
-/* =========================
-   NAV
-========================= */
-
-nav{
-    display:flex;
-    gap:10px;
     margin-bottom:20px;
 }
 
-nav button{
-    flex:1;
-    background:#101c33;
-    color:white;
-    border:none;
-    border-radius:14px;
-    padding:14px;
-    font-size:18px;
-    font-weight:bold;
+.profile-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
 
-/* =========================
-   TITLES
-========================= */
-
-h2{
-    margin-bottom:15px;
-    font-size:28px;
-}
-
-/* =========================
-   CASES
-========================= */
-
-.case-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-}
-
-.case-card h3{
-    font-size: 32px;
-    line-height: 1.1;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: white;
-    font-weight: 800;
-    text-align: center;
-    padding: 0 5px;
-}
-
-.case-image{
-    height:140px;
+.avatar{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#13214a;
+    border:3px solid gold;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:80px;
-    background:
-    radial-gradient(circle,#27478f 0%,#0b1430 70%);
-}
-
-.case-bottom{
-    padding:15px;
-    text-align:center;
-    background:rgba(255,255,255,.03);
-}
-
-.case-bottom h2{
-    margin:0;
     font-size:34px;
 }
 
-.case-price{
-    font-size:22px;
-    margin:10px 0;
+.nickname{
+    font-size:34px;
+    font-weight:bold;
+}
+
+.money{
+    font-size:28px;
+    color:gold;
+    font-weight:bold;
+}
+
+.menu{
+    display:flex;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.menu button{
+    flex:1;
+    background:#111827;
+    border:none;
+    border-radius:18px;
+    padding:18px;
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.title{
+    font-size:58px;
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+.cases-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.case-card{
+    background:linear-gradient(180deg,#142557,#1b2f6e);
+    border:3px solid #29479d;
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:0 0 25px rgba(0,80,255,0.4);
+}
+
+.case-image{
+    height:180px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:100px;
+}
+
+.standard-img{
+    background:radial-gradient(circle,#3b82f6,#0f172a);
+}
+
+.elite-img{
+    background:radial-gradient(circle,#60a5fa,#0f172a);
+}
+
+.lucky-img{
+    background:radial-gradient(circle,#22c55e,#0f172a);
+}
+
+.legendary-img{
+    background:radial-gradient(circle,#ef4444,#0f172a);
+}
+
+.case-info{
+    padding:15px;
+    text-align:center;
+    background:rgba(255,255,255,0.04);
+}
+
+.case-card h3{
+    font-size:32px;
+    margin-bottom:5px;
+}
+
+.case-card p{
+    font-size:26px;
+    margin-bottom:10px;
+}
+
+.chance-box{
+    background:#0f172a;
+    border-radius:12px;
+    padding:10px;
+    font-size:17px;
+    margin-bottom:15px;
 }
 
 .case-card button{
     width:100%;
+    background:#22c55e;
     border:none;
-    background:#1fb141;
-    color:white;
-    border-radius:16px;
-    padding:16px;
-    font-size:26px;
-    font-weight:bold;
-}
-
-/* =========================
-   MODAL
-========================= */
-
-#game-modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.92);
-    z-index:999;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-}
-
-.hidden{
-    display:none !important;
-}
-
-#case-window{
-    width:95%;
-    max-width:700px;
-    height:180px;
-    overflow:hidden;
-    position:relative;
-    border-radius:20px;
-    border:3px solid #32415f;
-    background:#0d1529;
-}
-
-#line{
-    position:absolute;
-    left:50%;
-    top:0;
-    width:5px;
-    height:100%;
-    background:gold;
-    box-shadow:0 0 20px gold;
-    z-index:5;
-}
-
-#carousel{
-    display:flex;
-    position:absolute;
-    left:0;
-    top:0;
-}
-
-/* =========================
-   ITEM CARD
-========================= */
-
-.skin-card{
-    width:150px;
-    height:180px;
-    flex-shrink:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    border-right:2px solid #1d2942;
-    color:white;
-}
-
-.skin-card span{
-    font-size:16px;
-    text-align:center;
-    padding:0 8px;
-}
-
-.skin-card b{
-    font-size:20px;
-    margin-top:6px;
-}
-
-/* =========================
-   RARITY
-========================= */
-
-.rarity-common{
-    background:#14335e;
-}
-
-.rarity-rare{
-    background:#104d22;
-}
-
-.rarity-epic{
-    background:#4a1869;
-}
-
-.rarity-legendary{
-    background:#7c5b00;
-}
-
-.rarity-mythic{
-    background:#6b1111;
-}
-
-/* =========================
-   GUN ICON
-========================= */
-
-.gun-icon{
-    width:70px;
-    height:70px;
-    border-radius:20px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:40px;
-    margin-bottom:10px;
-}
-
-.gun-icon.common{
-    background:#4da6ff;
-}
-
-.gun-icon.rare{
-    background:#32d74b;
-}
-
-.gun-icon.epic{
-    background:#bb6cff;
-}
-
-.gun-icon.legendary{
-    background:#ffd43b;
-}
-
-.gun-icon.mythic{
-    background:#ff4d4d;
-}
-
-/* =========================
-   CLOSE BTN
-========================= */
-
-.close-btn{
-    margin-top:20px;
-    width:90%;
-    max-width:700px;
-    border:none;
-    border-radius:20px;
+    border-radius:18px;
     padding:18px;
-    background:gold;
+    color:white;
     font-size:28px;
     font-weight:bold;
 }
 
-/* =========================
-   INVENTORY
-========================= */
-
-#inventory-list{
+.inventory-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:10px;
+    gap:15px;
 }
 
-.inv-item{
-    border-radius:16px;
-    padding:12px;
+.inventory-item{
+    border-radius:20px;
+    padding:15px;
     text-align:center;
+    border:2px solid rgba(255,255,255,0.15);
 }
 
-.inv-item p{
-    font-size:15px;
-    min-height:38px;
-}
-
-.inv-item button{
-    width:100%;
-    border:none;
-    background:#e53935;
-    color:white;
-    padding:10px;
-    border-radius:12px;
-    font-size:18px;
+.inventory-item h3{
+    font-size:24px;
     margin-top:10px;
 }
 
-/* =========================
-   PROFILE
-========================= */
+.inventory-item p{
+    font-size:22px;
+    margin-top:5px;
+}/* STYLE.CSS 2-QISM */
 
-.profile-card{
-    background:#101c33;
-    border-radius:20px;
-    padding:20px;
-    border:2px solid #22345e;
+/* ITEM RARITY */
+
+.common{
+    background:linear-gradient(180deg,#1e3a8a,#0f172a);
+    box-shadow:0 0 20px rgba(59,130,246,.5);
 }
+
+.rare{
+    background:linear-gradient(180deg,#166534,#0f172a);
+    box-shadow:0 0 20px rgba(34,197,94,.5);
+}
+
+.epic{
+    background:linear-gradient(180deg,#6b21a8,#0f172a);
+    box-shadow:0 0 20px rgba(168,85,247,.5);
+}
+
+.legendary{
+    background:linear-gradient(180deg,#a16207,#0f172a);
+    box-shadow:0 0 20px rgba(250,204,21,.6);
+}
+
+.mythic{
+    background:linear-gradient(180deg,#991b1b,#0f172a);
+    box-shadow:0 0 25px rgba(239,68,68,.7);
+}
+
+/* PROFILE */
+
+.profile-box{
+    background:#0f172a;
+    border:2px solid #29479d;
+    border-radius:25px;
+    padding:25px;
+    text-align:center;
+}
+
+.profile-box h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.profile-box p{
+    font-size:26px;
+    margin-top:10px;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.93);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.modal-content{
+    width:95%;
+    max-width:900px;
+}
+
+.modal-content h2{
+    text-align:center;
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.roulette-wrapper{
+    position:relative;
+    overflow:hidden;
+    border:3px solid gold;
+    border-radius:22px;
+    background:#0f172a;
+    height:220px;
+}
+
+#roulette{
+    display:flex;
+    align-items:center;
+    height:100%;
+    transition:transform 5s cubic-bezier(.08,.6,0,1);
+}
+
+.selector-line{
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    width:5px;
+    height:100%;
+    background:gold;
+    box-shadow:0 0 25px gold;
+    z-index:5;
+}
+
+.roulette-item{
+    width:170px;
+    min-width:170px;
+    height:190px;
+    margin:0 5px;
+    border-radius:18px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:10px;
+}
+
+.roulette-item .gun{
+    font-size:55px;
+    margin-bottom:10px;
+}
+
+.roulette-item h4{
+    font-size:18px;
+}
+
+.roulette-item p{
+    margin-top:5px;
+    font-size:20px;
+    color:gold;
+}
+
+#wonItem{
+    margin-top:25px;
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+}
+
+.modal button{
+    width:100%;
+    margin-top:20px;
+    background:#ef4444;
+    border:none;
+    border-radius:18px;
+    padding:18px;
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+}
+
+/* EFFECT */
+
+.case-card{
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+
+    from{
+        transform:translateY(0px);
+    }
+
+    to{
+        transform:translateY(-4px);
+    }
+
+}
+
+.case-card:active{
+    transform:scale(.97);
+}
+
+/* PHONE */
+
+@media(max-width:700px){
+
+    .title{
+        font-size:42px;
+    }
+
+    .nickname{
+        font-size:24px;
+    }
+
+    .money{
+        font-size:22px;
+    }
+
+    .case-card h3{
+        font-size:24px;
+    }
+
+    .case-card button{
+        font-size:22px;
+        padding:14px;
+    }
+
+    .roulette-item{
+        width:140px;
+        min-width:140px;
+    }
+
+   }
