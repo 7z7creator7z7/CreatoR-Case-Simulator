@@ -3,62 +3,362 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 Case Simulator</title>
+    <title>CS2 Case Opening Game - Telegram Mini App</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div id="app">
-        <header>
-            <div class="user-info" onclick="showSection('profile')">
-                <img id="user-photo" src="https://via.placeholder.com/40" alt="Avatar">
-                <span id="user-name">Yuklanmoqda...</span>
-            </div>
-            <div class="balance-info">
-                💰 <span id="balance">0.00</span> $
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>💎 CS2 CASE GAME</h1>
+                <div class="balance-info">
+                    <div class="balance">
+                        <span class="balance-label">💰 Balans:</span>
+                        <span class="balance-amount" id="balance">$1000.00</span>
+                    </div>
+                    <div class="balance">
+                        <span class="balance-label">🎁 Inventory:</span>
+                        <span class="balance-amount" id="inventory-count">0</span>
+                    </div>
+                </div>
             </div>
         </header>
 
-        <nav>
-            <button onclick="showSection('cases')" id="nav-cases">Keyslar</button>
-            <button onclick="showSection('inventory')" id="nav-inv">Inventar</button>
-            <button onclick="showSection('profile')" id="nav-profile">Profil</button>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page -->
+            <section id="home-page" class="page active">
+                <div class="welcome-section">
+                    <h2>🎮 Xush kelibsiz!</h2>
+                    <p>CS2 Skins yig'ing va pul topning!</p>
+                </div>
+
+                <!-- Statistics -->
+                <div class="statistics-card">
+                    <h3>📊 Statistika</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">🎁 Jami olindi:</span>
+                            <span class="stat-value" id="total-items">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">💰 Jami ishladi:</span>
+                            <span class="stat-value" id="total-spent">$0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">📈 Jami yutuq:</span>
+                            <span class="stat-value" id="total-profit">$0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">🔄 Foiz:</span>
+                            <span class="stat-value" id="roi-percent">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="quick-links">
+                    <button class="quick-link-btn" onclick="navigateTo('games')">
+                        <span class="icon">🎮</span>
+                        <span>O'yinlar</span>
+                    </button>
+                    <button class="quick-link-btn" onclick="navigateTo('inventory')">
+                        <span class="icon">🎒</span>
+                        <span>Inventar</span>
+                    </button>
+                    <button class="quick-link-btn" onclick="navigateTo('profile')">
+                        <span class="icon">👤</span>
+                        <span>Profil</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Games Page -->
+            <section id="games-page" class="page">
+                <div class="page-header">
+                    <h2>🎮 O'YINLAR</h2>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="game-tabs">
+                    <button class="tab-btn active" onclick="switchGame('cases')">💼 Case Opening</button>
+                    <button class="tab-btn" onclick="switchGame('crash')">📈 Crash Game</button>
+                    <button class="tab-btn" onclick="switchGame('mines')">💣 Mines Game</button>
+                </div>
+
+                <!-- Case Opening Game -->
+                <div id="cases-game" class="game-content active">
+                    <div class="cases-container">
+                        <h3>💼 CASE OPENING</h3>
+                        
+                        <!-- Cases List -->
+                        <div class="cases-grid" id="cases-list">
+                            <!-- Cases qo'shiladi JS orqali -->
+                        </div>
+
+                        <!-- Case Detail Modal -->
+                        <div id="case-modal" class="modal hidden">
+                            <div class="modal-content case-modal-content">
+                                <button class="modal-close" onclick="closeModal()">&times;</button>
+                                <div class="modal-header">
+                                    <h2 id="modal-case-name">Case Name</h2>
+                                    <div class="modal-case-price">
+                                        <span id="modal-case-price">$0</span>
+                                    </div>
+                                </div>
+                                <div class="case-items-list" id="case-items-list">
+                                    <!-- Items qo'shiladi JS orqali -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn-primary" onclick="openCase()">🎲 CASE OCHISH</button>
+                                    <button class="btn-secondary" onclick="closeModal()">Yopish</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Opening Result Modal -->
+                        <div id="result-modal" class="modal hidden">
+                            <div class="modal-content result-modal-content">
+                                <div class="result-animation" id="result-animation">
+                                    <div class="spinning-item">
+                                        <div class="item-img-large" id="result-item-img"></div>
+                                    </div>
+                                </div>
+                                <div class="result-info">
+                                    <h2>🎉 CONGRATS!</h2>
+                                    <p class="result-item-name" id="result-item-name">Item Name</p>
+                                    <p class="result-item-rarity" id="result-item-rarity">Rarity</p>
+                                    <p class="result-item-price">
+                                        <span id="result-item-price">$0</span>
+                                    </p>
+                                    <button class="btn-primary" onclick="closeResultModal()">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crash Game -->
+                <div id="crash-game" class="game-content">
+                    <div class="crash-container">
+                        <h3>📈 CRASH GAME</h3>
+                        
+                        <div class="crash-display">
+                            <div class="crash-multiplier" id="crash-multiplier">1.00x</div>
+                            <div class="crash-status" id="crash-status">Kutish...</div>
+                            <div class="crash-progress-bar">
+                                <div class="crash-progress-fill" id="crash-progress"></div>
+                            </div>
+                        </div>
+
+                        <div class="crash-controls">
+                            <div class="control-group">
+                                <label>Bet Miqdori ($)</label>
+                                <input type="number" id="crash-bet" min="1" max="10000" value="100" class="input-field">
+                            </div>
+
+                            <div class="control-group">
+                                <label>Auto Cashout (Optional)</label>
+                                <div class="auto-cashout-group">
+                                    <input type="checkbox" id="crash-auto-checkbox" class="checkbox-input">
+                                    <input type="number" id="crash-auto-value" min="1.01" max="100" value="2.00" step="0.01" class="input-field" disabled>
+                                    <span class="input-addon">x</span>
+                                </div>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn-primary" id="crash-start-btn" onclick="startCrashGame()">🎲 BET</button>
+                                <button class="btn-secondary" id="crash-cashout-btn" onclick="crashCashout()" disabled>💰 CASHOUT</button>
+                            </div>
+                        </div>
+
+                        <div class="crash-history">
+                            <h4>📊 O'yinlar Tarixi</h4>
+                            <div class="history-list" id="crash-history">
+                                <!-- Tarixni qo'shiladi JS orqali -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mines Game -->
+                <div id="mines-game" class="game-content">
+                    <div class="mines-container">
+                        <h3>💣 MINES GAME</h3>
+                        
+                        <div class="mines-display">
+                            <div class="multiplier-display" id="mines-multiplier">1.00x</div>
+                            <div class="mines-status" id="mines-status">Joylash...</div>
+                        </div>
+
+                        <div class="mines-controls">
+                            <div class="control-group">
+                                <label>Bombalar Soni (1-24)</label>
+                                <div class="slider-group">
+                                    <input type="range" id="mines-count" min="1" max="24" value="5" class="slider-input">
+                                    <span class="slider-value" id="mines-count-value">5</span>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label>Bet Miqdori ($)</label>
+                                <input type="number" id="mines-bet" min="1" max="10000" value="100" class="input-field">
+                            </div>
+
+                            <div class="control-group">
+                                <label>Auto Mode</label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="mines-auto-checkbox" class="checkbox-input">
+                                    <span>Avtomatik ochish</span>
+                                </label>
+                            </div>
+
+                            <div class="button-group">
+                                <button class="btn-primary" id="mines-start-btn" onclick="startMinesGame()">🎲 BOSHLASH</button>
+                                <button class="btn-secondary" id="mines-cashout-btn" onclick="minesCashout()" disabled>💰 CASHOUT</button>
+                            </div>
+                        </div>
+
+                        <!-- Grid -->
+                        <div class="mines-grid" id="mines-grid">
+                            <!-- Grid qo'shiladi JS orqali -->
+                        </div>
+
+                        <!-- Multiplier Table -->
+                        <div class="mines-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>💣 Bombalar</th>
+                                        <th>📊 Multiplier</th>
+                                        <th>⚠️ Risk</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="mines-table-body">
+                                    <!-- Table qo'shiladi JS orqali -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory Page -->
+            <section id="inventory-page" class="page">
+                <div class="page-header">
+                    <h2>🎒 INVENTAR</h2>
+                </div>
+
+                <div class="inventory-container">
+                    <div class="inventory-filters">
+                        <button class="filter-btn active" onclick="filterInventory('all')">Barchasi</button>
+                        <button class="filter-btn" onclick="filterInventory('common')">🔵 Common</button>
+                        <button class="filter-btn" onclick="filterInventory('rare')">🟢 Rare</button>
+                        <button class="filter-btn" onclick="filterInventory('epic')">🟣 Epic</button>
+                        <button class="filter-btn" onclick="filterInventory('legendary')">🟨 Legendary</button>
+                        <button class="filter-btn" onclick="filterInventory('mythic')">🔴 Mythic</button>
+                    </div>
+
+                    <div class="inventory-items" id="inventory-items">
+                        <div class="empty-state">
+                            <p>📭 Inventar bo'sh</p>
+                        </div>
+                    </div>
+
+                    <div class="inventory-stats">
+                        <h3>📊 Inventar Statistikasi</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span>🎁 Jami narsalar:</span>
+                                <span id="inventory-total">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>💰 Jami qiymati:</span>
+                                <span id="inventory-value">$0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>⭐ Eng qimmat:</span>
+                                <span id="inventory-most-valuable">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Page -->
+            <section id="profile-page" class="page">
+                <div class="page-header">
+                    <h2>👤 PROFIL</h2>
+                </div>
+
+                <div class="profile-container">
+                    <div class="profile-card">
+                        <div class="profile-avatar">👾</div>
+                        <div class="profile-info">
+                            <h3 id="profile-username">User #12345</h3>
+                            <p id="profile-joined">Qo'shilgan: 2026-05-15</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-section">
+                        <h3>📈 Statistika</h3>
+                        <div class="stats-table">
+                            <div class="stat-row">
+                                <span>💰 Jami balans:</span>
+                                <span id="profile-balance">$0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>🎁 Jami olindi:</span>
+                                <span id="profile-items">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>💼 Ochilgan caseler:</span>
+                                <span id="profile-cases">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>🎮 O'yinlar soni:</span>
+                                <span id="profile-games">0</span>
+                            </div>
+                            <div class="stat-row">
+                                <span>📊 ROI %:</span>
+                                <span id="profile-roi">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button class="btn-secondary" onclick="resetGame()">🔄 O'yinni Qayta Boshlash</button>
+                        <button class="btn-secondary" onclick="exportData()">📥 Ma'lumotlarni Eksport Qilish</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" onclick="navigateTo('home')">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Bosh sahifa</span>
+            </button>
+            <button class="nav-btn" onclick="navigateTo('games')">
+                <span class="nav-icon">🎮</span>
+                <span class="nav-label">O'yinlar</span>
+            </button>
+            <button class="nav-btn" onclick="navigateTo('inventory')">
+                <span class="nav-icon">🎒</span>
+                <span class="nav-label">Inventar</span>
+            </button>
+            <button class="nav-btn" onclick="navigateTo('profile')">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">Profil</span>
+            </button>
         </nav>
-
-        <section id="cases-section">
-            <h2 id="title-cases">Keys Tanlang</h2>
-            <div class="case-grid" id="case-list"></div>
-        </section>
-
-        <section id="inventory-section" class="hidden">
-            <h2 id="title-inv">Mening Inventarim</h2>
-            <div id="inventory-list"></div>
-        </section>
-
-        <section id="profile-section" class="hidden">
-            <h2 id="title-profile">Profil</h2>
-            <div class="profile-card">
-                <p id="label-lang">Tilni tanlang:</p>
-                <div class="lang-buttons">
-                    <button onclick="changeLanguage('uz')">🇺🇿 O'zbekcha</button>
-                    <button onclick="changeLanguage('en')">🇺🇸 English</button>
-                </div>
-                <hr>
-                <p id="label-stats">Statistika tez kunda...</p>
-            </div>
-        </section>
-
-        <div id="game-modal" class="hidden">
-            <div class="modal-content">
-                <h3 id="opening-text">Ochilmoqda...</h3>
-                <div id="case-window">
-                    <div id="line"></div>
-                    <div id="carousel"></div>
-                </div>
-                <button id="close-modal" class="hidden" onclick="closeModal()">Yopish</button>
-            </div>
-        </div>
     </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification hidden"></div>
+
     <script src="script.js"></script>
 </body>
-</html>
+                                        </html>
