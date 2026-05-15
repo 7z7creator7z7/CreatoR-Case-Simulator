@@ -25,76 +25,21 @@ let currentLang = localStorage.getItem('lang') || 'uz';
 let balance = parseFloat(localStorage.getItem('balance')) || 1000.00;
 let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 
-// Skinlar bazasi (CS2 skinlari, ranglar va narxlar bilan)
+// Skinlar bazasi (Siz aytgan ranglar va narxlar bilan)
+const allSkins = [
+    { name: "P250 | Sand", price: 2, rarity: "rarity-blue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujbXzZk2p_Lcm7_v4mJhInFxfXnO67ummJW4NE_2-qS99SmiwS3_hU6Y236I9SUI1RvZAnR_VTrle_vgsS06J_AmnVru3I8pSGKw_9u9fE/200fx200f" },
+    { name: "AK-47 | Slate", price: 45, rarity: "rarity-darkblue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjx2jJemkV09-5lpKKqPrxN7LEmyVQ7p0o3-uUrNms2wXsr0o9Z27ycY_AdlA6ZArR_FPrw7u508Xv6p_MyHphu3Ih4S7D30vgfU9_v_o/200fx200f" },
+    { name: "AWP | Asiimov", price: 280, rarity: "rarity-gold", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2D8B65cn37mXpIn32Aex_Uo9am_7d46ScAI_M1vXq1C_x7-8hJ7u78_Bz3Rqu3U8pSGKezYVpGk/200fx200f" },
+    { name: "M9 | Crimson", price: 4500, rarity: "rarity-legendary", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1f_BYi5H49KZlY2Ek_P7Nrfum25V4dB8xOzA_In0iVbkq0o5ZTr0J9TAdw9sYFvYr1S6x7u508S96ZzKy3pgvCJx4X7D30vgr6vY66E/200fx200f" },
+    { name: "AWP | Gungnir", price: 18000, rarity: "rarity-rainbow", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2G9X7sB3i7rE8I_0iVax-kY9YDrzLYCWcVU2M1rV-Fi2xLu50Ze56J_IzHdg6HQ8pSGKr2YyK_Y/200fx200f" }
+];
+
 const caseData = [
-    { name: "Standard", price: 10, skins: [
-        { name: "P250 | Sand Dune", price: 5, rarity: "rarity-blue", img: "assets/weapon/case1/1.png" },
-        { name: "Glock-18 | Groundwater", price: 7, rarity: "rarity-blue", img: "assets/weapon/case1/2.png" },
-        { name: "MP9 | Sand Scale", price: 10, rarity: "rarity-blue", img: "assets/weapon/case1/3.png" },
-        { name: "Nova | Polar Mesh", price: 12, rarity: "rarity-blue", img: "assets/weapon/case1/4.png" },
-        { name: "UMP-45 | Urban DDPAT", price: 15, rarity: "rarity-blue", img: "assets/weapon/case1/5.png" },
-        { name: "FAMAS | Colony", price: 18, rarity: "rarity-blue", img: "assets/weapon/case1/6.png" },
-        { name: "Galil AR | Hunting Blind", price: 20, rarity: "rarity-blue", img: "assets/weapon/case1/7.png" },
-        { name: "MAC-10 | Candy Apple", price: 25, rarity: "rarity-darkblue", img: "assets/weapon/case1/8.png" },
-        { name: "Five-SeveN | Contractor", price: 30, rarity: "rarity-darkblue", img: "assets/weapon/case1/9.png" },
-        { name: "Tec-9 | VariCamo", price: 35, rarity: "rarity-darkblue", img: "assets/weapon/case1/10.png" },
-        { name: "PP-Bizon | Sand Dashed", price: 40, rarity: "rarity-darkblue", img: "assets/weapon/case1/11.png" },
-        { name: "SCAR-20 | Storm", price: 45, rarity: "rarity-gold", img: "assets/weapon/case1/12.png" },
-        { name: "Dual Berettas | Colony", price: 50, rarity: "rarity-gold", img: "assets/weapon/case1/13.png" },
-        { name: "Sawed-Off | Snake Camo", price: 55, rarity: "rarity-gold", img: "assets/weapon/case1/14.png" },
-        { name: "SSG 08 | Blue Spruce", price: 60, rarity: "rarity-legendary", img: "assets/weapon/case1/15.png" }
-    ]},
-    { name: "Elite", price: 100, skins: [
-        { name: "AK-47 | Slate", price: 50, rarity: "rarity-blue", img: "assets/weapon/case2/1.png" },
-        { name: "M4A1-S | Nitro", price: 70, rarity: "rarity-blue", img: "assets/weapon/case2/2.png" },
-        { name: "USP-S | Cyrex", price: 90, rarity: "rarity-blue", img: "assets/weapon/case2/3.png" },
-        { name: "Desert Eagle | Bronze Deco", price: 100, rarity: "rarity-blue", img: "assets/weapon/case2/4.png" },
-        { name: "AWP | Safari Mesh", price: 120, rarity: "rarity-blue", img: "assets/weapon/case2/5.png" },
-        { name: "MP7 | Akoben", price: 140, rarity: "rarity-blue", img: "assets/weapon/case2/6.png" },
-        { name: "SG 553 | Tiger Moth", price: 160, rarity: "rarity-blue", img: "assets/weapon/case2/7.png" },
-        { name: "CZ75-Auto | Tigris", price: 180, rarity: "rarity-darkblue", img: "assets/weapon/case2/8.png" },
-        { name: "AUG | Torque", price: 200, rarity: "rarity-darkblue", img: "assets/weapon/case2/9.png" },
-        { name: "XM1014 | Tranquility", price: 220, rarity: "rarity-darkblue", img: "assets/weapon/case2/10.png" },
-        { name: "P90 | Grim", price: 240, rarity: "rarity-darkblue", img: "assets/weapon/case2/11.png" },
-        { name: "G3SG1 | Murky", price: 260, rarity: "rarity-gold", img: "assets/weapon/case2/12.png" },
-        { name: "MAG-7 | Heaven Guard", price: 280, rarity: "rarity-gold", img: "assets/weapon/case2/13.png" },
-        { name: "Negev | Terrain", price: 300, rarity: "rarity-gold", img: "assets/weapon/case2/14.png" },
-        { name: "MP5-SD | Gauss", price: 320, rarity: "rarity-legendary", img: "assets/weapon/case2/15.png" }
-    ]},
-    { name: "Lucky", price: 1000, skins: [
-        { name: "AWP | Asiimov", price: 300, rarity: "rarity-blue", img: "assets/weapon/case3/1.png" },
-        { name: "AK-47 | Redline", price: 350, rarity: "rarity-blue", img: "assets/weapon/case3/2.png" },
-        { name: "M4A4 | Desert-Strike", price: 400, rarity: "rarity-blue", img: "assets/weapon/case3/3.png" },
-        { name: "Glock-18 | Water Elemental", price: 450, rarity: "rarity-blue", img: "assets/weapon/case3/4.png" },
-        { name: "P90 | Trigon", price: 500, rarity: "rarity-blue", img: "assets/weapon/case3/5.png" },
-        { name: "FAMAS | Mecha Industries", price: 600, rarity: "rarity-blue", img: "assets/weapon/case3/6.png" },
-        { name: "UMP-45 | Arctic Wolf", price: 700, rarity: "rarity-blue", img: "assets/weapon/case3/7.png" },
-        { name: "SSG 08 | Abyss", price: 800, rarity: "rarity-darkblue", img: "assets/weapon/case3/8.png" },
-        { name: "MAC-10 | Neon Rider", price: 900, rarity: "rarity-darkblue", img: "assets/weapon/case3/9.png" },
-        { name: "Galil AR | Chatterbox", price: 1000, rarity: "rarity-darkblue", img: "assets/weapon/case3/10.png" },
-        { name: "SCAR-20 | Cyrex", price: 1200, rarity: "rarity-darkblue", img: "assets/weapon/case3/11.png" },
-        { name: "AUG | Chameleon", price: 1400, rarity: "rarity-gold", img: "assets/weapon/case3/12.png" },
-        { name: "Tec-9 | Isaac", price: 1600, rarity: "rarity-gold", img: "assets/weapon/case3/13.png" },
-        { name: "CZ75-Auto | Pole Position", price: 1800, rarity: "rarity-gold", img: "assets/weapon/case3/14.png" },
-        { name: "MP9 | Rose Iron", price: 2000, rarity: "rarity-legendary", img: "assets/weapon/case3/15.png" }
-    ]},
-    { name: "Legendary", price: 5000, skins: [
-    { name: "AWP | Dragon Lore", price: 2000, rarity: "rarity-blue", img: "assets/weapon/case4/50.png" },
-    { name: "M4A4 | Howl", price: 2500, rarity: "rarity-blue", img: "assets/weapon/case4/51.png" },
-    { name: "AK-47 | Fire Serpent", price: 3000, rarity: "rarity-blue", img: "assets/weapon/case4/52.png" },
-    { name: "Karambit | Fade", price: 3500, rarity: "rarity-blue", img: "assets/weapon/case4/53.png" },
-    { name: "Butterfly Knife | Doppler", price: 4000, rarity: "rarity-blue", img: "assets/weapon/case4/54.png" },
-    { name: "Desert Eagle | Blaze", price: 4500, rarity: "rarity-darkblue", img: "assets/weapon/case4/55.png" },
-    { name: "Glock-18 | Fade", price: 5000, rarity: "rarity-darkblue", img: "assets/weapon/case4/56.png" },
-    { name: "Bayonet | Marble Fade", price: 5500, rarity: "rarity-darkblue", img: "assets/weapon/case4/57.png" },
-    { name: "M9 Bayonet | Crimson Web", price: 6000, rarity: "rarity-darkblue", img: "assets/weapon/case4/58.png" },
-    { name: "AWP | Gungnir", price: 7000, rarity: "rarity-gold", img: "assets/weapon/case4/59.png" },
-    { name: "AK-47 | Wild Lotus", price: 8000, rarity: "rarity-gold", img: "assets/weapon/case4/60.png" },
-    { name: "M4A1-S | Chantico’s Fire", price: 8500, rarity: "rarity-gold", img: "assets/weapon/case4/61.png" },
-    { name: "Talon Knife | Tiger Tooth", price: 9000, rarity: "rarity-gold", img: "assets/weapon/case4/62.png" },
-    { name: "Bowie Knife | Damascus Steel", price: 9500, rarity: "rarity-legendary", img: "assets/weapon/case4/63.png" },
-    { name: "Skeleton Knife | Slaughter", price: 10000, rarity: "rarity-legendary", img: "assets/weapon/case4/64.png" }
-]}
+    { name: "Standard", price: 10, skins: allSkins.slice(0, 3) },
+    { name: "Elite", price: 100, skins: allSkins.slice(1, 4) },
+    { name: "Godlike", price: 1000, skins: allSkins.slice(2, 5) }
+];
+
 function updateLanguageUI() {
     const l = i18n[currentLang];
     document.getElementById('nav-cases').innerText = l.nav_cases;
