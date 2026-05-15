@@ -120,3 +120,176 @@ function resetCrash() {
   document.getElementById('c-btn').onclick = startCrash;
   document.getElementById('mult').style.color = "var(--accent)";
 }
+// 💣 MINES GAME
+let minesGrid = [];
+let minesRunning = false;
+let minesBet = 0;
+let minesBombs = 3;
+
+function renderMines(area) {
+  area.innerHTML = `
+    <div class="game-container">
+      <h2>Mines O'yini</h2>
+      <input type="number" id="m-bet" placeholder="Tikish ($)">
+      <input type="number" id="m-bombs" placeholder="Bombalar soni (3-10)" value="3">
+      <button onclick="startMines()">Boshlash</button>
+      <div id="mines-grid" class="grid"></div>
+    </div>`;
+}
+
+function startMines() {
+  if (minesRunning) return;
+  minesBet = parseFloat(document.getElementById('m-bet').value);
+  minesBombs = parseInt(document.getElementById('m-bombs').value) || 3;
+  if (balance < minesBet || minesBet <= 0) return alert("Mablag' yetarli emas!");
+
+  balance -= minesBet; updateUI();
+  minesRunning = true;
+  minesGrid = Array(25).fill("safe");
+
+  // Bombalarni joylash
+  for (let i = 0; i < minesBombs; i++) {
+    let pos;
+    do { pos = Math.floor(Math.random() * 25); }
+    while (minesGrid[pos] === "bomb");
+    minesGrid[pos] = "bomb";
+  }
+
+  renderMinesGrid();
+}
+
+function renderMinesGrid() {
+  const grid = document.getElementById('mines-grid');
+  grid.innerHTML = "";
+  grid.style.display = "grid";
+  grid.style.gridTemplateColumns = "repeat(5, 60px)";
+  grid.style.gap = "5px";
+
+  minesGrid.forEach((cell, i) => {
+    const btn = document.createElement("button");
+    btn.innerText = "?";
+    btn.style.width = "60px";
+    btn.style.height = "60px";
+    btn.onclick = () => revealMine(i, btn);
+    grid.appendChild(btn);
+  });
+}
+
+function revealMine(i, btn) {
+  if (!minesRunning) return;
+  if (minesGrid[i] === "bomb") {
+    btn.style.background = "red";
+    alert("💥 Bombaga tushdingiz! O'yin tugadi.");
+    minesRunning = false;
+  } else {
+    btn.style.background = "green";
+    btn.innerText = "✔";
+    const win = (minesBet * 0.3).toFixed(2); // har bir safe joy 30% qo‘shadi
+    balance += parseFloat(win);
+    updateUI();
+  }
+}
+// ⚡ UPGRADE GAME
+function renderUpgrade(area) {
+  area.innerHTML = `
+    <div class="game-container">
+      <h2>Upgrade O'yini</h2>
+      <input type="number" id="u-bet" placeholder="Tikish ($)">
+      <select id="u-risk">
+        <option value="low">Past risk (2x)</option>
+        <option value="medium">O'rta risk (5x)</option>
+        <option value="high">Yuqori risk (10x)</option>
+      </select>
+      <button onclick="startUpgrade()">Boshlash</button>
+    </div>`;
+}
+
+function startUpgrade() {
+  const bet = parseFloat(document.getElementById('u-bet').value);
+  const risk = document.getElementById('u-risk').value;
+  if (balance < bet || bet <= 0) return alert("Mablag' yetarli emas!");
+
+  balance -= bet; updateUI();
+
+  let multiplier, chance;
+  if (risk === "low") { multiplier = 2; chance = 0.7; }
+  else if (risk === "medium") { multiplier = 5; chance = 0.4; }
+  else { multiplier = 10; chance = 0.2; }
+
+  if (Math.random() < chance) {
+    const win = bet * multiplier;
+    balance += win;
+    updateUI();
+    alert(`🎉 Yutdingiz: ${win.toFixed(2)}$`);
+  } else {
+    alert("❌ Yutqazdingiz!");
+  }
+    }
+// 🎯 PLINKO GAME
+function renderPlinko(area) {
+  area.innerHTML = `
+    <div class="game-container">
+      <h2>Plinko O'yini</h2>
+      <input type="number" id="p-bet" placeholder="Tikish ($)">
+      <button onclick="startPlinko()">Boshlash</button>
+      <div id="plinko-board"></div>
+    </div>`;
+}
+
+function startPlinko() {
+  const bet = parseFloat(document.getElementById('p-bet').value);
+  if (balance < bet || bet <= 0) return alert("Mablag' yetarli emas!");
+
+  balance -= bet; updateUI();
+
+  // Multiplikator variantlari
+  const multipliers = [0, 0.5, 1, 2, 5, 10];
+  const randIndex = Math.floor(Math.random() * multipliers.length);
+  const result = multipliers[randIndex];
+
+  const win = bet * result;
+  balance += win;
+  updateUI();
+
+  const board = document.getElementById('plinko-board');
+  board.innerHTML = `
+    <p>Chip tushdi: ${result}x</p>
+    <p>Yutdingiz: ${win.toFixed(2)}$</p>
+  `;
+}
+// 🎡 KONTAKT GAME
+function renderKontakt(area) {
+  area.innerHTML = `
+    <div class="game-container">
+      <h2>Kontakt O'yini</h2>
+      <input type="number" id="k-bet" placeholder="Tikish ($)">
+      <button onclick="startKontakt()">Boshlash</button>
+      <div id="kontakt-result"></div>
+    </div>`;
+}
+
+function startKontakt() {
+  const bet = parseFloat(document.getElementById('k-bet').value);
+  if (balance < bet || bet <= 0) return alert("Mablag' yetarli emas!");
+
+  balance -= bet; updateUI();
+
+  // Baraban aylanishi
+  const rand = Math.random();
+  let multiplier;
+  if (rand < 0.5) multiplier = 1;       // 50% oddiy
+  else if (rand < 0.75) multiplier = 2; // 25% ikki baravar
+  else if (rand < 0.9) multiplier = 5;  // 15% besh baravar
+  else if (rand < 0.98) multiplier = 10; // 8% o‘n baravar
+  else multiplier = 50;                 // 2% juda katta
+
+  const win = bet * multiplier;
+  balance += win;
+  updateUI();
+
+  const resultBox = document.getElementById('kontakt-result');
+  resultBox.innerHTML = `
+    <p>Baraban to‘xtadi: ${multiplier}x</p>
+    <p>Yutdingiz: ${win.toFixed(2)}$</p>
+  `;
+    }
