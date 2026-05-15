@@ -1522,3 +1522,141 @@ function startMinesGame() {
     cells.forEach(c => c.style.pointerEvents = "none");
   }
 }
+// 🔼 UPGRADE O'YINI
+function startUpgrade() {
+  const itemName = document.getElementById("upgrade-item").value;
+  const upgradeBar = document.querySelector(".upgrade-bar");
+  const result = document.getElementById("upgrade-result");
+
+  if (!itemName) {
+    result.innerHTML = "❌ Item nomini kiriting!";
+    return;
+  }
+
+  upgradeBar.style.width = "0%";
+  result.innerHTML = "⏳ Upgrade jarayoni boshlandi...";
+
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += 5;
+    upgradeBar.style.width = progress + "%";
+
+    if (progress >= 100) {
+      clearInterval(interval);
+
+      // Tasodifiy muvaffaqiyat yoki xato
+      if (Math.random() < 0.6) {
+        result.innerHTML = `✅ ${itemName} muvaffaqiyatli upgrade qilindi!`;
+      } else {
+        result.innerHTML = `💥 ${itemName} upgrade qilishda xato bo'ldi!`;
+      }
+    }
+  }, 100);
+}// 🎯 PLINKO O'YINI
+function startPlinko() {
+  const board = document.getElementById("plinko-board");
+  const result = document.getElementById("plinko-result");
+  board.innerHTML = "";
+  result.innerHTML = "";
+
+  // 7 ta slot
+  const slots = [];
+  for (let i = 0; i < 7; i++) {
+    const slot = document.createElement("div");
+    slot.classList.add("slot");
+    board.appendChild(slot);
+    slots.push(slot);
+  }
+
+  // Tasodifiy slot tanlash
+  const randIndex = Math.floor(Math.random() * slots.length);
+  const ball = document.createElement("div");
+  ball.classList.add("ball");
+  slots[randIndex].appendChild(ball);
+
+  // Natija ko‘rsatish
+  setTimeout(() => {
+    if (randIndex === 3) {
+      result.innerHTML = "🏆 Yutuq! Ball o‘rtaga tushdi!";
+    } else {
+      result.innerHTML = "❌ Mag‘lubiyat! Ball boshqa slotga tushdi.";
+    }
+  }, 2000);
+}// 🌐 KONTAKT O'YINI
+function startKontakt() {
+  const word = document.getElementById("kontakt-word").value;
+  const chatBox = document.getElementById("kontakt-chat");
+  const result = document.getElementById("kontakt-result");
+
+  if (!word) {
+    result.innerHTML = "❌ So'z kiriting!";
+    return;
+  }
+
+  // Foydalanuvchi so'zi
+  const userMsg = document.createElement("div");
+  userMsg.innerHTML = "👤 Siz: " + word;
+  chatBox.appendChild(userMsg);
+
+  // Bot javobi (tasodifiy so'z)
+  const responses = ["Kitob", "Telefon", "Kompyuter", "Mashina", "O'yin"];
+  const randWord = responses[Math.floor(Math.random() * responses.length)];
+
+  setTimeout(() => {
+    const botMsg = document.createElement("div");
+    botMsg.innerHTML = "🤖 Bot: " + randWord;
+    chatBox.appendChild(botMsg);
+
+    // Natija
+    if (word.toLowerCase() === randWord.toLowerCase()) {
+      result.innerHTML = "🏆 Kontakt topildi!";
+    } else {
+      result.innerHTML = "❌ Kontakt topilmadi.";
+    }
+  }, 1000);
+}// 🎁 KEYSLAR BO'LIMI
+const cases = [
+  {
+    name: "Bronze Case",
+    price: 10,
+    items: [
+      { name: "Knife", value: 5, rarity: "Common" },
+      { name: "Pistol", value: 15, rarity: "Rare" }
+    ]
+  },
+  {
+    name: "Silver Case",
+    price: 20,
+    items: [
+      { name: "Rifle", value: 25, rarity: "Rare" },
+      { name: "Sniper", value: 40, rarity: "Epic" }
+    ]
+  },
+  {
+    name: "Gold Case",
+    price: 50,
+    items: [
+      { name: "Legendary Sword", value: 100, rarity: "Legendary" },
+      { name: "Golden Gun", value: 80, rarity: "Epic" }
+    ]
+  }
+];
+
+// Case ro'yxatini chiqarish
+function renderCases() {
+  const caseList = document.getElementById("case-list");
+  caseList.innerHTML = "";
+  cases.forEach((c, index) => {
+    const div = document.createElement("div");
+    div.classList.add("case-box");
+    div.innerHTML = `
+      <h4>${c.name}</h4>
+      <p>Narxi: ${c.price}$</p>
+      <button onclick="openCaseWithProgress(${index})">Ochish</button>
+    `;
+    caseList.appendChild(div);
+  });
+}
+
+// Boshlang'ich render
+renderCases();
