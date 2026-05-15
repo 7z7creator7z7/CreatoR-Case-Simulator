@@ -35,3 +35,48 @@ header { display: flex; justify-content: space-between; padding: 15px; backgroun
 .game-nav button { background: #1c2128; color: white; border: 1px solid #333; padding: 8px 15px; border-radius: 10px; white-space: nowrap; }
 
 .hidden { display: none !important; }
+/* Skin Rarity (Ranglar) */
+.rarity-blue { border-bottom: 3px solid #4b69ff; background: rgba(75, 105, 255, 0.1); } /* Oddiy */
+.rarity-green { border-bottom: 3px solid #32cd32; background: rgba(50, 205, 50, 0.1); } /* O'rtacha */
+.rarity-red { 
+    border-bottom: 3px solid #eb4b4b; 
+    background: linear-gradient(180deg, rgba(235, 75, 75, 0) 0%, rgba(235, 75, 75, 0.3) 100%); 
+} /* Qimmat */
+.rarity-gold { 
+    border-bottom: 3px solid #ffd700; 
+    background: linear-gradient(180deg, rgba(255, 215, 0, 0) 0%, rgba(255, 215, 0, 0.4) 100%);
+    box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.2);
+} /* Eng qimmat */
+
+/* Modal ichidagi skinlar ro'yxati */
+.items-preview-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+}
+
+.preview-item {
+    text-align: center;
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 10px;
+}
+
+.preview-item img { width: 100%; max-width: 50px; }
+.preview-item .price { color: #2ecc71; font-weight: bold; display: block; }
+
+/* Promo-kod tugmasi stili */
+.promo-btn {
+    background: #f1c40f;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 100%;
+}
