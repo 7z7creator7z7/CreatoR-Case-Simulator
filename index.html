@@ -1,97 +1,59 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CreatoR BullDrop</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <meta charset="UTF-8">
+  <title>MC Bulldrop Clone</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <header>
-            <div class="user-info" onclick="showSection('profile')">
-                <img id="user-photo" src="https://img.icons8.com/bubbles/100/000000/user.png">
-                <span id="user-name">『CreatoR』</span>
-            </div>
-            <div class="balance-display">
-                <img src="https://img.icons8.com/color/48/000000/coins.png" width="20">
-                <span id="balance">100.00</span> $
-            </div>
-        </header>
+  <h1>MC Case O‘yin 🎁</h1>
+  <div class="balance">💰 Balans: <span id="balance">100</span> MC</div>
 
-        <main id="content">
-            <section id="home-section" class="content-active">
-                <div class="category-title"><h2>Nodirliklar</h2></div>
-                <div class="case-grid" id="case-list"></div>
-            </section>
+  <!-- Case Section -->
+  <div class="case-list">
+    <button onclick="openCase(10)">Case 10 MC</button>
+    <button onclick="openCase(50)">Case 50 MC</button>
+    <button onclick="openCase(75)">Case 75 MC</button>
+    <button onclick="openCase(100)">Case 100 MC</button>
+    <button onclick="openCase(150)">Case 150 MC</button>
+    <button onclick="openCase(250)">Case 250 MC</button>
+    <button onclick="openCase(500)">Case 500 MC</button>
+    <button onclick="openCase(750)">Case 750 MC</button>
+    <button onclick="openCase(1000)">Case 1000 MC</button>
+    <button onclick="openCase(1500)">Case 1500 MC</button>
+  </div>
 
-            <section id="games-section" class="hidden">
-                <div class="game-nav">
-                    <button onclick="switchGame('crash')">🚀 Crash</button>
-                    <button onclick="switchGame('mines')">💣 Mines</button>
-                    <button onclick="switchGame('plinko')">🟢 Plinko</button>
-                    <button onclick="switchGame('battle')">⚔️ Kontakt</button>
-                </div>
-                <div id="game-area"></div>
-            </section>
+  <div id="caseResult"></div>
+  <div class="inventory" id="inventory"><h3>Inventar 📦</h3></div>
 
-            <section id="inventory-section" class="hidden">
-                <h2>Mening Inventarim</h2>
-                <div id="inv-list" class="items-grid"></div>
-            </section>
-
-            <section id="profile-section" class="hidden">
-                <div class="profile-card">
-                    <h3 id="user-display">『CreatoR』</h3>
-                    <div class="lang-select">
-                        <p>Tilni tanlang / Select Language:</p>
-                        <button onclick="changeLang('uz')">🇺🇿 O'zbekcha</button>
-                        <button onclick="changeLang('en')">🇺🇸 English</button>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <nav class="bottom-navbar">
-            <div class="nav-btn active" id="nav-home" onclick="showSection('home')">
-                <span class="material-icons-outlined">home</span><p>Bosh sahifa</p>
-            </div>
-            <div class="nav-btn" id="nav-games" onclick="showSection('games')">
-                <span class="material-icons-outlined">sports_esports</span><p>O'yinlar</p>
-            </div>
-            <div class="nav-btn" id="nav-inventory" onclick="showSection('inventory')">
-                <span class="material-icons-outlined">inventory_2</span><p>Inventar</p>
-            </div>
-            <div class="nav-btn" id="nav-profile" onclick="showSection('profile')">
-                <span class="material-icons-outlined">person</span><p>Profil</p>
-            </div>
-        </nav>
+  <!-- Upgrade Section -->
+  <div id="upgradeSection">
+    <h3>Upgrade 🎯</h3>
+    <div>
+      <label>Inventardan item tanlang:</label>
+      <select id="upgradeItem"></select>
     </div>
-
-    <div id="case-modal" class="modal hidden">
-        <div class="modal-content">
-            <h2 id="m-title">Keys</h2>
-            <div id="roulette-container">
-                <div id="selector"></div>
-                <div id="roulette-inner"></div>
-            </div>
-            <button id="open-btn" class="buy-btn">OCHISH</button>
-            <button onclick="closeModal()" class="close-btn-text">Yopish</button>
-        </div>
+    <div>
+      <label>Target qiymat (MC):</label>
+      <input type="number" id="targetValue" value="500">
     </div>
+    <button onclick="doUpgrade()">Upgrade qilish</button>
+    <div id="upgradeResult"></div>
+  </div>
 
-    <script src="script.js"></script>
+  <!-- Crash Section -->
+  <div id="crashGame">
+    <h3>Crash 🎢</h3>
+    <div>
+      <label>Summani kiriting (MC):</label>
+      <input type="number" id="betAmount" value="10">
+      <button onclick="placeBet()">Tikish</button>
+    </div>
+    <div id="crashStatus"></div>
+    <div id="multiplier">×1.00</div>
+    <button id="cashoutBtn" onclick="cashOut()" disabled>Cashout</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
-<section id="profile-section" class="hidden">
-    <div class="profile-card">
-        <h3>『CreatoR』</h3>
-        <button class="promo-btn" onclick="openPromo()">🎟 Promo-kod ishlatish</button>
-        <p style="font-size: 12px; color: #888; margin-top: 5px;">(Kod: FREE — 10,000$ beradi)</p>
-        
-        <div class="lang-select">
-            </div>
-    </div>
-</section>
