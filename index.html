@@ -1,64 +1,145 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS2 Case Simulator</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Creator Case</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 </head>
+
 <body>
-    <div id="app">
-        <header>
-            <div class="user-info" onclick="showSection('profile')">
-                <img id="user-photo" src="https://via.placeholder.com/40" alt="Avatar">
-                <span id="user-name">Yuklanmoqda...</span>
-            </div>
-            <div class="balance-info">
-                💰 <span id="balance">0.00</span> $
-            </div>
-        </header>
 
-        <nav>
-            <button onclick="showSection('cases')" id="nav-cases">Keyslar</button>
-            <button onclick="showSection('inventory')" id="nav-inv">Inventar</button>
-            <button onclick="showSection('profile')" id="nav-profile">Profil</button>
-        </nav>
+<div id="app">
 
-        <section id="cases-section">
-            <h2 id="title-cases">Keys Tanlang</h2>
-            <div class="case-grid" id="case-list"></div>
-        </section>
+<header>
 
-        <section id="inventory-section" class="hidden">
-            <h2 id="title-inv">Mening Inventarim</h2>
-            <div id="inventory-list"></div>
-        </section>
+<div
+class="user-info"
+onclick="showSection('profile')">
 
-        <section id="profile-section" class="hidden">
-            <h2 id="title-profile">Profil</h2>
-            <div class="profile-card">
-                <p id="label-lang">Tilni tanlang:</p>
-                <div class="lang-buttons">
-                    <button onclick="changeLanguage('uz')">🇺🇿 O'zbekcha</button>
-                    <button onclick="changeLanguage('en')">🇺🇸 English</button>
-                </div>
-                <hr>
-                <p id="label-stats">Statistika tez kunda...</p>
-            </div>
-        </section>
+<img
+id="user-photo"
+src="https://via.placeholder.com/40">
 
-        <div id="game-modal" class="hidden">
-            <div class="modal-content">
-                <h3 id="opening-text">Ochilmoqda...</h3>
-                <div id="case-window">
-                    <div id="line"></div>
-                    <div id="carousel"></div>
-                </div>
-                <button id="close-modal" class="hidden" onclick="closeModal()">Yopish</button>
-            </div>
-        </div>
-    </div>
-    <script src="script.js"></script>
+<span id="user-name">
+User
+</span>
+
+</div>
+
+<div class="balance-info">
+
+💰
+<span id="balance">0</span>$
+
+</div>
+
+</header>
+
+<nav>
+
+<button onclick="playClick();showSection('cases')">
+Keyslar
+</button>
+
+<button onclick="playClick();showSection('inventory')">
+Inventar
+</button>
+
+<button onclick="playClick();showSection('profile')">
+Profil
+</button>
+
+</nav>
+
+<section id="cases-section">
+
+<h2>Keys Tanlang</h2>
+
+<div
+class="case-grid"
+id="case-list">
+
+</div>
+
+</section>
+
+<section
+id="inventory-section"
+class="hidden">
+
+<h2>Inventar</h2>
+
+<div id="inventory-list"></div>
+
+</section>
+
+<section
+id="profile-section"
+class="hidden">
+
+<h2>Profil</h2>
+
+<div class="profile-card">
+
+<button onclick="changeLanguage('uz')">
+🇺🇿 Uzbek
+</button>
+
+<button onclick="changeLanguage('en')">
+🇺🇸 English
+</button>
+
+</div>
+
+</section>
+
+<div
+id="game-modal"
+class="hidden">
+
+<div class="modal-content">
+
+<h3 id="opening-text">
+Case Ochilmoqda...
+</h3>
+
+<div id="case-window">
+
+<div id="line"></div>
+
+<div id="carousel"></div>
+
+</div>
+
+<button
+id="close-modal"
+onclick="closeModal()">
+
+Yopish
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<audio id="clickSound" src="click.mp3"></audio>
+
+<audio id="openSound" src="open.mp3"></audio>
+
+<script src="script.js"></script>
+
 </body>
 </html>
