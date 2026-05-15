@@ -1,36 +1,42 @@
-:root { --bg: #0d1117; --card: #161b22; --nav: #13171e; --accent: #4f46e5; --text: #ffffff; --dim: #8b949e; }
-body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; user-select: none; }
+:root { --bg: #0d1117; --card: #161b22; --nav: #121519; --accent: #4f46e5; --text: #ffffff; --dim: #8b949e; }
+body { background: var(--bg); color: var(--text); font-family: sans-serif; margin: 0; overflow-x: hidden; }
+
 header { display: flex; justify-content: space-between; padding: 15px; background: var(--card); border-bottom: 1px solid #21262d; }
-.user-info { display: flex; align-items: center; gap: 10px; }
-#user-photo { width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--accent); }
-.balance-display { font-weight: bold; color: #facc15; }
+.balance-display { color: #facc15; font-weight: bold; font-size: 18px; }
 
 /* Bottom Nav */
 .bottom-navbar { position: fixed; bottom: 0; width: 100%; height: 70px; background: var(--nav); display: flex; border-top: 1px solid #21262d; z-index: 100; }
-.nav-btn { flex: 1; text-align: center; color: var(--dim); padding: 10px 0; cursor: pointer; }
+.nav-btn { flex: 1; text-align: center; color: var(--dim); padding-top: 12px; cursor: pointer; }
 .nav-btn.active { color: var(--text); }
-.nav-btn span { display: block; font-size: 24px; }
-.nav-btn p { font-size: 10px; margin: 4px 0 0; }
+.nav-btn span { display: block; font-size: 26px; }
+.nav-btn p { font-size: 10px; margin-top: 4px; }
 
 /* Cases */
-.category-title { display: flex; align-items: center; padding: 15px; gap: 8px; }
-.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px 100px; }
-.case-card { background: linear-gradient(180deg, #1e232b 0%, #13171e 100%); border-radius: 15px; padding: 20px; text-align: center; border: 1px solid #2d3139; }
-.price-tag { background: #1a1d23; padding: 6px 12px; border-radius: 10px; font-size: 13px; margin-top: 10px; display: inline-block; }
+.case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px 15px 100px; }
+.case-card { background: linear-gradient(180deg, #1e232b, #13171e); border-radius: 20px; padding: 20px; text-align: center; border: 1px solid #2d3139; }
+.price-tag { background: #000; padding: 6px 15px; border-radius: 20px; font-size: 14px; margin-top: 10px; display: inline-block; border: 1px solid #333; }
 
-/* Games UI */
-.game-nav { display: flex; justify-content: space-around; padding: 10px; background: var(--card); }
-.game-btn-tab { background: none; border: none; color: var(--dim); padding: 10px; font-weight: bold; }
-.game-btn-tab.active { color: var(--text); border-bottom: 2px solid var(--accent); }
+/* Modal */
+.modal { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:1000; display:flex; align-items:center; justify-content:center; }
+.modal-content { background: var(--card); width: 90%; max-height: 80vh; border-radius: 25px; padding: 20px; overflow-y: auto; border: 1px solid #30363d; }
+.modal-header { display: flex; justify-content: space-between; align-items: center; }
+.close-btn { background: none; border: none; color: white; font-size: 30px; }
+.buy-btn { width: 100%; background: #238636; color: white; border: none; padding: 15px; border-radius: 12px; font-weight: bold; margin: 15px 0; }
 
-/* Mines & Crash specific */
-.mines-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin: 20px auto; max-width: 280px; }
-.cell { width: 50px; height: 50px; background: #2d3139; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-.cell.open { background: #238636; }
-.cell.bomb { background: #d73a49; }
+.items-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.item-box { background: #0d1117; padding: 8px; border-radius: 10px; text-align: center; border-bottom: 2px solid var(--accent); }
+.item-box img { width: 100%; }
+.item-box p { font-size: 9px; color: var(--dim); margin: 4px 0; }
+.item-box span { color: #4ade80; font-size: 10px; font-weight: bold; }
+
+/* Menu & Chat */
+.menu-item { display: flex; align-items: center; padding: 15px; background: var(--card); border-radius: 12px; margin-bottom: 8px; border: 1px solid #21262d; }
+.menu-item p { flex: 1; margin: 0; margin-left: 15px; }
+.chat-container { display: flex; flex-direction: column; height: calc(100vh - 160px); padding: 15px; }
+.chat-messages { flex: 1; overflow-y: auto; }
+.msg { background: #1c2128; padding: 10px; border-radius: 10px; margin-bottom: 8px; font-size: 14px; }
+.msg span { color: var(--accent); font-weight: bold; display: block; font-size: 11px; }
+.chat-input-area { display: flex; gap: 10px; background: #13171e; padding: 10px; border-radius: 15px; border: 1px solid #333; }
+.chat-input-area input { flex: 1; background: none; border: none; color: white; outline: none; }
 
 .hidden { display: none !important; }
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; align-items: center; justify-content: center; }
-.modal-content { background: var(--card); padding: 30px; border-radius: 20px; text-align: center; width: 80%; }
-input { width: 100%; padding: 12px; margin: 10px 0; background: var(--bg); border: 1px solid #333; color: white; border-radius: 8px; }
-button { width: 100%; padding: 12px; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 5px; }
