@@ -1,143 +1,136 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creator Case Simulator</title>
 
-<meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Creator Case</title>
-
-<link rel="stylesheet" href="style.css">
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 
 <body>
 
 <div id="app">
 
-<header>
+    <!-- HEADER -->
+    <header>
 
-<div
-class="user-info"
-onclick="showSection('profile')">
+        <div class="user-info">
 
-<img
-id="user-photo"
-src="https://via.placeholder.com/40">
+            <img
+            id="user-photo"
+            src="https://i.imgur.com/6VBx3io.png">
 
-<span id="user-name">
-User
-</span>
+            <span id="user-name">
+                Player
+            </span>
+
+        </div>
+
+        <div class="balance-info">
+            💰
+            <span id="balance">0</span>$
+        </div>
+
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav>
+
+        <button onclick="showSection('cases')">
+            Keyslar
+        </button>
+
+        <button onclick="showSection('inventory')">
+            Inventar
+        </button>
+
+        <button onclick="showSection('profile')">
+            Profil
+        </button>
+
+    </nav>
+
+    <!-- CASES -->
+    <section id="cases-section">
+
+        <h2>
+            Keys Tanlang
+        </h2>
+
+        <div
+        class="case-grid"
+        id="case-list">
+        </div>
+
+    </section>
+
+    <!-- INVENTORY -->
+    <section
+    id="inventory-section"
+    class="hidden">
+
+        <h2>
+            Inventar
+        </h2>
+
+        <div id="inventory-list">
+        </div>
+
+    </section>
+
+    <!-- PROFILE -->
+    <section
+    id="profile-section"
+    class="hidden">
+
+        <h2>
+            Profil
+        </h2>
+
+        <div class="profile-card">
+
+            <p>
+                Creator Case Simulator
+            </p>
+
+            <p>
+                Telegram Mini App
+            </p>
+
+        </div>
+
+    </section>
 
 </div>
 
-<div class="balance-info">
-
-💰
-<span id="balance">0</span>$
-
-</div>
-
-</header>
-
-<nav>
-
-<button onclick="playClick();showSection('cases')">
-Keyslar
-</button>
-
-<button onclick="playClick();showSection('inventory')">
-Inventar
-</button>
-
-<button onclick="playClick();showSection('profile')">
-Profil
-</button>
-
-</nav>
-
-<section id="cases-section">
-
-<h2>Keys Tanlang</h2>
-
-<div
-class="case-grid"
-id="case-list">
-
-</div>
-
-</section>
-
-<section
-id="inventory-section"
-class="hidden">
-
-<h2>Inventar</h2>
-
-<div id="inventory-list"></div>
-
-</section>
-
-<section
-id="profile-section"
-class="hidden">
-
-<h2>Profil</h2>
-
-<div class="profile-card">
-
-<button onclick="changeLanguage('uz')">
-🇺🇿 Uzbek
-</button>
-
-<button onclick="changeLanguage('en')">
-🇺🇸 English
-</button>
-
-</div>
-
-</section>
-
+<!-- CASE OPEN MODAL -->
 <div
 id="game-modal"
 class="hidden">
 
-<div class="modal-content">
+    <h2>
+        Case Ochilmoqda...
+    </h2>
 
-<h3 id="opening-text">
-Case Ochilmoqda...
-</h3>
+    <div id="case-window">
 
-<div id="case-window">
+        <div id="line"></div>
 
-<div id="line"></div>
+        <div id="carousel"></div>
 
-<div id="carousel"></div>
+    </div>
 
-</div>
-
-<button
-id="close-modal"
-onclick="closeModal()">
-
-Yopish
-
-</button>
+    <button
+    class="close-btn"
+    onclick="closeModal()">
+        Yopish
+    </button>
 
 </div>
-
-</div>
-
-</div>
-
-<audio id="clickSound" src="click.mp3"></audio>
-
-<audio id="openSound" src="open.mp3"></audio>
 
 <script src="script.js"></script>
 
