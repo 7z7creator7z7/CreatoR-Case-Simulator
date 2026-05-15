@@ -1,266 +1,64 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>CreatoR Drop</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 Case Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <div id="app">
-    <!-- HEADER -->
-    <header>
-      <div class="user-info" onclick="openProfile()">
-        <img id="user-photo" src="https://img.icons8.com/bubbles/100/000000/user.png">
-        <span id="user-name">『CreatoR』</span>
-      </div>
-      <div class="balance-display">
-        💰 <span id="balance">100.00</span> $
-      </div>
-    </header>
+    <div id="app">
+        <header>
+            <div class="user-info" onclick="showSection('profile')">
+                <img id="user-photo" src="https://via.placeholder.com/40" alt="Avatar">
+                <span id="user-name">Yuklanmoqda...</span>
+            </div>
+            <div class="balance-info">
+                💰 <span id="balance">0.00</span> $
+            </div>
+        </header>
 
-    <!-- MAIN CONTENT -->
-    <main id="content">
-      <!-- CASES SECTION -->
-      <section id="cases-section">
-        <div class="category-title">
-          <span class="material-icons-outlined gold">workspace_premium</span>
-          <h2>Keyslar</h2>
+        <nav>
+            <button onclick="showSection('cases')" id="nav-cases">Keyslar</button>
+            <button onclick="showSection('inventory')" id="nav-inv">Inventar</button>
+            <button onclick="showSection('profile')" id="nav-profile">Profil</button>
+        </nav>
+
+        <section id="cases-section">
+            <h2 id="title-cases">Keys Tanlang</h2>
+            <div class="case-grid" id="case-list"></div>
+        </section>
+
+        <section id="inventory-section" class="hidden">
+            <h2 id="title-inv">Mening Inventarim</h2>
+            <div id="inventory-list"></div>
+        </section>
+
+        <section id="profile-section" class="hidden">
+            <h2 id="title-profile">Profil</h2>
+            <div class="profile-card">
+                <p id="label-lang">Tilni tanlang:</p>
+                <div class="lang-buttons">
+                    <button onclick="changeLanguage('uz')">🇺🇿 O'zbekcha</button>
+                    <button onclick="changeLanguage('en')">🇺🇸 English</button>
+                </div>
+                <hr>
+                <p id="label-stats">Statistika tez kunda...</p>
+            </div>
+        </section>
+
+        <div id="game-modal" class="hidden">
+            <div class="modal-content">
+                <h3 id="opening-text">Ochilmoqda...</h3>
+                <div id="case-window">
+                    <div id="line"></div>
+                    <div id="carousel"></div>
+                </div>
+                <button id="close-modal" class="hidden" onclick="closeModal()">Yopish</button>
+            </div>
         </div>
-        <div class="case-grid" id="case-list"></div>
-      </section>
-
-      <!-- GAMES SECTION -->
-      <section id="games-section" class="hidden">
-        <div class="game-nav">
-          <button onclick="switchGame('crash')" class="game-btn-tab active">🚀 Crash</button>
-          <button onclick="switchGame('mines')" class="game-btn-tab">💣 Mines</button>
-          <button onclick="switchGame('upgrade')" class="game-btn-tab">⚡ Upgrade</button>
-          <button onclick="switchGame('plinko')" class="game-btn-tab">🎯 Plinko</button>
-          <button onclick="switchGame('kontakt')" class="game-btn-tab">🎡 Kontakt</button>
-        </div>
-        <div id="game-area"></div>
-      </section>
-
-      <!-- PROFILE SECTION -->
-      <section id="profile-section" class="hidden">
-        <h2>Profil</h2>
-        <div class="profile-info">
-          <img id="profile-photo" src="https://img.icons8.com/bubbles/100/000000/user.png">
-          <p id="profile-name">『CreatoR』</p>
-        </div>
-        <div class="profile-menu">
-          <button onclick="openInventory()">📦 Inventar</button>
-          <button onclick="openPromo()">🎁 Promo Kod</button>
-          <button onclick="openReferral()">👥 Takliflar</button>
-          <button onclick="openBonus()">📅 7 Day Bonus</button>
-          <button onclick="changeLanguage()">🌐 Til Tanlash</button>
-        </div>
-      </section>
-
-      <!-- CHAT SECTION -->
-      <section id="chat-section" class="hidden">
-        <h2>Global Chat</h2>
-        <div id="chat-box"></div>
-        <input type="text" id="chat-input" placeholder="Xabar yozing...">
-        <button onclick="sendMessage()">Yuborish</button>
-      </section>
-    </main>
-
-    <!-- NAVBAR -->
-    <nav class="bottom-navbar">
-      <div class="nav-btn active" id="nav-cases" onclick="showSection('cases')">
-        <span class="material-icons-outlined">inventory_2</span><p>Keyslar</p>
-      </div>
-      <div class="nav-btn" id="nav-games" onclick="showSection('games')">
-        <span class="material-icons-outlined">sports_esports</span><p>O'yinlar</p>
-      </div>
-      <div class="nav-btn" id="nav-profile" onclick="showSection('profile')">
-        <span class="material-icons-outlined">account_circle</span><p>Profil</p>
-      </div>
-      <div class="nav-btn" id="nav-chat" onclick="showSection('chat')">
-        <span class="material-icons-outlined">chat_bubble_outline</span><p>Chat</p>
-      </div>
-    </nav>
-  </div>
-
-  <!-- PROMO MODAL -->
-  <div id="promo-modal" class="modal hidden">
-    <div class="modal-content">
-      <h3>Promo Kod</h3>
-      <input type="text" id="promo-input" placeholder="Kodni yozing...">
-      <button onclick="applyPromo()">Faollashtirish</button>
-      <button onclick="closePromo()">Yopish</button>
     </div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-<div class="crash-container">
-  <h3>⚡ Crash O'yini</h3>
-  <button onclick="startCrashGame()">Boshlash</button>
-  <div class="crash-progress">
-    <div class="crash-bar"></div>
-  </div>
-  <p id="crash-result"></p>
-</div>
-<!-- 💣 Mines O'yini -->
-<div class="mines-container">
-  <h3>💣 Mines O'yini</h3>
-  <button onclick="startMinesGame()">Boshlash</button>
-  <div id="mines-grid" class="grid"></div>
-  <p id="mines-result"></p>
-</div> 
-<!-- 🔼 Upgrade O'yini -->
-<div class="upgrade-container">
-  <h3>🔼 Upgrade O'yini</h3>
-  <input type="text" id="upgrade-item" placeholder="Item nomini kiriting">
-  <button onclick="startUpgrade()">Upgrade qilish</button>
-  <div class="upgrade-progress">
-    <div class="upgrade-bar"></div>
-  </div>
-  <p id="upgrade-result"></p>
-</div><!-- 🎯 Plinko O'yini -->
-<div class="plinko-container">
-  <h3>🎯 Plinko O'yini</h3>
-  <button onclick="startPlinko()">Boshlash</button>
-  <div id="plinko-board" class="board"></div>
-  <p id="plinko-result"></p>
-</div><!-- 🌐 Kontakt O'yini -->
-<div class="kontakt-container">
-  <h3>🌐 Kontakt O'yini</h3>
-  <input type="text" id="kontakt-word" placeholder="So'z kiriting">
-  <button onclick="startKontakt()">Boshlash</button>
-  <div id="kontakt-chat"></div>
-  <p id="kontakt-result"></p>
-</div><!DOCTYPE html>
-<html lang="uz">
-<head>
-  <meta charset="UTF-8">
-  <title>CreatoR - Casino App</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <!-- 🎁 Keyslar Bo'limi -->
-  <section id="keyslar">
-    <h2>🎁 Keyslar</h2>
-    <div id="case-list" class="case-container"></div>
-    <div id="case-result"></div>
-  </section>
-
-  <!-- 🎮 O'yinlar Bo'limi -->
-  <section id="oyinlar" style="display:none;">
-    <h2>🎮 O'yinlar</h2>
-
-    <!-- ⚡ Crash -->
-    <div class="crash-container">
-      <h3>⚡ Crash O'yini</h3>
-      <button onclick="startCrashGame()">Boshlash</button>
-      <div class="crash-progress"><div class="crash-bar"></div></div>
-      <p id="crash-result"></p>
-    </div>
-
-    <!-- 💣 Mines -->
-    <div class="mines-container">
-      <h3>💣 Mines O'yini</h3>
-      <button onclick="startMinesGame()">Boshlash</button>
-      <div id="mines-grid" class="grid"></div>
-      <p id="mines-result"></p>
-    </div>
-
-    <!-- 🔼 Upgrade -->
-    <div class="upgrade-container">
-      <h3>🔼 Upgrade O'yini</h3>
-      <input type="text" id="upgrade-item" placeholder="Item nomini kiriting">
-      <button onclick="startUpgrade()">Upgrade qilish</button>
-      <div class="upgrade-progress"><div class="upgrade-bar"></div></div>
-      <p id="upgrade-result"></p>
-    </div>
-
-    <!-- 🎯 Plinko -->
-    <div class="plinko-container">
-      <h3>🎯 Plinko O'yini</h3>
-      <button onclick="startPlinko()">Boshlash</button>
-      <div id="plinko-board" class="board"></div>
-      <p id="plinko-result"></p>
-    </div>
-
-    <!-- 🌐 Kontakt -->
-    <div class="kontakt-container">
-      <h3>🌐 Kontakt O'yini</h3>
-      <input type="text" id="kontakt-word" placeholder="So'z kiriting">
-      <button onclick="startKontakt()">Boshlash</button>
-      <div id="kontakt-chat"></div>
-      <p id="kontakt-result"></p>
-    </div>
-  </section>
-
-  <!-- 👤 Profil Bo'limi -->
-  <section id="profil" style="display:none;">
-    <h2>👤 Profil</h2>
-    <div class="profile-container">
-      <img src="avatar.png" alt="Avatar" class="profile-avatar">
-      <h3 id="profile-name">『CreatoR』</h3>
-      <p id="profile-balance">💰 Balans: 100.00 $</p>
-    </div>
-  </section>
-
-  <!-- 💬 Chat Bo'limi -->
-  <section id="chat" style="display:none;">
-    <h2>💬 Chat</h2>
-    <div id="chat-box" class="chat-container"></div>
-    <input type="text" id="chat-input" placeholder="Xabar yozing...">
-    <button onclick="sendMessage()">Yuborish</button>
-  </section>
-
-  <!-- 📌 Navigatsiya -->
-  <nav class="bottom-nav">
-    <button onclick="showSection('keyslar')">🎁 Keyslar</button>
-    <button onclick="showSection('oyinlar')">🎮 O'yinlar</button>
-    <button onclick="showSection('profil')">👤 Profil</button>
-    <button onclick="showSection('chat')">💬 Chat</button>
-  </nav>
-
-  <script src="script.js"></script>
-</body>
-</html>
-<section id="keyslar"> ... </section>
-<section id="oyinlar" style="display:none;"> ... </section>
-<section id="profil" style="display:none;"> ... </section>
-<section id="chat" style="display:none;"> ... </section>
-<body>
-  <!-- 🎁 Keyslar -->
-  <section id="keyslar">
-    <h2>Keyslar</h2>
-    <div id="case-list"></div>
-  </section>
-
-  <!-- 🎮 O'yinlar -->
-  <section id="oyinlar" style="display:none;">
-    <h2>O'yinlar</h2>
-  </section>
-
-  <!-- 👤 Profil -->
-  <section id="profil" style="display:none;">
-    <h2>Profil</h2>
-  </section>
-
-  <!-- 💬 Chat -->
-  <section id="chat" style="display:none;">
-    <h2>Chat</h2>
-  </section>
-
-  <!-- 📌 Navigatsiya -->
-  <nav class="bottom-nav">
-    <button onclick="showSection('keyslar')">Keyslar</button>
-    <button onclick="showSection('oyinlar')">O'yinlar</button>
-    <button onclick="showSection('profil')">Profil</button>
-    <button onclick="showSection('chat')">Chat</button>
-  </nav>
-
-  <script src="script.js"></script>
-</body>
