@@ -114,3 +114,57 @@ function changeLang(lang) {
     document.querySelector('#nav-inventory p').innerText = l.inv;
     document.querySelector('#nav-profile p').innerText = l.prof;
 }
+// Skinlar bazasi (Rarity va Narxlar bilan)
+const skinsBase = {
+    armya: [
+        { n: "Glock-18", p: 2, r: "rarity-blue", w: 70 },   // w - vazni (qancha ko'p bo'lsa, shuncha ko'p tushadi)
+        { n: "USP-S", p: 15, r: "rarity-green", w: 25 },
+        { n: "AK-47 Slate", p: 48, r: "rarity-red", w: 5 }
+    ],
+    sir: [
+        { n: "M4A4", p: 180, r: "rarity-red", w: 80 },
+        { n: "Dragon Lore", p: 1500, r: "rarity-gold", w: 1 } // Gold juda kam tushadi
+    ]
+};
+
+// Promo-kod funksiyasi
+function openPromo() {
+    const code = prompt("Promo-kodni kiriting:");
+    if (code === "FREE") {
+        if (localStorage.getItem('promo_used')) {
+            alert("Siz ushbu koddan foydalanib bo'lgansiz!");
+        } else {
+            balance += 10000;
+            localStorage.setItem('promo_used', 'true');
+            updateUI();
+            alert("Tabriklaymiz! Balansingizga 10 000$ qo'shildi.");
+        }
+    } else {
+        alert("Noto'g'ri promo-kod!");
+    }
+}
+
+// Keys ochishda yutuqni aniqlash (Foizga qarab)
+function getWeightedRandom(skins) {
+    let totalWeight = skins.reduce((sum, skin) => sum + skin.w, 0);
+    let random = Math.random() * totalWeight;
+    
+    for (const skin of skins) {
+        if (random < skin.w) return skin;
+        random -= skin.w;
+    }
+}
+
+// Keys tarkibini modalda ko'rsatish
+function openPreview(caseKey) {
+    const caseSkins = skinsBase[caseKey];
+    const grid = document.getElementById('modal-items');
+    
+    grid.innerHTML = caseSkins.map(skin => `
+        <div class="preview-item ${skin.r}">
+            <img src="https://img.icons8.com/color/96/pistol.png">
+            <p>${skin.n}</p>
+            <span class="price">${skin.p} $</span>
+        </div>
+    `).join('');
+}
