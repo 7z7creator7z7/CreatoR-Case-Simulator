@@ -1,80 +1,101 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>BullDrop Pro</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CreatoR Drop</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div id="app">
-        <header>
-            <div class="user-info">
-                <img id="user-photo" src="https://img.icons8.com/bubbles/100/000000/user.png">
-                <span id="user-name">Yuklanmoqda...</span>
-            </div>
-            <div class="balance-display">💰 <span id="balance">100.00</span> $</div>
-        </header>
+  <div id="app">
+    <!-- HEADER -->
+    <header>
+      <div class="user-info" onclick="openProfile()">
+        <img id="user-photo" src="https://img.icons8.com/bubbles/100/000000/user.png">
+        <span id="user-name">『CreatoR』</span>
+      </div>
+      <div class="balance-display">
+        💰 <span id="balance">100.00</span> $
+      </div>
+    </header>
 
-        <main id="content">
-            <section id="cases-section" class="content-active">
-                <div class="category-title">
-                    <span class="material-icons-outlined gold">workspace_premium</span>
-                    <h2>Nodirliklar</h2>
-                </div>
-                <div class="case-grid" id="case-list"></div>
-            </section>
-
-            <section id="chat-section" class="hidden">
-                <div class="chat-container">
-                    <div class="chat-messages" id="chat-box">
-                        <div class="msg"><span>Tizim</span>Xush kelibsiz! Chat barcha uchun ochiq.</div>
-                    </div>
-                    <div class="chat-input-area">
-                        <input type="text" id="chat-input" placeholder="Xabar yozing...">
-                        <button onclick="sendMessage()"><span class="material-icons-outlined">send</span></button>
-                    </div>
-                </div>
-            </section>
-
-            <section id="menu-section" class="hidden">
-                <div class="menu-list">
-                    <div class="menu-item"><span class="material-icons-outlined">headset_mic</span><p>Yordam</p><span class="material-icons-outlined arrow">expand_more</span></div>
-                    <div class="menu-item"><span class="material-icons-outlined">language</span><p>O'zbekcha</p><img src="https://flagcdn.com/w20/uz.png" width="20"></div>
-                    <div class="menu-group-label">O'yin-kulgi</div>
-                    <div class="menu-item" onclick="showSection('cases')"><span class="material-icons-outlined">inventory_2</span><p>Keyslar</p></div>
-                    <div class="menu-item"><span class="material-icons-outlined">card_giftcard</span><p>Bonuslar (Promo)</p></div>
-                    <div class="menu-group-label">Boshqa</div>
-                    <div class="menu-item"><span class="material-icons-outlined">send</span><p>Telegram Kanal</p></div>
-                </div>
-            </section>
-        </main>
-
-        <div id="case-modal" class="modal hidden">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 id="modal-title">Keys</h2>
-                    <button class="close-btn" onclick="closeModal()">×</button>
-                </div>
-                <div class="preview-hero">
-                    <img id="modal-img" src="" width="130">
-                    <button id="modal-buy-btn" class="buy-btn">OCHISH - <span id="modal-price"></span></button>
-                </div>
-                <div class="items-list-title">Keys tarkibi:</div>
-                <div class="items-grid" id="modal-items"></div>
-            </div>
+    <!-- MAIN CONTENT -->
+    <main id="content">
+      <!-- CASES SECTION -->
+      <section id="cases-section">
+        <div class="category-title">
+          <span class="material-icons-outlined gold">workspace_premium</span>
+          <h2>Keyslar</h2>
         </div>
+        <div class="case-grid" id="case-list"></div>
+      </section>
 
-        <nav class="bottom-navbar">
-            <div class="nav-btn active" id="nav-cases" onclick="showSection('cases')"><span class="material-icons-outlined">inventory_2</span><p>Keyslari</p></div>
-            <div class="nav-btn" onclick="alert('Tez kunda...')"><span class="material-icons-outlined">account_balance_wallet</span><p>To'ldirish</p></div>
-            <div class="nav-btn"><span class="material-icons-outlined">sports_esports</span><p>O'yinlar.</p></div>
-            <div class="nav-btn" id="nav-chat" onclick="showSection('chat')"><span class="material-icons-outlined">chat_bubble_outline</span><p>Chat</p></div>
-            <div class="nav-btn" id="nav-menu" onclick="showSection('menu')"><span class="material-icons-outlined">menu</span><p>Menyu</p></div>
-        </nav>
+      <!-- GAMES SECTION -->
+      <section id="games-section" class="hidden">
+        <div class="game-nav">
+          <button onclick="switchGame('crash')" class="game-btn-tab active">🚀 Crash</button>
+          <button onclick="switchGame('mines')" class="game-btn-tab">💣 Mines</button>
+          <button onclick="switchGame('upgrade')" class="game-btn-tab">⚡ Upgrade</button>
+          <button onclick="switchGame('plinko')" class="game-btn-tab">🎯 Plinko</button>
+          <button onclick="switchGame('kontakt')" class="game-btn-tab">🎡 Kontakt</button>
+        </div>
+        <div id="game-area"></div>
+      </section>
+
+      <!-- PROFILE SECTION -->
+      <section id="profile-section" class="hidden">
+        <h2>Profil</h2>
+        <div class="profile-info">
+          <img id="profile-photo" src="https://img.icons8.com/bubbles/100/000000/user.png">
+          <p id="profile-name">『CreatoR』</p>
+        </div>
+        <div class="profile-menu">
+          <button onclick="openInventory()">📦 Inventar</button>
+          <button onclick="openPromo()">🎁 Promo Kod</button>
+          <button onclick="openReferral()">👥 Takliflar</button>
+          <button onclick="openBonus()">📅 7 Day Bonus</button>
+          <button onclick="changeLanguage()">🌐 Til Tanlash</button>
+        </div>
+      </section>
+
+      <!-- CHAT SECTION -->
+      <section id="chat-section" class="hidden">
+        <h2>Global Chat</h2>
+        <div id="chat-box"></div>
+        <input type="text" id="chat-input" placeholder="Xabar yozing...">
+        <button onclick="sendMessage()">Yuborish</button>
+      </section>
+    </main>
+
+    <!-- NAVBAR -->
+    <nav class="bottom-navbar">
+      <div class="nav-btn active" id="nav-cases" onclick="showSection('cases')">
+        <span class="material-icons-outlined">inventory_2</span><p>Keyslar</p>
+      </div>
+      <div class="nav-btn" id="nav-games" onclick="showSection('games')">
+        <span class="material-icons-outlined">sports_esports</span><p>O'yinlar</p>
+      </div>
+      <div class="nav-btn" id="nav-profile" onclick="showSection('profile')">
+        <span class="material-icons-outlined">account_circle</span><p>Profil</p>
+      </div>
+      <div class="nav-btn" id="nav-chat" onclick="showSection('chat')">
+        <span class="material-icons-outlined">chat_bubble_outline</span><p>Chat</p>
+      </div>
+    </nav>
+  </div>
+
+  <!-- PROMO MODAL -->
+  <div id="promo-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Promo Kod</h3>
+      <input type="text" id="promo-input" placeholder="Kodni yozing...">
+      <button onclick="applyPromo()">Faollashtirish</button>
+      <button onclick="closePromo()">Yopish</button>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
