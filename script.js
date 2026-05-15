@@ -60,3 +60,63 @@ function openCase(price, name) {
   balance += parseFloat(win);
   updateUI();
 }
+// 🚀 CRASH GAME
+let crashInt;
+let crashRunning = false;
+
+function renderCrash(area) {
+  area.innerHTML = `
+    <div class="game-container">
+      <h1 id="mult" style="font-size: 50px; color: var(--accent);">1.00x</h1>
+      <input type="number" id="c-bet" placeholder="Tikish ($)">
+      <input type="number" id="c-auto" placeholder="Avto-stop (Masalan: 2.0)">
+      <button id="c-btn" onclick="startCrash()">TIKISH</button>
+    </div>`;
+}
+
+function startCrash() {
+  if (crashRunning) return;
+  const bet = parseFloat(document.getElementById('c-bet').value);
+  const auto = parseFloat(document.getElementById('c-auto').value) || 0;
+  if (balance < bet || bet <= 0) return alert("Mablag' yetarli emas!");
+
+  balance -= bet; updateUI();
+  let m = 1.0;
+  crashRunning = true;
+
+  // Crash nuqtasi taqsimoti (Bulldrop uslubida)
+  const rand = Math.random();
+  let crashAt;
+  if (rand < 0.5) crashAt = (Math.random() * 1.5 + 1).toFixed(2); // ko‘pincha 1–2.5x
+  else if (rand < 0.8) crashAt = (Math.random() * 2 + 2.5).toFixed(2); // ba’zida 2.5–4.5x
+  else if (rand < 0.95) crashAt = (Math.random() * 5 + 5).toFixed(2); // kamdan kam 5–10x
+  else if (rand < 0.99) crashAt = (Math.random() * 15 + 10).toFixed(2); // juda kam 10–25x
+  else crashAt = (Math.random() * 50 + 25).toFixed(2); // o‘ta kam 25–75x+
+
+  document.getElementById('c-btn').innerText = "CASH OUT";
+  document.getElementById('c-btn').onclick = () => {
+    clearInterval(crashInt);
+    balance += bet * m; updateUI();
+    alert(`Yutdingiz: ${(bet * m).toFixed(2)}$`);
+    resetCrash();
+  };
+
+  crashInt = setInterval(() => {
+    m += 0.01;
+    document.getElementById('mult').innerText = m.toFixed(2) + "x";
+    if (auto > 1 && m >= auto) document.getElementById('c-btn').click();
+    if (m >= crashAt) {
+      clearInterval(crashInt);
+      document.getElementById('mult').style.color = "red";
+      alert("Crash!");
+      resetCrash();
+    }
+  }, 100);
+}
+
+function resetCrash() {
+  crashRunning = false;
+  document.getElementById('c-btn').innerText = "TIKISH";
+  document.getElementById('c-btn').onclick = startCrash;
+  document.getElementById('mult').style.color = "var(--accent)";
+}
