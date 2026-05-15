@@ -440,3 +440,214 @@ ol li:hover {
 .cell:hover {
   background: #00ffcc;
 }
+/* 🔼 UPGRADE O'YINI */
+.upgrade-container {
+  background: #111;
+  border: 2px solid #00ff00;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 500px;
+}
+
+.upgrade-progress {
+  width: 100%;
+  height: 25px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 15px;
+}
+
+.upgrade-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00ff00, #ffd700);
+  transition: width 0.1s linear;
+}/* 🎯 PLINKO O'YINI */
+.plinko-container {
+  background: #111;
+  border: 2px solid #ff66cc;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 500px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  grid-gap: 5px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.slot {
+  width: 40px;
+  height: 40px;
+  background: #222;
+  border-radius: 50%;
+  border: 1px solid #ff66cc;
+}
+
+.ball {
+  width: 40px;
+  height: 40px;
+  background: #ffd700;
+  border-radius: 50%;
+  animation: dropBall 2s linear forwards;
+}
+
+@keyframes dropBall {
+  from { transform: translateY(-200px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}/* 🌐 KONTAKT O'YINI */
+.kontakt-container {
+  background: #111;
+  border: 2px solid #3399ff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 500px;
+}
+
+#kontakt-chat {
+  background: #222;
+  border-radius: 10px;
+  padding: 10px;
+  height: 150px;
+  overflow-y: auto;
+  margin-top: 15px;
+  border: 1px solid #3399ff;
+}
+
+#kontakt-chat div {
+  margin: 5px 0;
+  animation: slideUp 0.5s ease-in-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}/* 🎁 KEYSLAR BO'LIMI */
+.case-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.case-box {
+  background: #222;
+  border: 2px solid #ffd700;
+  border-radius: 10px;
+  padding: 15px;
+  width: 150px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.case-box:hover {
+  background: #333;
+  transform: scale(1.05);
+}/* 👤 PROFIL BO'LIMI */
+.profile-container {
+  background: #111;
+  border: 2px solid #ffd700;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 400px;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #ffd700;
+  margin-bottom: 15px;
+}
+
+#profile-name {
+  color: #ffd700;
+  margin: 10px 0;
+}
+
+#profile-balance {
+  color: #00ffcc;
+  font-size: 18px;
+}/* 💬 CHAT BO'LIMI */
+.chat-container {
+  background: #111;
+  border: 2px solid #00ffcc;
+  border-radius: 10px;
+  padding: 10px;
+  height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.chat-container div {
+  margin: 5px 0;
+  animation: slideUp 0.5s ease-in-out;
+}
+
+#chat-input {
+  width: 70%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #00ffcc;
+  background: #222;
+  color: #fff;
+}
+
+button {
+  padding: 8px 12px;
+  margin-left: 5px;
+  border-radius: 5px;
+  border: none;
+  background: #00ffcc;
+  color: #111;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00ffaa;
+}/* 📌 NAVIGATSIYA TUGMALARI */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #111;
+  border-top: 2px solid #ffd700;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.bottom-nav button {
+  background: none;
+  border: none;
+  color: #ffd700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bottom-nav button:hover {
+  color: #00ffcc;
+  transform: scale(1.1);
+}
