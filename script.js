@@ -1478,3 +1478,47 @@ function startCrashGame() {
     }
   }, 100);
                               }
+// 💣 MINES O'YINI
+function startMinesGame() {
+  const grid = document.getElementById("mines-grid");
+  const result = document.getElementById("mines-result");
+  grid.innerHTML = "";
+  result.innerHTML = "";
+
+  // 25 ta katak (5x5)
+  const cells = [];
+  for (let i = 0; i < 25; i++) {
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
+    cell.dataset.index = i;
+    cell.addEventListener("click", () => revealCell(cell));
+    grid.appendChild(cell);
+    cells.push(cell);
+  }
+
+  // Tasodifiy 5 ta bomba
+  const bombs = new Set();
+  while (bombs.size < 5) {
+    bombs.add(Math.floor(Math.random() * 25));
+  }
+
+  // Katakni ochish
+  function revealCell(cell) {
+    const index = parseInt(cell.dataset.index);
+    if (bombs.has(index)) {
+      cell.style.background = "red";
+      cell.innerHTML = "💣";
+      result.innerHTML = "💥 Bomba! O'yin tugadi.";
+      disableGrid();
+    } else {
+      cell.style.background = "green";
+      cell.innerHTML = "⭐";
+      result.innerHTML = "✅ Yutuq topdingiz!";
+    }
+  }
+
+  // O'yin tugaganda kataklarni bloklash
+  function disableGrid() {
+    cells.forEach(c => c.style.pointerEvents = "none");
+  }
+}
