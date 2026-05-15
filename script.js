@@ -1,469 +1,496 @@
-const tg = window.Telegram.WebApp;
-tg.expand();
+// SCRIPT.JS 1-QISM
+
+let balance = 350550;
+
+let openedCases = 0;
+
+let inventory = [];
 
 /* =========================
-   USER DATA
+   ITEMLAR
 ========================= */
-let balance = parseFloat(localStorage.getItem("balance")) || 1000;
-let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
 
-/* =========================
-   RARITY COLORS
-========================= */
-const rarityStyles = {
-  common: {
-    class: "rarity-common",
-    color: "#4da6ff"
-  },
-  rare: {
-    class: "rarity-rare",
-    color: "#32d74b"
-  },
-  epic: {
-    class: "rarity-epic",
-    color: "#bb6cff"
-  },
-  legendary: {
-    class: "rarity-legendary",
-    color: "#ffd43b"
-  },
-  mythic: {
-    class: "rarity-mythic",
-    color: "#ff4d4d"
-  }
+const items = {
+
+common:[
+
+{
+name:"Glock-18 | Candy Apple",
+price:12,
+rarity:"common"
+},
+
+{
+name:"USP-S | Night Ops",
+price:25,
+rarity:"common"
+},
+
+{
+name:"P250 | Sand Dune",
+price:40,
+rarity:"common"
+},
+
+{
+name:"MP9 | Storm",
+price:35,
+rarity:"common"
+},
+
+{
+name:"Nova | Predator",
+price:18,
+rarity:"common"
+}
+
+],
+
+rare:[
+
+{
+name:"AK-47 | Slate",
+price:120,
+rarity:"rare"
+},
+
+{
+name:"M4A4 | Griffin",
+price:180,
+rarity:"rare"
+},
+
+{
+name:"AWP | Fever Dream",
+price:240,
+rarity:"rare"
+},
+
+{
+name:"Desert Eagle | Conspiracy",
+price:210,
+rarity:"rare"
+},
+
+{
+name:"USP-S | Cortex",
+price:160,
+rarity:"rare"
+}
+
+],
+
+epic:[
+
+{
+name:"AK-47 | Neon Rider",
+price:320,
+rarity:"epic"
+},
+
+{
+name:"AWP | Neo-Noir",
+price:410,
+rarity:"epic"
+},
+
+{
+name:"M4A1-S | Hyper Beast",
+price:500,
+rarity:"epic"
+},
+
+{
+name:"Butterfly Knife | Urban",
+price:480,
+rarity:"epic"
+}
+
+],
+
+legendary:[
+
+{
+name:"Karambit | Doppler",
+price:1200,
+rarity:"legendary"
+},
+
+{
+name:"Butterfly Knife | Fade",
+price:1450,
+rarity:"legendary"
+},
+
+{
+name:"M9 Bayonet | Tiger Tooth",
+price:980,
+rarity:"legendary"
+}
+
+],
+
+mythic:[
+
+{
+name:"AWP | Dragon Lore",
+price:4200,
+rarity:"mythic"
+},
+
+{
+name:"AK-47 | Wild Lotus",
+price:3600,
+rarity:"mythic"
+},
+
+{
+name:"Karambit | Ruby",
+price:5000,
+rarity:"mythic"
+}
+
+]
+
 };
 
 /* =========================
-   ITEM GENERATOR
+   CASE CONFIG
 ========================= */
 
-const csNames = {
-  common: [
-    "Glock-18 | Candy",
-    "USP-S | Night",
-    "P250 | Sand Dune",
-    "MP9 | Blue",
-    "Nova | Rust",
-    "MAC-10 | Fade",
-    "UMP-45 | Riot",
-    "FAMAS | Cyan",
-    "PP-Bizon | Water",
-    "Five-SeveN | Forest"
-  ],
+const cases = {
 
-  rare: [
-    "AK-47 | Slate",
-    "M4A1-S | Nitro",
-    "AWP | Fever",
-    "Desert Eagle | Blaze",
-    "Galil AR | Signal",
-    "MP7 | Blood",
-    "CZ75 | Emerald",
-    "Tec-9 | Ice",
-    "P90 | Elite",
-    "SSG 08 | Ghost"
-  ],
+standard:{
+price:10,
+drops:{
+common:60,
+rare:30,
+epic:7,
+legendary:3
+}
+},
 
-  epic: [
-    "AK-47 | Neon Rider",
-    "M4A4 | Emperor",
-    "AWP | Hyper Beast",
-    "USP-S | Kill Confirmed",
-    "Desert Eagle | Code Red",
-    "Karambit | Blue Steel",
-    "Butterfly | Crimson",
-    "Flip Knife | Lore"
-  ],
+elite:{
+price:100,
+drops:{
+common:30,
+rare:50,
+epic:17,
+legendary:3
+}
+},
 
-  legendary: [
-    "AK-47 | Fire Serpent",
-    "M4A4 | Howl",
-    "AWP | Dragon Lore",
-    "Karambit | Fade",
-    "Butterfly | Doppler",
-    "Skeleton Knife | Slaughter"
-  ],
+lucky:{
+price:500,
+drops:{
+rare:55,
+epic:30,
+legendary:9,
+mythic:6
+}
+},
 
-  mythic: [
-    "AWP | Gungnir",
-    "Karambit | Ruby",
-    "Butterfly | Sapphire",
-    "M9 Bayonet | Gamma Doppler",
-    "AK-47 | Wild Lotus"
-  ]
+legendary:{
+price:1250,
+drops:{
+epic:45,
+legendary:40,
+mythic:15
+}
+}
+
 };
 
-function randomPrice(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+/* =========================
+   PAGE SYSTEM
+========================= */
 
-function createItems(type, count, min, max) {
-  let arr = [];
+function showPage(page){
 
-  for (let i = 0; i < count; i++) {
+document.getElementById(
+"casesPage"
+).style.display =
+page === "cases"
+? "block"
+: "none";
 
-    const nameList = csNames[type];
-    const randomName =
-      nameList[Math.floor(Math.random() * nameList.length)];
+document.getElementById(
+"inventoryPage"
+).style.display =
+page === "inventory"
+? "block"
+: "none";
 
-    arr.push({
-      name: randomName,
-      rarity: type,
-      price: randomPrice(min, max),
+document.getElementById(
+"profilePage"
+).style.display =
+page === "profile"
+? "block"
+: "none";
 
-      img: `
-      <div class="gun-icon ${type}">
-        🔫
-      </div>
-      `
-    });
-  }
-
-  return arr;
 }
 
 /* =========================
-   ALL ITEMS
+   RANDOM ITEM
 ========================= */
 
-const commonItems = createItems("common", 100, 1, 50);
-const rareItems = createItems("rare", 80, 51, 250);
-const epicItems = createItems("epic", 60, 251, 500);
-const legendaryItems = createItems("legendary", 35, 501, 1500);
-const mythicItems = createItems("mythic", 25, 1501, 5000);
+function randomItem(caseName){
 
-/* =========================
-   CASES
-========================= */
+const config =
+cases[caseName];
 
-const caseData = [
-  {
-    name: "Standard",
-    price: 10,
-    image: "📦",
-    items: [
-      ...commonItems.slice(0,15),
-      ...rareItems.slice(0,5),
-      ...epicItems.slice(0,3),
-      ...legendaryItems.slice(0,2)
-    ],
+const rand =
+Math.random() * 100;
 
-    chances: {
-      common: 60,
-      rare: 30,
-      epic: 7,
-      legendary: 3
-    }
-  },
+let rarity;
 
-  {
-    name: "Elite",
-    price: 100,
-    image: "💎",
-    items: [
-      ...commonItems.slice(15,25),
-      ...rareItems.slice(5,15),
-      ...epicItems.slice(3,6),
-      ...legendaryItems.slice(2,4)
-    ],
+let total = 0;
 
-    chances: {
-      common: 30,
-      rare: 60,
-      epic: 7,
-      legendary: 3
-    }
-  },
+for(let r in config.drops){
 
-  {
-    name: "Lucky",
-    price: 500,
-    image: "🍀",
-    items: [
-      ...rareItems.slice(15,30),
-      ...epicItems.slice(6,14),
-      ...legendaryItems.slice(4,9),
-      ...mythicItems.slice(0,2)
-    ],
+total += config.drops[r];
 
-    chances: {
-      rare: 55,
-      epic: 30,
-      legendary: 9,
-      mythic: 6
-    }
-  },
+if(rand <= total){
 
-  {
-    name: "Legendary",
-    price: 1250,
-    image: "🔥",
-    items: [
-      ...epicItems.slice(14,21),
-      ...legendaryItems.slice(9,22),
-      ...mythicItems.slice(2,7)
-    ],
+rarity = r;
 
-    chances: {
-      epic: 45,
-      legendary: 40,
-      mythic: 15
-    }
-  }
+break;
+
+}
+
+}
+
+const rarityItems =
+items[rarity];
+
+return rarityItems[
+Math.floor(
+Math.random()
+* rarityItems.length
+)
 ];
 
-/* =========================
-   RENDER CASES
-========================= */
-
-function renderCases() {
-
-  const container = document.getElementById("case-list");
-  container.innerHTML = "";
-
-  caseData.forEach((c, index) => {
-
-    const div = document.createElement("div");
-    div.className = "case-card";
-
-    div.innerHTML = `
-    
-      <div class="case-image">
-        ${c.image}
-      </div>
-
-      <div class="case-bottom">
-
-        <h2>${c.name}</h2>
-
-        <p class="case-price">${c.price}$</p>
-
-        <button onclick="openCase(${index})">
-          🔓 Ochish
-        </button>
-
-      </div>
-    `;
-
-    container.appendChild(div);
-  });
-}
+}// SCRIPT.JS 2-QISM
 
 /* =========================
-   RANDOM WINNER
+   CASE OPEN
 ========================= */
 
-function getRandomRarity(chances) {
+function openCase(caseName){
 
-  const rand = Math.random() * 100;
+const config = cases[caseName];
 
-  let total = 0;
+if(balance < config.price){
 
-  for (let rarity in chances) {
+alert("❌ Pul yetarli emas");
 
-    total += chances[rarity];
+return;
 
-    if (rand <= total) {
-      return rarity;
-    }
-  }
-
-  return "common";
 }
 
-function getWinner(caseObj) {
+balance -= config.price;
 
-  const rarity = getRandomRarity(caseObj.chances);
+updateBalance();
 
-  const filtered =
-    caseObj.items.filter(i => i.rarity === rarity);
+openedCases++;
 
-  return filtered[
-    Math.floor(Math.random() * filtered.length)
-  ];
+document.getElementById(
+"openedCases"
+).innerText = openedCases;
+
+const modal =
+document.getElementById(
+"openModal"
+);
+
+modal.style.display = "flex";
+
+const roulette =
+document.getElementById(
+"roulette"
+);
+
+roulette.innerHTML = "";
+
+const winner =
+randomItem(caseName);
+
+let fakeItems = [];
+
+for(let i=0;i<45;i++){
+
+let rarities =
+Object.keys(config.drops);
+
+let randomRarity =
+rarities[
+Math.floor(
+Math.random()
+* rarities.length
+)
+];
+
+let randomItemData =
+items[randomRarity][
+Math.floor(
+Math.random()
+* items[randomRarity].length
+)
+];
+
+fakeItems.push(randomItemData);
+
 }
 
-/* =========================
-   OPEN CASE
-========================= */
+fakeItems[35] = winner;
 
-function openCase(index) {
+fakeItems.forEach(item=>{
 
-  const c = caseData[index];
+const div =
+document.createElement("div");
 
-  if (balance < c.price) {
-    alert("Pul yetarli emas");
-    return;
-  }
+div.className =
+`roulette-item ${item.rarity}`;
 
-  balance -= c.price;
-  updateData();
+div.innerHTML = `
 
-  const modal = document.getElementById("game-modal");
-  const carousel = document.getElementById("carousel");
+<div class="gun">
+🔫
+</div>
 
-  modal.classList.remove("hidden");
+<h4>
+${item.name}
+</h4>
 
-  carousel.innerHTML = "";
+<p>
+${item.price}$
+</p>
 
-  const winner = getWinner(c);
+`;
 
-  const fakeItems = [];
+roulette.appendChild(div);
 
-  for (let i = 0; i < 40; i++) {
+});
 
-    const random =
-      c.items[Math.floor(Math.random() * c.items.length)];
+roulette.style.transition =
+"none";
 
-    fakeItems.push(random);
-  }
+roulette.style.transform =
+"translateX(0px)";
 
-  fakeItems[32] = winner;
+setTimeout(()=>{
 
-  fakeItems.forEach(item => {
+roulette.style.transition =
+"transform 5s cubic-bezier(.08,.6,0,1)";
 
-    const div = document.createElement("div");
+roulette.style.transform =
+"translateX(-6100px)";
 
-    div.className =
-      `skin-card ${rarityStyles[item.rarity].class}`;
+},100);
 
-    div.innerHTML = `
-    
-      ${item.img}
+setTimeout(()=>{
 
-      <span>${item.name}</span>
+document.getElementById(
+"wonItem"
+).innerHTML = `
 
-      <b>${item.price}$</b>
-    `;
+🎉 Siz yutdingiz:
 
-    carousel.appendChild(div);
-  });
+<br><br>
 
-  carousel.style.transition = "none";
-  carousel.style.transform = `translateX(0px)`;
+${winner.name}
 
-  setTimeout(() => {
+<br>
 
-    carousel.style.transition =
-      "transform 5s cubic-bezier(0.08,0.6,0,1)";
+💰 ${winner.price}$
 
-    carousel.style.transform =
-      `translateX(-3500px)`;
+`;
 
-  }, 100);
+inventory.push(winner);
 
-  setTimeout(() => {
+renderInventory();
 
-    inventory.push(winner);
+},5500);
 
-    updateData();
-
-    alert(`Siz yutdingiz:\n${winner.name}`);
-
-  }, 5500);
 }
 
 /* =========================
    INVENTORY
 ========================= */
 
-function renderInventory() {
+function renderInventory(){
 
-  const container =
-    document.getElementById("inventory-list");
+const inventoryBox =
+document.getElementById(
+"inventoryItems"
+);
 
-  container.innerHTML = "";
+inventoryBox.innerHTML = "";
 
-  inventory.forEach((item, i) => {
+inventory.forEach(item=>{
 
-    const div = document.createElement("div");
+const div =
+document.createElement("div");
 
-    div.className =
-      `inv-item ${rarityStyles[item.rarity].class}`;
+div.className =
+`inventory-item ${item.rarity}`;
 
-    div.innerHTML = `
-    
-      ${item.img}
+div.innerHTML = `
 
-      <p>${item.name}</p>
+<div style="
+font-size:55px;
+">
+🔫
+</div>
 
-      <b>${item.price}$</b>
+<h3>
+${item.name}
+</h3>
 
-      <button onclick="sellItem(${i})">
-        Sotish
-      </button>
-    `;
+<p>
+💰 ${item.price}$
+</p>
 
-    container.appendChild(div);
-  });
-}
+`;
 
-function sellItem(i) {
+inventoryBox.appendChild(div);
 
-  balance += inventory[i].price;
+});
 
-  inventory.splice(i, 1);
-
-  updateData();
-}
-
-/* =========================
-   UPDATE
-========================= */
-
-function updateData() {
-
-  document.getElementById("balance")
-    .innerText = balance.toFixed(2);
-
-  localStorage.setItem("balance", balance);
-
-  localStorage.setItem(
-    "inventory",
-    JSON.stringify(inventory)
-  );
-
-  renderInventory();
 }
 
 /* =========================
-   SECTIONS
+   CLOSE MODAL
 ========================= */
 
-function showSection(name) {
+function closeModal(){
 
-  document.getElementById("cases-section")
-    .classList.toggle("hidden", name !== "cases");
+document.getElementById(
+"openModal"
+).style.display = "none";
 
-  document.getElementById("inventory-section")
-    .classList.toggle("hidden", name !== "inventory");
-
-  document.getElementById("profile-section")
-    .classList.toggle("hidden", name !== "profile");
-}
-
-function closeModal() {
-  document.getElementById("game-modal")
-    .classList.add("hidden");
 }
 
 /* =========================
-   USER INFO
+   BALANCE
 ========================= */
 
-document.getElementById("user-name")
-.innerText =
-tg.initDataUnsafe.user?.first_name || "Player";
+function updateBalance(){
 
-if (tg.initDataUnsafe.user?.photo_url) {
+document.getElementById(
+"balance"
+).innerText = balance;
 
-  document.getElementById("user-photo").src =
-  tg.initDataUnsafe.user.photo_url;
+document.getElementById(
+"profileBalance"
+).innerText = balance;
+
 }
 
 /* =========================
    START
 ========================= */
 
-renderCases();
-updateData();
+updateBalance();
+
+renderInventory();
