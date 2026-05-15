@@ -1,295 +1,328 @@
-body {
-    background: #070b16;
-    color: white;
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    padding: 12px;
-    overflow-x: hidden;
+/* =========================
+   BODY
+========================= */
+
+body{
+    margin:0;
+    padding:10px;
+    background:#050816;
+    color:white;
+    font-family:Arial;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(145deg,#10182d,#0d1430);
-    padding: 12px;
-    border-radius: 22px;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 0 25px rgba(0,0,0,0.45);
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#0f1729;
+    border:2px solid #1d2942;
+    padding:12px;
+    border-radius:20px;
+    margin-bottom:15px;
 }
 
-#user-photo {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    border: 3px solid gold;
+.user-info{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 20px;
-    font-weight: bold;
+#user-photo{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    border:3px solid gold;
 }
 
-.balance-info {
-    font-size: 22px;
-    font-weight: bold;
-    color: gold;
+#user-name{
+    font-size:18px;
+    font-weight:bold;
 }
 
-/* NAVIGATION */
-
-nav {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+.balance-info{
+    font-size:20px;
+    font-weight:bold;
+    color:gold;
 }
 
-nav button {
-    flex: 1;
-    background: linear-gradient(145deg,#111827,#1a2338);
-    border: none;
-    color: white;
-    padding: 14px;
-    border-radius: 16px;
-    font-size: 18px;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(0,0,0,0.35);
+/* =========================
+   NAV
+========================= */
+
+nav{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
 }
 
-nav button:active {
-    transform: scale(0.95);
+nav button{
+    flex:1;
+    background:#101c33;
+    color:white;
+    border:none;
+    border-radius:14px;
+    padding:14px;
+    font-size:18px;
+    font-weight:bold;
 }
 
-/* TITLES */
+/* =========================
+   TITLES
+========================= */
 
-h2 {
-    margin-top: 25px;
-    font-size: 42px;
+h2{
+    margin-bottom:15px;
+    font-size:28px;
 }
 
-/* CASES */
+/* =========================
+   CASES
+========================= */
 
-.case-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 15px;
+.case-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
 }
 
-.case-card {
-    background: linear-gradient(145deg,#111b33,#1b2a52);
-    border-radius: 24px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 0 25px rgba(0,0,0,0.5);
-    min-height: 290px;
-    transition: 0.25s;
+.case-card{
+    background:linear-gradient(180deg,#13234a,#0b1430);
+    border-radius:24px;
+    overflow:hidden;
+    border:2px solid #22345e;
+    box-shadow:0 0 20px rgba(0,0,0,.5);
 }
 
-.case-card:active {
-    transform: scale(0.96);
+.case-image{
+    height:140px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:80px;
+    background:
+    radial-gradient(circle,#27478f 0%,#0b1430 70%);
 }
 
-.case-image {
-    width: 100%;
-    height: 130px;
-    object-fit: contain;
-    padding-top: 10px;
-    filter: drop-shadow(0 0 15px rgba(255,215,0,0.5));
+.case-bottom{
+    padding:15px;
+    text-align:center;
+    background:rgba(255,255,255,.03);
 }
 
-.case-info {
-    padding: 15px;
-    text-align: center;
-    background: rgba(255,255,255,0.03);
+.case-bottom h2{
+    margin:0;
+    font-size:34px;
 }
 
-.case-info h3 {
-    margin: 0;
-    font-size: 28px;
+.case-price{
+    font-size:22px;
+    margin:10px 0;
 }
 
-.case-info p {
-    font-size: 24px;
-    color: #ddd;
+.case-card button{
+    width:100%;
+    border:none;
+    background:#1fb141;
+    color:white;
+    border-radius:16px;
+    padding:16px;
+    font-size:26px;
+    font-weight:bold;
 }
 
-.case-card button {
-    width: 100%;
-    margin-top: 12px;
-    border: none;
-    border-radius: 14px;
-    padding: 14px;
-    background: linear-gradient(145deg,#20bf55,#16a34a);
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
+/* =========================
+   MODAL
+========================= */
+
+#game-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.92);
+    z-index:999;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
 }
 
-/* INVENTORY */
-
-#inventory-list {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 12px;
+.hidden{
+    display:none !important;
 }
 
-.inv-item {
-    background: #111827;
-    border-radius: 14px;
-    padding: 10px;
-    text-align: center;
+#case-window{
+    width:95%;
+    max-width:700px;
+    height:180px;
+    overflow:hidden;
+    position:relative;
+    border-radius:20px;
+    border:3px solid #32415f;
+    background:#0d1529;
 }
 
-.inv-item img {
-    width: 100%;
-    border-radius: 10px;
+#line{
+    position:absolute;
+    left:50%;
+    top:0;
+    width:5px;
+    height:100%;
+    background:gold;
+    box-shadow:0 0 20px gold;
+    z-index:5;
 }
 
-.inv-item button {
-    width: 100%;
-    margin-top: 8px;
-    background: crimson;
-    border: none;
-    padding: 10px;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
+#carousel{
+    display:flex;
+    position:absolute;
+    left:0;
+    top:0;
 }
 
-/* RARITY */
+/* =========================
+   ITEM CARD
+========================= */
 
-.common {
-    border-bottom: 5px solid #2563eb;
+.skin-card{
+    width:150px;
+    height:180px;
+    flex-shrink:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    border-right:2px solid #1d2942;
+    color:white;
 }
 
-.rare {
-    border-bottom: 5px solid #22c55e;
+.skin-card span{
+    font-size:16px;
+    text-align:center;
+    padding:0 8px;
 }
 
-.epic {
-    border-bottom: 5px solid #a855f7;
+.skin-card b{
+    font-size:20px;
+    margin-top:6px;
 }
 
-.legendary {
-    border-bottom: 5px solid gold;
+/* =========================
+   RARITY
+========================= */
+
+.rarity-common{
+    background:#14335e;
 }
 
-.mythic {
-    border-bottom: 5px solid red;
+.rarity-rare{
+    background:#104d22;
 }
 
-/* MODAL */
-
-#game-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.94);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+.rarity-epic{
+    background:#4a1869;
 }
 
-.hidden {
-    display: none !important;
+.rarity-legendary{
+    background:#7c5b00;
 }
 
-.modal-content {
-    width: 95%;
-    max-width: 420px;
+.rarity-mythic{
+    background:#6b1111;
 }
 
-#case-window {
-    width: 100%;
-    height: 170px;
-    overflow: hidden;
-    border-radius: 16px;
-    position: relative;
-    border: 2px solid #333;
-    background: #0b1020;
+/* =========================
+   GUN ICON
+========================= */
+
+.gun-icon{
+    width:70px;
+    height:70px;
+    border-radius:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+    margin-bottom:10px;
 }
 
-#line {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 4px;
-    height: 100%;
-    background: gold;
-    z-index: 5;
-    box-shadow: 0 0 15px gold;
+.gun-icon.common{
+    background:#4da6ff;
 }
 
-#carousel {
-    display: flex;
-    position: absolute;
-    left: 0;
-    top: 0;
+.gun-icon.rare{
+    background:#32d74b;
 }
 
-.skin-card {
-    min-width: 120px;
-    height: 170px;
-    margin-right: 3px;
-    background: #131c2f;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+.gun-icon.epic{
+    background:#bb6cff;
 }
 
-.skin-card img {
-    width: 85px;
+.gun-icon.legendary{
+    background:#ffd43b;
 }
 
-.skin-card span {
-    font-size: 12px;
-    text-align: center;
-    padding: 0 4px;
+.gun-icon.mythic{
+    background:#ff4d4d;
 }
 
-.skin-card b {
-    margin-top: 5px;
+/* =========================
+   CLOSE BTN
+========================= */
+
+.close-btn{
+    margin-top:20px;
+    width:90%;
+    max-width:700px;
+    border:none;
+    border-radius:20px;
+    padding:18px;
+    background:gold;
+    font-size:28px;
+    font-weight:bold;
 }
 
-#close-modal {
-    margin-top: 15px;
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 14px;
-    background: gold;
-    font-size: 20px;
-    font-weight: bold;
+/* =========================
+   INVENTORY
+========================= */
+
+#inventory-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-/* PROFILE */
-
-.profile-card {
-    background: #111827;
-    border-radius: 18px;
-    padding: 20px;
+.inv-item{
+    border-radius:16px;
+    padding:12px;
+    text-align:center;
 }
 
-.lang-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
+.inv-item p{
+    font-size:15px;
+    min-height:38px;
 }
 
-.lang-buttons button {
-    flex: 1;
-    border: none;
-    padding: 12px;
-    border-radius: 12px;
-    background: #1f2937;
-    color: white;
-    font-size: 16px;
+.inv-item button{
+    width:100%;
+    border:none;
+    background:#e53935;
+    color:white;
+    padding:10px;
+    border-radius:12px;
+    font-size:18px;
+    margin-top:10px;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-card{
+    background:#101c33;
+    border-radius:20px;
+    padding:20px;
+    border:2px solid #22345e;
 }
