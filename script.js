@@ -1452,3 +1452,29 @@ function openCaseWithProgress(caseIndex) {
     `;
   }, 2000);
 }
+// ⚡ CRASH O'YINI
+let crashInterval;
+let crashMultiplier = 1.00;
+
+function startCrashGame() {
+  crashMultiplier = 1.00;
+  clearInterval(crashInterval);
+
+  const crashBar = document.querySelector(".crash-bar");
+  const crashResult = document.getElementById("crash-result");
+
+  crashBar.style.width = "0%";
+  crashResult.innerHTML = "O'yin boshlandi...";
+
+  crashInterval = setInterval(() => {
+    crashMultiplier += 0.05; // har 100ms da +0.05
+    crashBar.style.width = Math.min(crashMultiplier * 10, 100) + "%";
+    crashResult.innerHTML = `📈 Multiplier: x${crashMultiplier.toFixed(2)}`;
+
+    // Random crash nuqtasi
+    if (Math.random() < 0.02) { 
+      clearInterval(crashInterval);
+      crashResult.innerHTML = `💥 Crash bo'ldi! Oxirgi multiplier: x${crashMultiplier.toFixed(2)}`;
+    }
+  }, 100);
+                              }
