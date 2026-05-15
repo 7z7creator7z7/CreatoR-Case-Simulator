@@ -1,136 +1,303 @@
+<!-- INDEX.HTML 1-QISM -->
+
 <!DOCTYPE html>
 <html lang="uz">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creator Case Simulator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+<title>CreatoR Case</title>
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="style.css">
+
 </head>
-
 <body>
 
-<div id="app">
+<div class="top-profile">
 
-    <!-- HEADER -->
-    <header>
-
-        <div class="user-info">
-
-            <img
-            id="user-photo"
-            src="https://i.imgur.com/6VBx3io.png">
-
-            <span id="user-name">
-                Player
-            </span>
-
+    <div class="profile-left">
+        <div class="avatar">
+            💎
         </div>
 
-        <div class="balance-info">
-            💰
-            <span id="balance">0</span>$
+        <div class="nickname">
+            『CreatoR』
         </div>
+    </div>
 
-    </header>
-
-    <!-- NAVIGATION -->
-    <nav>
-
-        <button onclick="showSection('cases')">
-            Keyslar
-        </button>
-
-        <button onclick="showSection('inventory')">
-            Inventar
-        </button>
-
-        <button onclick="showSection('profile')">
-            Profil
-        </button>
-
-    </nav>
-
-    <!-- CASES -->
-    <section id="cases-section">
-
-        <h2>
-            Keys Tanlang
-        </h2>
-
-        <div
-        class="case-grid"
-        id="case-list">
-        </div>
-
-    </section>
-
-    <!-- INVENTORY -->
-    <section
-    id="inventory-section"
-    class="hidden">
-
-        <h2>
-            Inventar
-        </h2>
-
-        <div id="inventory-list">
-        </div>
-
-    </section>
-
-    <!-- PROFILE -->
-    <section
-    id="profile-section"
-    class="hidden">
-
-        <h2>
-            Profil
-        </h2>
-
-        <div class="profile-card">
-
-            <p>
-                Creator Case Simulator
-            </p>
-
-            <p>
-                Telegram Mini App
-            </p>
-
-        </div>
-
-    </section>
+    <div class="money">
+        💰 <span id="balance">350550</span>$
+    </div>
 
 </div>
 
-<!-- CASE OPEN MODAL -->
-<div
-id="game-modal"
-class="hidden">
+<div class="menu">
 
-    <h2>
-        Case Ochilmoqda...
-    </h2>
+    <button onclick="showPage('cases')">
+        Keyslar
+    </button>
 
-    <div id="case-window">
+    <button onclick="showPage('inventory')">
+        Inventar
+    </button>
 
-        <div id="line"></div>
-
-        <div id="carousel"></div>
-
-    </div>
-
-    <button
-    class="close-btn"
-    onclick="closeModal()">
-        Yopish
+    <button onclick="showPage('profile')">
+        Profil
     </button>
 
 </div>
+
+<!-- CASE PAGE -->
+
+<div id="casesPage">
+
+<h1 class="title">
+    Keys Tanlang
+</h1>
+
+<div class="cases-grid">
+
+    <!-- STANDARD -->
+
+    <div class="case-card">
+
+        <div class="case-image standard-img">
+            📦
+        </div>
+
+        <div class="case-info">
+
+            <h3>Standard</h3>
+
+            <p>10$</p>
+
+            <div class="chance-box">
+                🔵60% 🟢30% 🟣7% 🟡3%
+            </div>
+
+            <button onclick="openCase('standard')">
+                🔓 Ochish
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ELITE -->
+
+    <div class="case-card">
+
+        <div class="case-image elite-img">
+            💎
+        </div>
+
+        <div class="case-info">
+
+            <h3>Elite</h3>
+
+            <p>100$</p>
+
+            <div class="chance-box">
+                🔵30% 🟢50% 🟣17% 🟡3%
+            </div>
+
+            <button onclick="openCase('elite')">
+                🔓 Ochish
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- LUCKY -->
+
+    <div class="case-card">
+
+        <div class="case-image lucky-img">
+            🍀
+        </div>
+
+        <div class="case-info">
+
+            <h3>Lucky</h3>
+
+            <p>500$</p>
+
+            <div class="chance-box">
+                🟢55% 🟣30% 🟡9% 🔴6%
+            </div>
+
+            <button onclick="openCase('lucky')">
+                🔓 Ochish
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- LEGENDARY -->
+
+    <div class="case-card">
+
+        <div class="case-image legendary-img">
+            🔥
+        </div>
+
+        <div class="case-info">
+
+            <h3>Legendary</h3>
+
+            <p>1250$</p>
+
+            <div class="chance-box">
+                🟣45% 🟡40% 🔴15%
+            </div>
+
+            <button onclick="openCase('legendary')">
+                🔓 Ochish
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- INVENTORY -->
+
+<div id="inventoryPage" style="display:none;">
+
+<h1 class="title">
+    Inventar
+</h1>
+
+<div id="inventoryItems" class="inventory-grid">
+
+</div>
+
+</div>
+
+<!-- PROFILE -->
+
+<div id="profilePage" style="display:none;">
+
+<h1 class="title">
+    Profil
+</h1>
+
+<div class="profile-box">
+
+    <h2>『CreatoR』</h2>
+
+    <p>Balans:
+        <span id="profileBalance">
+            350550
+        </span>$
+    </p>
+
+    <p>
+        Ochilgan Keyslar:
+        <span id="openedCases">
+            0
+        </span>
+    </p>
+
+</div>
+
+</div>
+
+<!-- OPEN EFFECT -->
+
+<div id="openModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>
+            Case Ochilmoqda...
+        </h2>
+
+        <div class="roulette-wrapper">
+
+            <div id="roulette">
+
+            </div>
+
+            <div class="selector-line">
+
+            </div>
+
+        </div>
+
+        <div id="wonItem">
+
+        </div>
+
+        <button onclick="closeModal()">
+            Yopish
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html><!-- INDEX.HTML 2-QISM -->
+
+<!-- OVOZLAR -->
+
+<audio id="openSound">
+
+<source
+src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"
+type="audio/mpeg">
+
+</audio>
+
+<audio id="clickSound">
+
+<source
+src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"
+type="audio/mpeg">
+
+</audio>
+
+<!-- TELEGRAM WEB APP -->
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<script>
+
+const tg =
+window.Telegram.WebApp;
+
+tg.expand();
+
+/* CLICK EFFECT */
+
+document.querySelectorAll(
+"button"
+).forEach(btn=>{
+
+btn.addEventListener(
+"click",
+()=>{
+
+document.getElementById(
+"clickSound"
+).play();
+
+}
+);
+
+});
+
+</script>
+
+<!-- SCRIPT -->
 
 <script src="script.js"></script>
 
