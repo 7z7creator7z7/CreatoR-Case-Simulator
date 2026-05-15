@@ -89,12 +89,15 @@ h2{
     gap:14px;
 }
 
-.case-card{
-    background:linear-gradient(180deg,#13234a,#0b1430);
-    border-radius:24px;
-    overflow:hidden;
-    border:2px solid #22345e;
-    box-shadow:0 0 20px rgba(0,0,0,.5);
+.case-card h3{
+    font-size: 32px;
+    line-height: 1.1;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: white;
+    font-weight: 800;
+    text-align: center;
+    padding: 0 5px;
 }
 
 .case-image{
