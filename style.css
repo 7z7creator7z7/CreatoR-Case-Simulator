@@ -44,3 +44,62 @@ nav button { flex: 1; padding: 12px; background: #21262d; border: 1px solid #303
 .inv-item { background: #161b22; padding: 8px; border-radius: 8px; text-align: center; font-size: 11px; border: 1px solid #30363d; }
 .inv-item img { width: 100%; }
 .inv-item button { background: #da3633; border: none; color: white; width: 100%; padding: 5px; border-radius: 4px; margin-top: 5px; }
+.rarity-blue{
+    background:#0f3460;
+}
+
+.rarity-green{
+    background:#14532d;
+}
+
+.rarity-purple{
+    background:#581c87;
+}
+
+.rarity-gold{
+    background:#a16207;
+}
+
+.rarity-red{
+    background:#7f1d1d;
+}
+
+.premium-card{
+    border-radius:20px;
+    overflow:hidden;
+    border:none;
+    background:linear-gradient(145deg,#1e293b,#0f172a);
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.case-top{
+    height:140px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.case-image{
+    width:120px;
+}
+
+.case-info{
+    padding:15px;
+    background:rgba(255,255,255,0.04);
+}
+
+.case-price{
+    font-size:18px;
+    margin-top:5px;
+}
+
+.open-btn{
+    width:100%;
+    margin-top:12px;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:white;
+    font-weight:700;
+} 
