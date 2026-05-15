@@ -1417,3 +1417,38 @@ function openCase(caseIndex) {
     <p>Balans yangilandi: ${balance.toFixed(2)}$</p>
   `;
 }
+// 🎲 CASE OCHISH PROGRESS BAR
+function openCaseWithProgress(caseIndex) {
+  const selectedCase = cases[caseIndex];
+  if (balance < selectedCase.price) return alert("Mablag' yetarli emas!");
+
+  // Balansdan case narxini ayiramiz
+  balance -= selectedCase.price;
+  updateUI();
+
+  // Progress bar yaratish
+  const resultBox = document.getElementById('case-result');
+  resultBox.innerHTML = `
+    <h3>${selectedCase.name} ochilmoqda...</h3>
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+  `;
+
+  // 2 soniyadan keyin natija ko‘rsatish
+  setTimeout(() => {
+    const items = selectedCase.items;
+    const randIndex = Math.floor(Math.random() * items.length);
+    const reward = items[randIndex];
+
+    balance += reward.value;
+    updateUI();
+
+    resultBox.innerHTML = `
+      <h3>${selectedCase.name} ochildi!</h3>
+      <p>🎁 Sizga tushdi: <b>${reward.name}</b></p>
+      <p>Qiymati: ${reward.value}$ (${reward.rarity})</p>
+      <p>Balans yangilandi: ${balance.toFixed(2)}$</p>
+    `;
+  }, 2000);
+}
