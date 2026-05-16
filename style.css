@@ -1,4 +1,7 @@
-/* STYLE.CSS 1-QISM */
+/* =========================
+CREATOR CASE - FULL CSS
+style.css
+========================= */
 
 *{
     margin:0;
@@ -10,213 +13,210 @@
 body{
     background:#020617;
     color:white;
-    padding:15px;
+    padding:12px;
 }
 
-.top-profile{
-    background:#08122f;
-    border:2px solid #1e3a8a;
-    border-radius:25px;
-    padding:18px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+/* TOP */
+
+.top{
+    background:#0f172a;
+    border:2px solid #1d4ed8;
+    border-radius:22px;
+    padding:12px;
+    margin-bottom:14px;
 }
 
-.profile-left{
+.profile{
     display:flex;
     align-items:center;
     gap:12px;
 }
 
 .avatar{
-    width:70px;
-    height:70px;
+    width:65px;
+    height:65px;
     border-radius:50%;
-    background:#13214a;
     border:3px solid gold;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:34px;
+    object-fit:cover;
 }
 
-.nickname{
-    font-size:34px;
+.nick{
+    font-size:20px;
     font-weight:bold;
 }
 
 .money{
-    font-size:28px;
+    margin-top:4px;
     color:gold;
+    font-size:18px;
     font-weight:bold;
 }
+
+/* MENU */
 
 .menu{
     display:flex;
     gap:10px;
-    margin-bottom:25px;
+    margin-bottom:18px;
 }
 
 .menu button{
     flex:1;
-    background:#111827;
+    height:52px;
     border:none;
-    border-radius:18px;
-    padding:18px;
+    border-radius:16px;
+    background:#111827;
     color:white;
-    font-size:24px;
+    font-size:17px;
     font-weight:bold;
 }
+
+/* TITLE */
 
 .title{
-    font-size:58px;
-    margin-bottom:20px;
-    font-weight:bold;
+    font-size:32px;
+    margin-bottom:16px;
 }
 
-.cases-grid{
+/* CASES */
+
+.cases{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:15px;
+    gap:12px;
 }
 
-.case-card{
-    background:linear-gradient(180deg,#142557,#1b2f6e);
-    border:3px solid #29479d;
-    border-radius:28px;
+.case{
+    background:#0f172a;
+    border:2px solid #1e40af;
+    border-radius:24px;
     overflow:hidden;
-    box-shadow:0 0 25px rgba(0,80,255,0.4);
+    box-shadow:0 0 15px rgba(37,99,235,.3);
 }
 
 .case-image{
-    height:180px;
+    height:140px;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:100px;
+    font-size:70px;
 }
 
-.standard-img{
-    background:radial-gradient(circle,#3b82f6,#0f172a);
+.blue{
+    background:linear-gradient(180deg,#2563eb,#0f172a);
 }
 
-.elite-img{
-    background:radial-gradient(circle,#60a5fa,#0f172a);
+.cyan{
+    background:linear-gradient(180deg,#06b6d4,#0f172a);
 }
 
-.lucky-img{
-    background:radial-gradient(circle,#22c55e,#0f172a);
+.green{
+    background:linear-gradient(180deg,#22c55e,#0f172a);
 }
 
-.legendary-img{
-    background:radial-gradient(circle,#ef4444,#0f172a);
+.red{
+    background:linear-gradient(180deg,#ef4444,#0f172a);
 }
 
 .case-info{
-    padding:15px;
+    padding:12px;
     text-align:center;
-    background:rgba(255,255,255,0.04);
 }
 
-.case-card h3{
-    font-size:32px;
-    margin-bottom:5px;
-}
-
-.case-card p{
-    font-size:26px;
-    margin-bottom:10px;
-}
-
-.chance-box{
-    background:#0f172a;
-    border-radius:12px;
-    padding:10px;
-    font-size:17px;
-    margin-bottom:15px;
-}
-
-.case-card button{
-    width:100%;
-    background:#22c55e;
-    border:none;
-    border-radius:18px;
-    padding:18px;
-    color:white;
-    font-size:28px;
+.case-name{
+    font-size:22px;
     font-weight:bold;
 }
 
-.inventory-grid{
+.case-price{
+    margin-top:6px;
+    margin-bottom:10px;
+    font-size:18px;
+}
+
+.chance{
+    background:#020617;
+    border-radius:14px;
+    padding:10px;
+    margin-bottom:12px;
+    font-size:14px;
+    line-height:24px;
+}
+
+.open{
+    width:100%;
+    height:50px;
+    border:none;
+    border-radius:14px;
+    background:#22c55e;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* INVENTORY */
+
+#inventoryPage{
+    display:none;
+}
+
+#inventory{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:15px;
+    gap:12px;
 }
 
-.inventory-item{
-    border-radius:20px;
-    padding:15px;
+.inv{
+    padding:12px;
+    border-radius:18px;
     text-align:center;
-    border:2px solid rgba(255,255,255,0.15);
+    color:white;
 }
 
-.inventory-item h3{
-    font-size:24px;
-    margin-top:10px;
+.invIcon{
+    font-size:42px;
+    margin-bottom:8px;
 }
 
-.inventory-item p{
-    font-size:22px;
-    margin-top:5px;
-}/* STYLE.CSS 2-QISM */
+.invName{
+    font-size:16px;
+    font-weight:bold;
+}
 
-/* ITEM RARITY */
+.invPrice{
+    margin-top:6px;
+    margin-bottom:10px;
+    color:gold;
+    font-size:15px;
+}
+
+.sellItem{
+    width:100%;
+    height:42px;
+    border:none;
+    border-radius:12px;
+    background:#ef4444;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+}
+
+/* RARITY */
 
 .common{
-    background:linear-gradient(180deg,#1e3a8a,#0f172a);
-    box-shadow:0 0 20px rgba(59,130,246,.5);
+    background:linear-gradient(180deg,#2563eb,#172554);
 }
 
 .rare{
-    background:linear-gradient(180deg,#166534,#0f172a);
-    box-shadow:0 0 20px rgba(34,197,94,.5);
+    background:linear-gradient(180deg,#16a34a,#052e16);
 }
 
 .epic{
-    background:linear-gradient(180deg,#6b21a8,#0f172a);
-    box-shadow:0 0 20px rgba(168,85,247,.5);
+    background:linear-gradient(180deg,#9333ea,#3b0764);
 }
 
-.legendary{
-    background:linear-gradient(180deg,#a16207,#0f172a);
-    box-shadow:0 0 20px rgba(250,204,21,.6);
-}
-
-.mythic{
-    background:linear-gradient(180deg,#991b1b,#0f172a);
-    box-shadow:0 0 25px rgba(239,68,68,.7);
-}
-
-/* PROFILE */
-
-.profile-box{
-    background:#0f172a;
-    border:2px solid #29479d;
-    border-radius:25px;
-    padding:25px;
-    text-align:center;
-}
-
-.profile-box h2{
-    font-size:42px;
-    margin-bottom:15px;
-}
-
-.profile-box p{
-    font-size:26px;
-    margin-top:10px;
+.legend{
+    background:linear-gradient(180deg,#dc2626,#450a0a);
 }
 
 /* MODAL */
@@ -224,150 +224,133 @@ body{
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.93);
+    background:rgba(0,0,0,.85);
     display:none;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     z-index:999;
 }
 
-.modal-content{
+.modal-box{
     width:95%;
-    max-width:900px;
-}
-
-.modal-content h2{
-    text-align:center;
-    font-size:42px;
-    margin-bottom:20px;
-}
-
-.roulette-wrapper{
-    position:relative;
-    overflow:hidden;
+    background:#0f172a;
     border:3px solid gold;
     border-radius:22px;
-    background:#0f172a;
-    height:220px;
+    padding:16px;
+    text-align:center;
 }
 
-#roulette{
-    display:flex;
-    align-items:center;
-    height:100%;
-    transition:transform 5s cubic-bezier(.08,.6,0,1);
+.modal-box h2{
+    margin-bottom:16px;
+    font-size:28px;
 }
 
-.selector-line{
+/* ROULETTE */
+
+.roulette{
+    position:relative;
+    overflow:hidden;
+    height:160px;
+    border-radius:18px;
+    border:3px solid gold;
+    background:#020617;
+}
+
+.line{
     position:absolute;
-    top:0;
     left:50%;
-    transform:translateX(-50%);
+    top:0;
     width:5px;
     height:100%;
     background:gold;
-    box-shadow:0 0 25px gold;
+    transform:translateX(-50%);
     z-index:5;
 }
 
-.roulette-item{
-    width:170px;
-    min-width:170px;
-    height:190px;
-    margin:0 5px;
-    border-radius:18px;
+.track{
     display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
+    gap:10px;
     padding:10px;
+    transition:transform 5s cubic-bezier(.1,.7,.1,1);
 }
 
-.roulette-item .gun{
-    font-size:55px;
+.roll{
+    min-width:130px;
+    height:130px;
+    border-radius:16px;
+    padding:10px;
+    text-align:center;
+    color:white;
+}
+
+.rollIcon{
+    font-size:38px;
+    margin-bottom:6px;
+}
+
+.rollName{
+    font-size:14px;
+    font-weight:bold;
+}
+
+.rollPrice{
+    margin-top:6px;
+    color:gold;
+    font-size:14px;
+}
+
+/* WINNER */
+
+.winner{
+    margin-top:18px;
+    margin-bottom:14px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.sell,
+.close{
+    width:100%;
+    height:50px;
+    border:none;
+    border-radius:14px;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.sell{
+    background:#22c55e;
     margin-bottom:10px;
 }
 
-.roulette-item h4{
-    font-size:18px;
-}
-
-.roulette-item p{
-    margin-top:5px;
-    font-size:20px;
-    color:gold;
-}
-
-#wonItem{
-    margin-top:25px;
-    text-align:center;
-    font-size:30px;
-    font-weight:bold;
-}
-
-.modal button{
-    width:100%;
-    margin-top:20px;
+.close{
     background:#ef4444;
-    border:none;
-    border-radius:18px;
-    padding:18px;
-    color:white;
-    font-size:28px;
-    font-weight:bold;
 }
 
-/* EFFECT */
+/* EMPTY */
 
-.case-card{
-    animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-
-    from{
-        transform:translateY(0px);
-    }
-
-    to{
-        transform:translateY(-4px);
-    }
-
-}
-
-.case-card:active{
-    transform:scale(.97);
+.empty{
+    text-align:center;
+    padding:30px;
+    font-size:20px;
+    opacity:.7;
 }
 
 /* PHONE */
 
-@media(max-width:700px){
+@media(max-width:600px){
 
-    .title{
-        font-size:42px;
+    .case-name{
+        font-size:18px;
     }
 
-    .nickname{
-        font-size:24px;
+    .open{
+        font-size:16px;
     }
 
-    .money{
-        font-size:22px;
+    .chance{
+        font-size:12px;
     }
 
-    .case-card h3{
-        font-size:24px;
     }
-
-    .case-card button{
-        font-size:22px;
-        padding:14px;
-    }
-
-    .roulette-item{
-        width:140px;
-        min-width:140px;
-    }
-
-   }
