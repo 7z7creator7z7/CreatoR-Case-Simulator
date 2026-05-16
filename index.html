@@ -1,47 +1,61 @@
-<!-- INDEX.HTML 1-QISM -->
+<!-- =========================
+CREATOR CASE - FULL HTML
+index.html
+========================= -->
 
 <!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
-<title>CreatoR Case</title>
+<title>Creator Case</title>
 
 <link rel="stylesheet" href="style.css">
-
 </head>
+
 <body>
 
-<div class="top-profile">
+<!-- TOP PROFILE -->
 
-    <div class="profile-left">
-        <div class="avatar">
-            💎
+<div class="top">
+
+    <div class="profile">
+
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+        class="avatar">
+
+        <div>
+
+            <div class="nick">
+                『CreatoR』
+            </div>
+
+            <div class="money"
+            id="money">
+                350000$
+            </div>
+
         </div>
 
-        <div class="nickname">
-            『CreatoR』
-        </div>
-    </div>
-
-    <div class="money">
-        💰 <span id="balance">350550</span>$
     </div>
 
 </div>
 
+<!-- MENU -->
+
 <div class="menu">
 
-    <button onclick="showPage('cases')">
+    <button onclick="openCases()">
         Keyslar
     </button>
 
-    <button onclick="showPage('inventory')">
+    <button onclick="openInventory()">
         Inventar
     </button>
 
-    <button onclick="showPage('profile')">
+    <button onclick="openProfile()">
         Profil
     </button>
 
@@ -49,117 +63,153 @@
 
 <!-- CASE PAGE -->
 
-<div id="casesPage">
+<div id="casePage">
 
 <h1 class="title">
     Keys Tanlang
 </h1>
 
-<div class="cases-grid">
+<div class="cases">
 
-    <!-- STANDARD -->
+<!-- STANDARD -->
 
-    <div class="case-card">
+<div class="case">
 
-        <div class="case-image standard-img">
-            📦
-        </div>
+<div class="case-image blue">
+📦
+</div>
 
-        <div class="case-info">
+<div class="case-info">
 
-            <h3>Standard</h3>
+<div class="case-name">
+Standard
+</div>
 
-            <p>10$</p>
+<div class="case-price">
+10$
+</div>
 
-            <div class="chance-box">
-                🔵60% 🟢30% 🟣7% 🟡3%
-            </div>
+<div class="chance">
 
-            <button onclick="openCase('standard')">
-                🔓 Ochish
-            </button>
+<div class="c1">🔵 60%</div>
+<div class="c2">🟢 30%</div>
+<div class="c3">🟣 7%</div>
+<div class="c4">🟡 3%</div>
 
-        </div>
+</div>
 
-    </div>
+<button class="open"
+onclick="openCase(10)">
+🔓 Ochish
+</button>
 
-    <!-- ELITE -->
+</div>
+</div>
 
-    <div class="case-card">
+<!-- ELITE -->
 
-        <div class="case-image elite-img">
-            💎
-        </div>
+<div class="case">
 
-        <div class="case-info">
+<div class="case-image cyan">
+💎
+</div>
 
-            <h3>Elite</h3>
+<div class="case-info">
 
-            <p>100$</p>
+<div class="case-name">
+Elite
+</div>
 
-            <div class="chance-box">
-                🔵30% 🟢50% 🟣17% 🟡3%
-            </div>
+<div class="case-price">
+100$
+</div>
 
-            <button onclick="openCase('elite')">
-                🔓 Ochish
-            </button>
+<div class="chance">
 
-        </div>
+<div class="c1">🔵 30%</div>
+<div class="c2">🟢 50%</div>
+<div class="c3">🟣 17%</div>
+<div class="c4">🟡 3%</div>
 
-    </div>
+</div>
 
-    <!-- LUCKY -->
+<button class="open"
+onclick="openCase(100)">
+🔓 Ochish
+</button>
 
-    <div class="case-card">
+</div>
+</div>
 
-        <div class="case-image lucky-img">
-            🍀
-        </div>
+<!-- LUCKY -->
 
-        <div class="case-info">
+<div class="case">
 
-            <h3>Lucky</h3>
+<div class="case-image green">
+🍀
+</div>
 
-            <p>500$</p>
+<div class="case-info">
 
-            <div class="chance-box">
-                🟢55% 🟣30% 🟡9% 🔴6%
-            </div>
+<div class="case-name">
+Lucky
+</div>
 
-            <button onclick="openCase('lucky')">
-                🔓 Ochish
-            </button>
+<div class="case-price">
+500$
+</div>
 
-        </div>
+<div class="chance">
 
-    </div>
+<div class="c1">🔵 10%</div>
+<div class="c2">🟢 50%</div>
+<div class="c3">🟣 30%</div>
+<div class="c4">🟡 10%</div>
 
-    <!-- LEGENDARY -->
+</div>
 
-    <div class="case-card">
+<button class="open"
+onclick="openCase(500)">
+🔓 Ochish
+</button>
 
-        <div class="case-image legendary-img">
-            🔥
-        </div>
+</div>
+</div>
 
-        <div class="case-info">
+<!-- LEGEND -->
 
-            <h3>Legendary</h3>
+<div class="case">
 
-            <p>1250$</p>
+<div class="case-image red">
+🔥
+</div>
 
-            <div class="chance-box">
-                🟣45% 🟡40% 🔴15%
-            </div>
+<div class="case-info">
 
-            <button onclick="openCase('legendary')">
-                🔓 Ochish
-            </button>
+<div class="case-name">
+Legendary
+</div>
 
-        </div>
+<div class="case-price">
+1250$
+</div>
 
-    </div>
+<div class="chance">
+
+<div class="c1">🔵 5%</div>
+<div class="c2">🟢 20%</div>
+<div class="c3">🟣 60%</div>
+<div class="c4">🟡 15%</div>
+
+</div>
+
+<button class="open"
+onclick="openCase(1250)">
+🔓 Ochish
+</button>
+
+</div>
+</div>
 
 </div>
 
@@ -167,137 +217,58 @@
 
 <!-- INVENTORY -->
 
-<div id="inventoryPage" style="display:none;">
+<div id="inventoryPage">
 
 <h1 class="title">
-    Inventar
+🎒 Inventar
 </h1>
 
-<div id="inventoryItems" class="inventory-grid">
+<div id="inventory">
 
 </div>
 
 </div>
 
-<!-- PROFILE -->
+<!-- MODAL -->
 
-<div id="profilePage" style="display:none;">
+<div class="modal"
+id="modal">
 
-<h1 class="title">
-    Profil
-</h1>
+<div class="modal-box">
 
-<div class="profile-box">
+<h2>
+Case Ochilmoqda...
+</h2>
 
-    <h2>『CreatoR』</h2>
+<div class="roulette">
 
-    <p>Balans:
-        <span id="profileBalance">
-            350550
-        </span>$
-    </p>
+<div class="line"></div>
 
-    <p>
-        Ochilgan Keyslar:
-        <span id="openedCases">
-            0
-        </span>
-    </p>
+<div class="track"
+id="track">
 
 </div>
 
 </div>
 
-<!-- OPEN EFFECT -->
-
-<div id="openModal" class="modal">
-
-    <div class="modal-content">
-
-        <h2>
-            Case Ochilmoqda...
-        </h2>
-
-        <div class="roulette-wrapper">
-
-            <div id="roulette">
-
-            </div>
-
-            <div class="selector-line">
-
-            </div>
-
-        </div>
-
-        <div id="wonItem">
-
-        </div>
-
-        <button onclick="closeModal()">
-            Yopish
-        </button>
-
-    </div>
+<div class="winner"
+id="winner">
 
 </div>
 
-<script src="script.js"></script>
+<button class="sell"
+id="sellBtn">
+💰 Sotish
+</button>
 
-</body>
-</html><!-- INDEX.HTML 2-QISM -->
+<button class="close"
+onclick="closeModal()">
+❌ Yopish
+</button>
 
-<!-- OVOZLAR -->
+</div>
 
-<audio id="openSound">
-
-<source
-src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"
-type="audio/mpeg">
-
-</audio>
-
-<audio id="clickSound">
-
-<source
-src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"
-type="audio/mpeg">
-
-</audio>
-
-<!-- TELEGRAM WEB APP -->
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-<script>
-
-const tg =
-window.Telegram.WebApp;
-
-tg.expand();
-
-/* CLICK EFFECT */
-
-document.querySelectorAll(
-"button"
-).forEach(btn=>{
-
-btn.addEventListener(
-"click",
-()=>{
-
-document.getElementById(
-"clickSound"
-).play();
-
-}
-);
-
-});
-
-</script>
-
-<!-- SCRIPT -->
+</div>
 
 <script src="script.js"></script>
 
