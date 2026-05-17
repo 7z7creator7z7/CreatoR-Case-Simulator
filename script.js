@@ -233,7 +233,13 @@ const promoCodes = {
 
     "CREATOR": 500,
 
-    "LUCKY1000": 1000
+    "LUCKY1000": 500,
+        
+    "NEWYEAR2026": 500,
+
+    "27MART": 500,
+
+    "CHAROS": 500,
 
 };
 
