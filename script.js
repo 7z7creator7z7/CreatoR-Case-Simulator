@@ -1,5 +1,48 @@
+// SOUND EFFECTS
+const audioCtx = new (
+    window.AudioContext ||
+    window.webkitAudioContext
+)();
+
+function playSound(freq, duration) {
+
+    const oscillator =
+        audioCtx.createOscillator();
+
+    const gainNode =
+        audioCtx.createGain();
+
+    oscillator.connect(gainNode);
+
+    gainNode.connect(audioCtx.destination);
+
+    oscillator.type = "square";
+
+    oscillator.frequency.value = freq;
+
+    gainNode.gain.value = 0.1;
+
+    oscillator.start();
+
+    setTimeout(() => {
+
+        oscillator.stop();
+
+    }, duration);
+
+}
 const tg = window.Telegram.WebApp;
 tg.expand();
+// BUTTON CLICK SOUND
+document.addEventListener("click", (e) => {
+
+    if (e.target.tagName === "BUTTON") {
+
+        playSound(500, 80);
+
+    }
+
+});
 
 // Til ma'lumotlari
 const i18n = {
@@ -135,6 +178,8 @@ function renderCases() {
 }
 
 function openCase(idx) {
+    // OPEN CASE SOUND
+playSound(200, 300);
     const c = caseData[idx];
     if (balance < c.price) return alert(i18n[currentLang].msg_money);
 
@@ -172,6 +217,9 @@ function openCase(idx) {
         inventory.push(winner);
         updateGlobalData();
         document.getElementById('close-modal').classList.remove('hidden');
+        // WIN SOUND
+playSound(900, 500);
+        
         alert(i18n[currentLang].msg_win + winner.name);
     }, 5600);
 }
