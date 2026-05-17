@@ -354,3 +354,100 @@ body{
     }
 
     }
+.inv-item{
+  background:#101a44;
+  border:2px solid #233cff;
+  border-radius:14px;
+  padding:10px;
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.inv-icon{
+  font-size:40px;
+}
+
+.inv-name{
+  color:white;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.inv-price{
+  color:gold;
+  margin:5px 0;
+}
+
+.inv-item button{
+  width:100%;
+  height:38px;
+  border:none;
+  border-radius:10px;
+  background:#22c55e;
+  color:white;
+  font-weight:bold;
+}
+
+.profile-box{
+  background:#11193d;
+  padding:15px;
+  border-radius:15px;
+}
+
+.lang-box{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+
+.lang-box button{
+  flex:1;
+  height:40px;
+  border:none;
+  border-radius:10px;
+  background:#243bff;
+  color:white;
+}
+
+.promo-box{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.promo-box input{
+  flex:1;
+  height:40px;
+  border:none;
+  border-radius:10px;
+  padding-left:10px;
+}
+
+.promo-box button{
+  width:120px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  font-weight:bold;
+}
+
+.daily-btn{
+  width:100%;
+  margin-top:15px;
+  height:45px;
+  border:none;
+  border-radius:12px;
+  background:#22c55e;
+  color:white;
+  font-weight:bold;
+}
+
+.win-card{
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+}
+
+.big-icon{
+  font-size:60px;
+}
