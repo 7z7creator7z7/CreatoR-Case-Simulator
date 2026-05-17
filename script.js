@@ -25,20 +25,76 @@ let currentLang = localStorage.getItem('lang') || 'uz';
 let balance = parseFloat(localStorage.getItem('balance')) || 1000.00;
 let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 
-// Skinlar bazasi (Siz aytgan ranglar va narxlar bilan)
+// Skinlar bazasi
 const allSkins = [
     { name: "🔵 P250 🔵", price: 1, rarity: "rarity-blue", img: "./images/5.png"},
-    { name: "🔵 UMP-45 🔵", price: 5, rarity: "rarity-blue", img: "./images/6.png"},
-    { name: "🔵 FAMAS 🔵", price: 10, rarity: "rarity-blue", img: "./images/7.png"},
-    { name: "🔵 AWP 🔵", price: 15, rarity: "rarity-blue", img: "./images/8.png"},
-    { name: "🔵 NOVA 🔵 ", price: 20, rarity: "rarity-blue", img: "./images/9.png"},
+    { name: "🟢 UMP-45 🟢", price: 5, rarity: "rarity-green", img: "./images/6.png"},
+    { name: "🟣 FAMAS 🟣", price: 10, rarity: "rarity-purple", img: "./images/7.png"},
+    { name: "🟡 AWP 🟡", price: 15, rarity: "rarity-yellow", img: "./images/8.png"},
+    { name: "🔴 NOVA 🔴", price: 20, rarity: "rarity-red", img: "./images/9.png"},
 ];
+
+// AUTO RARITY SYSTEM
+const rarityChances = {
+    "rarity-blue": 50,
+    "rarity-green": 25,
+    "rarity-purple": 13,
+    "rarity-yellow": 8,
+    "rarity-red": 3,
+    "rarity-rainbow": 1
+};
+
+function getRandomItem(caseItems) {
+
+    const availableRarities =
+        [...new Set(caseItems.map(i => i.rarity))];
+
+    const filteredChances = {};
+
+    let total = 0;
+
+    availableRarities.forEach(rarity => {
+
+        filteredChances[rarity] =
+            rarityChances[rarity];
+
+        total += rarityChances[rarity];
+
+    });
+
+    let random = Math.random() * total;
+
+    let selectedRarity;
+
+    for (let rarity in filteredChances) {
+
+        random -= filteredChances[rarity];
+
+        if (random <= 0) {
+
+            selectedRarity = rarity;
+
+            break;
+        }
+    }
+
+    const filteredItems =
+        caseItems.filter(
+            item => item.rarity === selectedRarity
+        );
+
+    return filteredItems[
+        Math.floor(
+            Math.random() * filteredItems.length
+        )
+    ];
+}
 
 const caseData = [
     { name: "📦 Oddiy", price: 10, skins: allSkins.slice(0, 5) },
-    { name: "🔰 Elite", price: 25, skins: allSkins.slice(0, 5) },
-    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(0, 5) }, 
-    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(0, 5) }
+    { name: "🔰 Elite", price: 25, skins: allSkins.slice(1, 5) },
+    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(2, 5) }, 
+    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(3, 5) }
 ];
 
 function updateLanguageUI() {
@@ -85,11 +141,14 @@ function openCase(idx) {
     let winner;
 
     for (let i = 0; i < 45; i++) {
-        const item = c.skins[Math.floor(Math.random() * c.skins.length)];
+
+        const item = getRandomItem(c.skins);
+
         const card = document.createElement('div');
         card.className = `skin-card ${item.rarity}`;
         card.innerHTML = `<img src="${item.img}"><span>${item.name}</span><b>${item.price}$</b>`;
         carousel.appendChild(card);
+
         if (i === winIndex) winner = item;
     }
 
@@ -150,6 +209,10 @@ function closeModal() {
 
 // Initial Load
 document.getElementById('user-name').innerText = tg.initDataUnsafe.user?.first_name || "User";
-if(tg.initDataUnsafe.user?.photo_url) document.getElementById('user-photo').src = tg.initDataUnsafe.user.photo_url;
+
+if(tg.initDataUnsafe.user?.photo_url)
+document.getElementById('user-photo').src =
+tg.initDataUnsafe.user.photo_url;
+
 updateLanguageUI();
 updateGlobalData();
