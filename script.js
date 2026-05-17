@@ -27,11 +27,22 @@ let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 
 // Skinlar bazasi
 const allSkins = [
-    { name: "🔵 P250 🔵", price: 1, rarity: "rarity-blue", img: "./images/5.png"},
-    { name: "🟢 UMP-45 🟢", price: 5, rarity: "rarity-green", img: "./images/6.png"},
-    { name: "🟣 FAMAS 🟣", price: 10, rarity: "rarity-purple", img: "./images/7.png"},
-    { name: "🟡 AWP 🟡", price: 15, rarity: "rarity-yellow", img: "./images/8.png"},
-    { name: "🔴 NOVA 🔴", price: 20, rarity: "rarity-red", img: "./images/9.png"},
+    { name: "🔵 P250 🔵", price: 3, rarity: "rarity-blue", img: "./images/5.png"},
+    { name: "🔵 UMP-45 🔵 ", price: 4, rarity: "rarity-blue", img: "./images/6.png"},
+    { name: "🔵 FAMAS 🔵 ", price: 5, rarity: "rarity-blue", img: "./images/7.png"},
+    { name: "🔵 AWP 🔵 ", price: 6, rarity: "rarity-blue", img: "./images/8.png"},
+    { name: "🔵 NOVA 🔵 ", price: 7, rarity: "rarity-blue", img: "./images/9.png"},
+    { name: "🔵 GLOCK-18 🔵", price: 8, rarity: "rarity-blue", img: "./images/10.png"},
+    { name: "🔵 AK-47 🔵", price: 9, rarity: "rarity-blue", img: "./images/11.png"},
+    { name: "🔵 USP-S 🔵", price: 10, rarity: "rarity-blue", img: "./images/12.png"},
+    { name: "🔵 M4A4-1 🔵", price: 11, rarity: "rarity-blue", img: "./images/13.png"},
+    { name: "🔵 SSG 08 🔵", price: 12, rarity: "rarity-blue", img: "./images/14.png"},
+    { name: "🔵 Desert Eagle🔵", price: 13, rarity: "rarity-blue", img: "./images/15.png"},
+    { name: "🔵 MAC-10 🔵", price: 14, rarity: "rarity-blue", img: "./images/16.png"},
+    { name: "🔵 M4A4-2 🔵", price: 15, rarity: "rarity-blue", img: "./images/17.png"},
+    { name: "🔵 Desert Eagle2 🔵", price: 16, rarity: "rarity-blue", img: "./images/18.png"},
+    { name: "🔵 P90 🔵", price: 17, rarity: "rarity-blue", img: "./images/19.png"},
+    { name: "🔵 M249 🔵", price: 18, rarity: "rarity-blue", img: "./images/20.png"},
 ];
 
 // AUTO RARITY SYSTEM
@@ -91,10 +102,10 @@ function getRandomItem(caseItems) {
 }
 
 const caseData = [
-    { name: "📦 Oddiy", price: 10, skins: allSkins.slice(0, 5) },
-    { name: "🔰 Elite", price: 25, skins: allSkins.slice(1, 5) },
-    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(2, 5) }, 
-    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(3, 5) }
+    { name: "📦 Oddiy", price: 10, skins: allSkins.slice(0, 16) },
+    { name: "🔰 Elite", price: 25, skins: allSkins.slice(8, 16) },
+    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(10, 16) }, 
+    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(15, 16) }
 ];
 
 function updateLanguageUI() {
