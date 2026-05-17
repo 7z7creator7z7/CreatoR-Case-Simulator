@@ -208,7 +208,24 @@ input:checked + .slider:before {
 .top2 { background: silver; color: black; }
 .top3 { background: #cd7f32; color: white; }
 #balance {
-  color: rainbow;   /* yashil rang */
-  font-weight: bold;  /* qalin yozuv */
-  font-size: 20px;    /* kattaroq shrift */
+  font-weight: bold;
+  font-size: 20px;
+  background: linear-gradient(
+    to right,
+    red,
+    orange,
+    yellow,
+    green,
+    blue,
+    indigo,
+    violet
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-text 3s linear infinite;
+}
+
+@keyframes rainbow-text {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
