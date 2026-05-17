@@ -27,10 +27,10 @@ let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 
 // Skinlar bazasi (Siz aytgan ranglar va narxlar bilan)
 const allSkins = [
-    { name: "🔵 P250 | Sand Dune 🔵", price: 2, rarity: "rarity-blue", img: "./images/5.png"},
-    { name: "AK-47 | Slate", price: 4, rarity: "rarity-darkblue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjx2jJemkV09-5lpKKqPrxN7LEmyVQ7p0o3-uUrNms2wXsr0o9Z27ycY_AdlA6ZArR_FPrw7u508Xv6p_MyHphu3Ih4S7D30vgfU9_v_o/200fx200f" },
-    { name: "AWP | Asiimov", price: 6, rarity: "rarity-gold", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2D8B65cn37mXpIn32Aex_Uo9am_7d46ScAI_M1vXq1C_x7-8hJ7u78_Bz3Rqu3U8pSGKezYVpGk/200fx200f" },
-    { name: "M9 | Crimson", price: 8, rarity: "rarity-legendary", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1f_BYi5H49KZlY2Ek_P7Nrfum25V4dB8xOzA_In0iVbkq0o5ZTr0J9TAdw9sYFvYr1S6x7u508S96ZzKy3pgvCJx4X7D30vgr6vY66E/200fx200f" },
+    { name: "🔵 P250 🔵", price: 1, rarity: "rarity-blue", img: "./images/5.png"},
+    { name: "🔵UMP-45🔵", price: 5, rarity: "rarity-rainbow", img: "./images/6.png"},
+    { name: "AWP | Asiimov", price: 6, rarity: "rarity-rainbow", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2D8B65cn37mXpIn32Aex_Uo9am_7d46ScAI_M1vXq1C_x7-8hJ7u78_Bz3Rqu3U8pSGKezYVpGk/200fx200f" },
+    { name: "M9 | Crimson", price: 8, rarity: "rarity-rainbow", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1f_BYi5H49KZlY2Ek_P7Nrfum25V4dB8xOzA_In0iVbkq0o5ZTr0J9TAdw9sYFvYr1S6x7u508S96ZzKy3pgvCJx4X7D30vgr6vY66E/200fx200f" },
     { name: "AWP | Gungnir", price: 10, rarity: "rarity-rainbow", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2G9X7sB3i7rE8I_0iVax-kY9YDrzLYCWcVU2M1rV-Fi2xLu50Ze56J_IzHdg6HQ8pSGKr2YyK_Y/200fx200f" }
 ];
 
