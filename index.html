@@ -1,298 +1,64 @@
-<!-- =========================
-CREATOR CASE - FULL HTML
-index.html
-========================= -->
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
-
-<title>Creator Case</title>
-
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 Case Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
-
 <body>
-
-<!-- TOP PROFILE -->
-
-<div class="top">
-
-    <div class="profile">
-
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-        class="avatar">
-
-        <div>
-
-            <div class="nick">
-                
+    <div id="app">
+        <header>
+            <div class="user-info" onclick="showSection('profile')">
+                <img id="user-photo" src="https://via.placeholder.com/40" alt="Avatar">
+                <span id="user-name">Yuklanmoqda...</span>
             </div>
-
-            <div class="money"
-            id="money">
-                100$
+            <div class="balance-info">
+                💰 <span id="balance">0.00</span> $
             </div>
+        </header>
 
+        <nav>
+            <button onclick="showSection('cases')" id="nav-cases">Keyslar</button>
+            <button onclick="showSection('inventory')" id="nav-inv">Inventar</button>
+            <button onclick="showSection('profile')" id="nav-profile">Profil</button>
+        </nav>
+
+        <section id="cases-section">
+            <h2 id="title-cases">Keys Tanlang</h2>
+            <div class="case-grid" id="case-list"></div>
+        </section>
+
+        <section id="inventory-section" class="hidden">
+            <h2 id="title-inv">Mening Inventarim</h2>
+            <div id="inventory-list"></div>
+        </section>
+
+        <section id="profile-section" class="hidden">
+            <h2 id="title-profile">Profil</h2>
+            <div class="profile-card">
+                <p id="label-lang">Tilni tanlang:</p>
+                <div class="lang-buttons">
+                    <button onclick="changeLanguage('uz')">🇺🇿 O'zbekcha</button>
+                    <button onclick="changeLanguage('en')">🇺🇸 English</button>
+                </div>
+                <hr>
+                <p id="label-stats">Statistika tez kunda...</p>
+            </div>
+        </section>
+
+        <div id="game-modal" class="hidden">
+            <div class="modal-content">
+                <h3 id="opening-text">Ochilmoqda...</h3>
+                <div id="case-window">
+                    <div id="line"></div>
+                    <div id="carousel"></div>
+                </div>
+                <button id="close-modal" class="hidden" onclick="closeModal()">Yopish</button>
+            </div>
         </div>
-
     </div>
-
-</div>
-
-<!-- MENU -->
-
-<div class="menu">
-
-    <button onclick="openCases()">
-        Keyslar
-    </button>
-
-    <button onclick="openInventory()">
-        Inventar
-    </button>
-
-    <button onclick="openProfile()">
-        Profil
-    </button>
-
-</div>
-
-<!-- CASE PAGE -->
-
-<div id="casePage">
-
-<h1 class="title">
-    Super Case
-</h1>
-
-<div class="cases">
-
-<!-- STANDARD -->
-
-<div class="case">
-
-<div class="case-image blue">
-📦
-</div>
-
-<div class="case-info">
-
-<div class="case-name">
-Standard
-</div>
-
-<div class="case-price">
-10$
-</div>
-
-<div class="chance">
-
-<div class="c1">🔵 60%</div>
-<div class="c2">🟢 30%</div>
-<div class="c3">🟣 7%</div>
-<div class="c4">🟡 3%</div>
-
-</div>
-
-<button class="open"
-onclick="openCase(10)">
-💰 Ochish 10$
-</button>
-
-</div>
-</div>
-
-<!-- ELITE -->
-
-<div class="case">
-
-<div class="case-image cyan">
-💎
-</div>
-
-<div class="case-info">
-
-<div class="case-name">
-Elite
-</div>
-
-<div class="case-price">
-100$
-</div>
-
-<div class="chance">
-
-<div class="c1">🔵 30%</div>
-<div class="c2">🟢 50%</div>
-<div class="c3">🟣 17%</div>
-<div class="c4">🟡 3%</div>
-
-</div>
-
-<button class="open"
-onclick="openCase(100)">
-💰 Ochish 100$
-</button>
-
-</div>
-</div>
-
-<!-- LUCKY -->
-
-<div class="case">
-
-<div class="case-image green">
-🍀
-</div>
-
-<div class="case-info">
-
-<div class="case-name">
-Lucky
-</div>
-
-<div class="case-price">
-500$
-</div>
-
-<div class="chance">
-
-<div class="c1">🔵 10%</div>
-<div class="c2">🟢 50%</div>
-<div class="c3">🟣 30%</div>
-<div class="c4">🟡 10%</div>
-
-</div>
-
-<button class="open"
-onclick="openCase(500)">
-💰 Ochish 500$
-</button>
-
-</div>
-</div>
-
-<!-- LEGEND -->
-
-<div class="case">
-
-<div class="case-image red">
-🏆
-</div>
-
-<div class="case-info">
-
-<div class="case-name">
-Legendary
-</div>
-
-<div class="case-price">
-1250$
-</div>
-
-<div class="chance">
-
-<div class="c1">🔵 5%</div>
-<div class="c2">🟢 20%</div>
-<div class="c3">🟣 60%</div>
-<div class="c4">🟡 15%</div>
-
-</div>
-
-<button class="open"
-onclick="openCase(1250)">
-💰 Ochish 1250$
-</button>
-
-</div>
-</div>
-
-</div>
-
-</div>
-
-<!-- INVENTORY -->
-
-<div id="inventoryPage">
-
-<h1 class="title">
-🎒 Inventar
-</h1>
-
-<div id="inventory">
-
-</div>
-
-</div>
-
-<!-- MODAL -->
-
-<div class="modal"
-id="modal">
-
-<div class="modal-box">
-
-<h2>
-🟢 Case Ochilmoqda...
-</h2>
-
-<div class="roulette">
-
-<div class="line"></div>
-
-<div class="track"
-id="track">
-
-</div>
-
-</div>
-
-<div class="winner"
-id="winner">
-
-</div>
-
-<button class="sell"
-id="sellBtn">
-⛔ Sotish
-</button>
-
-<button class="close"
-onclick="closeModal()">
-❌ Yopish
-</button>
-
-</div>
-
-</div>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
-<div class="profile-box">
-
-   <h2>Profil</h2>
-
-   <div class="lang-box">
-      <button onclick="setLanguage('uz')">UZB</button>
-      <button onclick="setLanguage('en')">ENG</button>
-   </div>
-
-   <div class="promo-box">
-      <input type="text" id="promoInput" placeholder="PROMOCODE">
-
-      <button onclick="usePromo()">
-         Ishlatish ✅ 
-      </button>
-   </div>
-
-   <button class="daily-btn" onclick="claimDaily()">
-      🎁 Daily Reward
-   </button>
-
-    </div>
