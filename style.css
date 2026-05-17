@@ -44,3 +44,56 @@ nav button { flex: 1; padding: 12px; background: #21262d; border: 1px solid #303
 .inv-item { background: #161b22; padding: 8px; border-radius: 8px; text-align: center; font-size: 11px; border: 1px solid #30363d; }
 .inv-item img { width: 100%; }
 .inv-item button { background: #da3633; border: none; color: white; width: 100%; padding: 5px; border-radius: 4px; margin-top: 5px; }
+.promo-box {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background: #1a1f2b;
+
+}
+
+.promo-box input {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    margin-top: 10px;
+
+    background: #2a3142;
+
+    color: white;
+
+    font-size: 16px;
+
+}
+
+.promo-box button {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #00c853;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+             }
