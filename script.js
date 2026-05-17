@@ -378,3 +378,26 @@ function usePromoCode() {
 
     }
      }
+// SOUND TOGGLE
+const soundToggle =
+    document.getElementById(
+        "sound-toggle"
+    );
+
+soundToggle.checked =
+    soundEnabled;
+
+soundToggle.addEventListener(
+    "change",
+    () => {
+
+        soundEnabled =
+            soundToggle.checked;
+
+        localStorage.setItem(
+            "soundEnabled",
+            soundEnabled
+        );
+
+    }
+);
