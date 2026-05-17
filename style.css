@@ -207,3 +207,8 @@ input:checked + .slider:before {
 .top1 { background: gold; color: black; }
 .top2 { background: silver; color: black; }
 .top3 { background: #cd7f32; color: white; }
+#balance {
+  color: rainbow;   /* yashil rang */
+  font-weight: bold;  /* qalin yozuv */
+  font-size: 3px;    /* kattaroq shrift */
+}
