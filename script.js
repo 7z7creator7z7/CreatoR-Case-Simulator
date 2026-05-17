@@ -401,3 +401,210 @@ soundToggle.addEventListener(
 
     }
 );
+// =====================
+// TELEGRAM
+// =====================
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+// =====================
+// FIREBASE IMPORT
+// =====================
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+import {
+    collection,
+    query,
+    orderBy,
+    limit,
+    onSnapshot,
+    setDoc,
+    doc
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+// ⚠️ app HTMLda initialize bo‘lishi kerak
+const db = getFirestore(app);
+
+// =====================
+// SOUND SYSTEM
+// =====================
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+let soundEnabled = localStorage.getItem("soundEnabled");
+soundEnabled = soundEnabled === null ? true : soundEnabled === "true";
+
+function clickSound() {
+    if (!soundEnabled) return;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.type = "square";
+    osc.frequency.value = 500;
+
+    gain.gain.value = 0.05;
+
+    osc.start();
+    setTimeout(() => osc.stop(), 60);
+}
+
+function tickSound(freq = 700) {
+    if (!soundEnabled) return;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.type = "triangle";
+    osc.frequency.value = freq;
+
+    gain.gain.value = 0.03;
+
+    osc.start();
+    setTimeout(() => osc.stop(), 40);
+}
+
+// button sound
+document.addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") clickSound();
+});
+
+// =====================
+// DATA
+// =====================
+let currentLang = localStorage.getItem('lang') || 'uz';
+let balance = parseFloat(localStorage.getItem('balance')) || 1000;
+let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
+
+// =====================
+// FIREBASE SAVE USER
+// =====================
+function saveUser() {
+    const user = tg.initDataUnsafe.user;
+    if (!user) return;
+
+    setDoc(doc(db, "users", String(user.id)), {
+        name: user.first_name || "User",
+        balance: balance
+    });
+}
+
+// =====================
+// UPDATE GLOBAL DATA
+// =====================
+function updateGlobalData() {
+    document.getElementById('balance').innerText = balance.toFixed(2);
+
+    localStorage.setItem('balance', balance);
+    localStorage.setItem('inventory', JSON.stringify(inventory));
+
+    renderInventory();
+
+    saveUser(); // 🔥 leaderboard update
+}
+
+// =====================
+// LEADERBOARD REALTIME TOP 50
+// =====================
+function listenLeaderboard() {
+
+    const q = query(
+        collection(db, "users"),
+        orderBy("balance", "desc"),
+        limit(50)
+    );
+
+    onSnapshot(q, (snapshot) => {
+
+        const box = document.getElementById("leaderboard");
+        if (!box) return;
+
+        box.innerHTML = "";
+
+        let rank = 0;
+
+        snapshot.forEach((docSnap) => {
+
+            rank++;
+            const u = docSnap.data();
+
+            let medal = "";
+            let className = "lb-row";
+
+            if (rank === 1) { medal = "🥇"; className += " top1"; }
+            else if (rank === 2) { medal = "🥈"; className += " top2"; }
+            else if (rank === 3) { medal = "🥉"; className += " top3"; }
+
+            box.innerHTML += `
+                <div class="${className}">
+                    <div>${medal || "#" + rank}</div>
+                    <div>${u.name}</div>
+                    <div>$${u.balance}</div>
+                </div>
+            `;
+        });
+
+    });
+}
+
+// =====================
+// SHOW SECTION
+// =====================
+function showSection(name) {
+
+    document.getElementById('cases-section').classList.toggle('hidden', name !== 'cases');
+    document.getElementById('inventory-section').classList.toggle('hidden', name !== 'inventory');
+    document.getElementById('profile-section').classList.toggle('hidden', name !== 'profile');
+
+    if (name === "profile") {
+        listenLeaderboard(); // 🔥 START
+    }
+}
+
+// =====================
+// INIT USER
+// =====================
+document.getElementById('user-name').innerText =
+    tg.initDataUnsafe.user?.first_name || "User";
+
+if (tg.initDataUnsafe.user?.photo_url) {
+    document.getElementById('user-photo').src =
+        tg.initDataUnsafe.user.photo_url;
+}
+
+// =====================
+// INVENTORY RENDER
+// =====================
+function renderInventory() {
+    const container = document.getElementById('inventory-list');
+    container.innerHTML = '';
+    inventory.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = `inv-item ${item.rarity}`;
+        div.innerHTML = `
+            <img src="${item.img}">
+            <b>${item.price}$</b>
+            <button onclick="sellItem(${i})">Sell</button>
+        `;
+        container.appendChild(div);
+    });
+}
+
+// =====================
+// SELL ITEM
+// =====================
+function sellItem(i) {
+    balance += inventory[i].price;
+    inventory.splice(i, 1);
+    updateGlobalData();
+}
+
+// =====================
+// INIT
+// =====================
+updateGlobalData();
