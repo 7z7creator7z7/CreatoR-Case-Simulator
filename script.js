@@ -4,7 +4,7 @@ tg.expand();
 // Til ma'lumotlari
 const i18n = {
     uz: {
-        nav_cases: "Keyslar", nav_inv: "Inventar", nav_profile: "Profil",
+        nav_cases: "🎁Keyslar", nav_inv: "Inventar", nav_profile: "Profil",
         title_cases: "Keys Tanlang", title_inv: "Mening Inventarim", title_profile: "Sozlamalar",
         label_lang: "Tilni tanlang:", label_stats: "Sizning natijangiz yaqin orada bu yerda bo'ladi.",
         btn_open: "Ochish", btn_sell: "Sotish", btn_close: "Yopish",
