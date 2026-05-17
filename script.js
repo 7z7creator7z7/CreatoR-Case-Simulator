@@ -11,7 +11,7 @@ import {
     doc
 } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
-// 🔴 FIREBASE CONFIG
+// 🔴 O'ZINGNI FIREBASE CONFIGNI QO'Y
 const firebaseConfig = {
     apiKey: "YOUR_API_KEY",
     authDomain: "YOUR_AUTH_DOMAIN",
@@ -28,41 +28,7 @@ const db = getFirestore(app);
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-// ================= ANTI CHEAT =================
-let lastAction = 0;
-let spamCount = 0;
-let blocked = false;
-
-function antiCheat() {
-    const now = Date.now();
-
-    if (blocked) return false;
-
-    if (now - lastAction < 250) {
-        spamCount++;
-    } else {
-        spamCount = 0;
-    }
-
-    lastAction = now;
-
-    if (spamCount > 10) {
-        blocked = true;
-
-        alert("⛔ Anti-Cheat: Juda tez bosyapsan!");
-
-        setTimeout(() => {
-            blocked = false;
-            spamCount = 0;
-        }, 5000);
-
-        return false;
-    }
-
-    return true;
-}
-
-// ================= SOUND =================
+// ================= SOUND SYSTEM =================
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 let soundEnabled = localStorage.getItem("soundEnabled");
@@ -86,18 +52,62 @@ function clickSound() {
     setTimeout(() => osc.stop(), 60);
 }
 
+function tickSound(freq = 700) {
+    if (!soundEnabled) return;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.type = "triangle";
+    osc.frequency.value = freq;
+
+    gain.gain.value = 0.03;
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    setTimeout(() => osc.stop(), 40);
+}
+
+// BUTTON SOUND
 document.addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") clickSound();
 });
 
-// ================= DATA =================
+// ================= I18N =================
 const i18n = {
     uz: {
         nav_cases: "🎁Keyslar",
         nav_inv: "🎒Inventar",
         nav_profile: "👤Profil",
+        title_cases: "Keys Tanlang",
+        title_inv: "Mening Inventarim",
+        title_profile: "⚙️Sozlamalar",
+        label_lang: "🇺🇿 Tilni tanlang:",
+        label_stats: "Statistika tez orada...",
+        btn_open: "Ochish",
+        btn_sell: "Sotish",
+        btn_close: "Yopish",
         msg_money: "Pul yetarli emas!",
-        msg_win: "Siz yutdingiz: "
+        msg_win: "Siz yutdingiz: ",
+        opening: "Ochilmoqda..."
+    },
+    en: {
+        nav_cases: "Cases",
+        nav_inv: "Inventory",
+        nav_profile: "Profile",
+        title_cases: "Select Case",
+        title_inv: "My Inventory",
+        title_profile: "Settings",
+        label_lang: "Select Language:",
+        label_stats: "Stats coming soon...",
+        btn_open: "Open",
+        btn_sell: "Sell",
+        btn_close: "Close",
+        msg_money: "Not enough money!",
+        msg_win: "You won: ",
+        opening: "Opening..."
     }
 };
 
@@ -108,51 +118,114 @@ let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
 // ================= SKINS =================
 const allSkins = [
     { name: "P250", price: 3, rarity: "blue", img: "./images/5.png" },
-    { name: "AK-47", price: 9, rarity: "blue", img: "./images/11.png" }
+    { name: "UMP-45", price: 4, rarity: "blue", img: "./images/6.png" },
+    { name: "AK-47", price: 9, rarity: "blue", img: "./images/11.png" },
 ];
 
+// ================= RARITY =================
+const rarityChances = {
+    blue: 70,
+    green: 20,
+    purple: 7,
+    red: 3
+};
+
+function getRandomItem(list) {
+    const rarities = [...new Set(list.map(i => i.rarity))];
+    let total = 0;
+    let pool = {};
+
+    rarities.forEach(r => {
+        pool[r] = rarityChances[r] || 1;
+        total += pool[r];
+    });
+
+    let rand = Math.random() * total;
+    let selected;
+
+    for (let r in pool) {
+        rand -= pool[r];
+        if (rand <= 0) {
+            selected = r;
+            break;
+        }
+    }
+
+    const filtered = list.filter(i => i.rarity === selected);
+    return filtered[Math.floor(Math.random() * filtered.length)];
+}
+
+// ================= CASES =================
 const caseData = [
     { name: "Oddiy", price: 10, skins: allSkins }
 ];
 
-// ================= OPEN CASE (ANTI CHEAT ULANGAN) =================
+// ================= UI =================
+function updateLanguageUI() {
+    const l = i18n[currentLang];
+
+    document.getElementById("nav-cases").innerText = l.nav_cases;
+    document.getElementById("nav-inv").innerText = l.nav_inv;
+    document.getElementById("nav-profile").innerText = l.nav_profile;
+
+    renderCases();
+}
+
+function renderCases() {
+    const box = document.getElementById("case-list");
+    box.innerHTML = "";
+
+    caseData.forEach((c, i) => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+            <h3>${c.name}</h3>
+            <p>${c.price}$</p>
+            <button onclick="openCase(${i})">OPEN</button>
+        `;
+        box.appendChild(div);
+    });
+}
+
+// ================= CASE OPEN =================
 function openCase(i) {
-
-    if (!antiCheat()) return;
-
     const c = caseData[i];
 
-    if (balance < c.price) {
-        alert(i18n[currentLang].msg_money);
-        return;
-    }
+    if (balance < c.price) return alert(i18n[currentLang].msg_money);
 
     balance -= c.price;
-
-    const item = c.skins[Math.floor(Math.random() * c.skins.length)];
-
-    inventory.push(item);
-
     updateGlobal();
 
-    saveUser();
+    const item = getRandomItem(c.skins);
+
+    inventory.push(item);
+    updateGlobal();
 
     alert(i18n[currentLang].msg_win + item.name);
 }
 
-// ================= SELL ITEM =================
-function sellItem(i) {
+// ================= INVENTORY =================
+function renderInventory() {
+    const box = document.getElementById("inventory-list");
+    box.innerHTML = "";
 
-    if (!antiCheat()) return;
-
-    balance += inventory[i].price;
-    inventory.splice(i, 1);
-
-    updateGlobal();
-    saveUser();
+    inventory.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+            <img src="${item.img}">
+            <b>${item.name}</b>
+            <button onclick="sellItem(${i})">SELL</button>
+        `;
+        box.appendChild(div);
+    });
 }
 
-// ================= GLOBAL UPDATE =================
+function sellItem(i) {
+    balance += inventory[i].price;
+    inventory.splice(i, 1);
+    updateGlobal();
+}
+
+// ================= GLOBAL =================
 function updateGlobal() {
     document.getElementById("balance").innerText = balance.toFixed(2);
 
@@ -162,45 +235,8 @@ function updateGlobal() {
     renderInventory();
 }
 
-// ================= INVENTORY =================
-function renderInventory() {
-    const box = document.getElementById("inventory-list");
-    if (!box) return;
-
-    box.innerHTML = "";
-
-    inventory.forEach((item, i) => {
-        box.innerHTML += `
-            <div>
-                <img src="${item.img}">
-                <b>${item.name}</b>
-                <button onclick="sellItem(${i})">SELL</button>
-            </div>
-        `;
-    });
-}
-
-// ================= CASES =================
-function renderCases() {
-    const box = document.getElementById("case-list");
-    if (!box) return;
-
-    box.innerHTML = "";
-
-    caseData.forEach((c, i) => {
-        box.innerHTML += `
-            <div>
-                <h3>${c.name}</h3>
-                <p>${c.price}$</p>
-                <button onclick="openCase(${i})">OPEN</button>
-            </div>
-        `;
-    });
-}
-
-// ================= PROFILE =================
+// ================= PROFILE / LEADERBOARD =================
 function saveUser() {
-
     const user = tg.initDataUnsafe.user;
     if (!user) return;
 
@@ -210,9 +246,7 @@ function saveUser() {
     });
 }
 
-// ================= LEADERBOARD =================
 function listenLeaderboard() {
-
     const q = query(
         collection(db, "users"),
         orderBy("balance", "desc"),
@@ -220,7 +254,6 @@ function listenLeaderboard() {
     );
 
     onSnapshot(q, (snap) => {
-
         const box = document.getElementById("leaderboard");
         if (!box) return;
 
@@ -238,13 +271,11 @@ function listenLeaderboard() {
                 </div>
             `;
         });
-
     });
 }
 
 // ================= NAV =================
 function showSection(name) {
-
     document.getElementById("cases-section").style.display = name === "cases" ? "block" : "none";
     document.getElementById("inventory-section").style.display = name === "inventory" ? "block" : "none";
     document.getElementById("profile-section").style.display = name === "profile" ? "block" : "none";
@@ -256,7 +287,7 @@ function showSection(name) {
 document.getElementById("user-name").innerText =
     tg.initDataUnsafe.user?.first_name || "User";
 
+updateLanguageUI();
 updateGlobal();
-renderCases();
-renderInventory();
+
 saveUser();
