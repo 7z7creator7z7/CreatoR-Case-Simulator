@@ -189,3 +189,21 @@ input:checked + .slider:before {
     transform: translateX(22px);
 
 }
+#leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.lb-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+}
+
+.top1 { background: gold; color: black; }
+.top2 { background: silver; color: black; }
+.top3 { background: #cd7f32; color: white; }
