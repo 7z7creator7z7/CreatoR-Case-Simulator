@@ -1,3 +1,14 @@
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+import {
+    collection,
+    query,
+    orderBy,
+    limit,
+    onSnapshot,
+    setDoc,
+    doc
+} from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 // SOUND SYSTEM
 const audioCtx = new (
     window.AudioContext ||
