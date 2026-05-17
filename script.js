@@ -99,7 +99,7 @@ const i18n = {
 };
 
 let currentLang = localStorage.getItem('lang') || 'uz';
-let balance = parseFloat(localStorage.getItem('balance')) || 1000.00;
+let balance = parseFloat(localStorage.getItem('balance')) || 1.000.000;
 let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 
 // Skinlar bazasi
