@@ -285,3 +285,64 @@ function usePromoCode() {
 
     }
         }
+// 🔘 TAP / CLICK SOUND
+function playTap() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  osc.type = "sine";
+  osc.frequency.value = 700;
+
+  gain.gain.setValueAtTime(0.25, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  osc.start();
+  osc.stop(ctx.currentTime + 0.05);
+}
+
+
+// 📦 CASE OPEN SOUND (tic tic → sekin to‘xtaydi)
+function playCaseOpen() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+  let delay = 40;
+  let running = true;
+
+  function tick() {
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = "square";
+    osc.frequency.value = 1200;
+
+    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.035);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start();
+    osc.stop(ctx.currentTime + 0.035);
+  }
+
+  function loop() {
+    if (!running) return;
+
+    tick();
+    delay += 18;
+
+    if (delay > 520) {
+      running = false;
+      return;
+    }
+
+    setTimeout(loop, delay);
+  }
+
+  loop();
+            }
