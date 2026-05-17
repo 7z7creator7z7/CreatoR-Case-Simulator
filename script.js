@@ -38,7 +38,7 @@ const caseData = [
     { name: "📦 Oddiy", price: 1, skins: allSkins.slice(0, 5) },
     { name: "🔰 Elite", price: 10, skins: allSkins.slice(0, 5) },
     { name: "🎰 Lucky", price: 100, skins: allSkins.slice(0, 5) }, 
-    { name: "🎰 Best Lucky", price: 100000, skins: allSkins.slice(0, 5) }
+    { name: "🎰 Best Lucky", price: 1000000, skins: allSkins.slice(0, 5) }
 ];
 
 function updateLanguageUI() {
