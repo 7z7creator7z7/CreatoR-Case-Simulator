@@ -5,6 +5,7 @@ const audioCtx = new (
 )();
 
 function clickSound() {
+    if (!soundEnabled) return;
 
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
@@ -28,6 +29,7 @@ function clickSound() {
 }
 
 function tickSound(freq = 700) {
+    if (!soundEnabled) return;
 
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
@@ -51,6 +53,20 @@ function tickSound(freq = 700) {
 }
 const tg = window.Telegram.WebApp;
 tg.expand();
+// SOUND SETTINGS
+let soundEnabled =
+    localStorage.getItem("soundEnabled");
+
+if (soundEnabled === null) {
+
+    soundEnabled = true;
+
+} else {
+
+    soundEnabled =
+        soundEnabled === "true";
+
+}
 // BUTTON CLICK SOUND
 document.addEventListener("click", (e) => {
 
