@@ -1,577 +1,154 @@
-/* =========================
-CREATOR CASE - FULL JS
-script.js
-========================= */
-
-let money = 350000;
-
-const moneyText =
-document.getElementById("money");
-
-const modal =
-document.getElementById("modal");
-
-const track =
-document.getElementById("track");
-
-const winnerText =
-document.getElementById("winner");
-
-const inventoryDiv =
-document.getElementById("inventory");
-
-const casePage =
-document.getElementById("casePage");
-
-const inventoryPage =
-document.getElementById("inventoryPage");
-
-/* AUDIO */
-
-const clickSound =
-new Audio(
-"https://actions.google.com/sounds/v1/cartoon/pop.ogg"
-);
-
-const openSound =
-new Audio(
-"https://actions.google.com/sounds/v1/cartoon/woodpecker_pecking.ogg"
-);
-
-const winSound =
-new Audio(
-"https://actions.google.com/sounds/v1/cartoon/concussive_hit_guitar_boing.ogg"
-);
-
-/* INVENTORY */
-
-let inventory = [];
-
-/* ITEMS */
-
-const items = [
-
-{
-name:"AK-47 | Neon Rider",
-icon:"🔫",
-price:120,
-rarity:"common",
-bg:"common"
-},
-
-{
-name:"M4A4 | Neo-Noir",
-icon:"🔫",
-price:180,
-rarity:"common",
-bg:"common"
-},
-
-{
-name:"USP-S | Kill Confirmed",
-icon:"🔫",
-price:350,
-rarity:"rare",
-bg:"rare"
-},
-
-{
-name:"AWP | Asiimov",
-icon:"🎯",
-price:420,
-rarity:"rare",
-bg:"rare"
-},
-
-{
-name:"Karambit | Doppler",
-icon:"🔪",
-price:980,
-rarity:"epic",
-bg:"epic"
-},
-
-{
-name:"Butterfly Knife | Fade",
-icon:"🗡️",
-price:1400,
-rarity:"epic",
-bg:"epic"
-},
-
-{
-name:"M9 Bayonet | Tiger Tooth",
-icon:"⚔️",
-price:2400,
-rarity:"legend"
-},
-
-{
-name:"AWP | Dragon Lore",
-icon:"🐉",
-price:4200,
-rarity:"legend"
-}
-
-];
-
-/* MONEY */
-
-function updateMoney(){
-
-moneyText.innerHTML =
-"💰 " + money.toFixed(2) + "$";
-
-}
-
-/* CASE OPEN */
-
-function openCase(price){
-
-clickSound.play();
-
-if(money < price){
-
-alert("Pul yetmaydi!");
-
-return;
-
-}
-
-money -= price;
-
-updateMoney();
-
-modal.style.display = "flex";
-
-track.innerHTML = "";
-
-let randomItems = [];
-
-for(let i=0;i<40;i++){
-
-const item =
-items[Math.floor(
-Math.random()*items.length
-)];
-
-randomItems.push(item);
-
-track.innerHTML += `
-<div class="roll ${item.bg}">
-
-<div class="rollIcon">
-${item.icon}
-</div>
-
-<div class="rollName">
-${item.name}
-</div>
-
-<div class="rollPrice">
-${item.price}$
-</div>
-
-</div>
-`;
-
-}
-
-/* RANDOM WINNER */
-
-const winner =
-randomItems[
-Math.floor(
-Math.random()*randomItems.length
-)
-];
-
-setTimeout(()=>{
-
-openSound.play();
-
-track.style.transform =
-"translateX(-2500px)";
-
-},100);
-
-/* STOP */
-
-setTimeout(()=>{
-
-winSound.play();
-
-winnerText.innerHTML = `
-🎉 Siz yutdingiz:<br><br>
-
-${winner.icon}<br>
-
-${winner.name}<br>
-
-💰 ${winner.price}$
-`;
-
-/* INVENTORYGA QOSHISH */
-
-inventory.push(winner);
-
-drawInventory();
-
-/* SELL BUTTON */
-
-const sellBtn =
-document.getElementById("sellBtn");
-
-sellBtn.onclick = function(){
-
-money += winner.price;
-
-updateMoney();
-
-/* OCHIRISH */
-
-let index =
-inventory.indexOf(winner);
-
-if(index > -1){
-
-inventory.splice(index,1);
-
-}
-
-drawInventory();
-
-closeModal();
-
-}
-
-},5000);
-
-}
-
-/* CLOSE */
-
-function closeModal(){
-
-clickSound.play();
-
-modal.style.display = "none";
-
-track.style.transform =
-"translateX(0px)";
-
-}
-
-/* INVENTORY */
-
-function drawInventory(){
-
-inventoryDiv.innerHTML = "";
-
-if(inventory.length <= 0){
-
-inventoryDiv.innerHTML = `
-<div class="empty">
-Inventar bo'sh
-</div>
-`;
-
-return;
-
-}
-
-inventory.forEach((item,index)=>{
-
-inventoryDiv.innerHTML += `
-
-<div class="inv ${item.bg}">
-
-<div class="invIcon">
-${item.icon}
-</div>
-
-<div class="invName">
-${item.name}
-</div>
-
-<div class="invPrice">
-💰 ${item.price}$
-</div>
-
-<button class="sellItem"
-onclick="sellItem(${index})">
-
-Sotish
-
-</button>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* SELL ITEM */
-
-function sellItem(index){
-
-clickSound.play();
-
-money += inventory[index].price;
-
-updateMoney();
-
-inventory.splice(index,1);
-
-drawInventory();
-
-}
-
-/* PAGES */
-
-function openInventory(){
-
-clickSound.play();
-
-casePage.style.display = "none";
-
-inventoryPage.style.display = "block";
-
-}
-
-function openCases(){
-
-clickSound.play();
-
-casePage.style.display = "block";
-
-inventoryPage.style.display = "none";
-
-}
-
-function openProfile(){
-
-clickSound.play();
-
-alert(
-"👤 Nick: 『CreatoR』\n\n💰 Balans: " + money + "$"
-);
-
-}
-
-/* START */
-
-updateMoney();
-
-drawInventory();
-/* =========================
-   AUTO SAVE SYSTEM
-========================= */
-
-let balance = localStorage.getItem("balance")
-  ? parseInt(localStorage.getItem("balance"))
-  : 100;
-
-let inventory = localStorage.getItem("inventory")
-  ? JSON.parse(localStorage.getItem("inventory"))
-  : [];
-
-let usedPromo = localStorage.getItem("usedPromo") || "false";
-let lastDaily = localStorage.getItem("lastDaily") || 0;
-
-function saveGame(){
-  localStorage.setItem("balance", balance);
-  localStorage.setItem("inventory", JSON.stringify(inventory));
-  localStorage.setItem("usedPromo", usedPromo);
-  localStorage.setItem("lastDaily", lastDaily);
-}
-
-function updateBalance(){
-  document.getElementById("balance").innerText = balance + "$";
-  saveGame();
-}
-
-/* =========================
-   INVENTAR RENDER
-========================= */
-
-function renderInventory(){
-  const box = document.getElementById("inventoryItems");
-
-  if(!box) return;
-
-  box.innerHTML = "";
-
-  inventory.forEach((item,index)=>{
-
-    box.innerHTML += `
-      <div class="inv-item ${item.rarity}">
-          <div class="inv-icon">${item.icon}</div>
-          <div class="inv-name">${item.name}</div>
-          <div class="inv-price">${item.price}$</div>
-
-          <button onclick="sellItem(${index})">
-            Sotish
-          </button>
-      </div>
-    `;
-
-  });
-
-  saveGame();
-}
-
-function sellItem(index){
-
-  balance += inventory[index].price;
-
-  inventory.splice(index,1);
-
-  updateBalance();
-  renderInventory();
-}
-
-/* =========================
-   CASE OPEN
-========================= */
-
-function openCase(casePrice,items){
-
-  if(balance < casePrice){
-    alert("Pul yetmaydi!");
-    return;
-  }
-
-  balance -= casePrice;
-  updateBalance();
-
-  document.getElementById("openModal").style.display = "flex";
-
-  const random = Math.random() * 100;
-
-  let total = 0;
-  let wonItem = items[0];
-
-  for(let item of items){
-
-    total += item.chance;
-
-    if(random <= total){
-      wonItem = item;
-      break;
+const tg = window.Telegram.WebApp;
+tg.expand();
+
+// Til ma'lumotlari
+const i18n = {
+    uz: {
+        nav_cases: "Keyslar", nav_inv: "Inventar", nav_profile: "Profil",
+        title_cases: "Keys Tanlang", title_inv: "Mening Inventarim", title_profile: "Sozlamalar",
+        label_lang: "Tilni tanlang:", label_stats: "Sizning natijangiz yaqin orada bu yerda bo'ladi.",
+        btn_open: "Ochish", btn_sell: "Sotish", btn_close: "Yopish",
+        msg_money: "Mablag' yetarli emas!", msg_win: "Tabriklaymiz! Siz yutdingiz: ",
+        opening: "Keys ochilmoqda..."
+    },
+    en: {
+        nav_cases: "Cases", nav_inv: "Inventory", nav_profile: "Profile",
+        title_cases: "Select Case", title_inv: "My Inventory", title_profile: "Settings",
+        label_lang: "Select Language:", label_stats: "Your statistics will be here soon.",
+        btn_open: "Open", btn_sell: "Sell", btn_close: "Close",
+        msg_money: "Not enough money!", msg_win: "Congratulations! You won: ",
+        opening: "Opening case..."
     }
-  }
+};
 
-  const roll = document.getElementById("rollItems");
-  roll.innerHTML = "";
+let currentLang = localStorage.getItem('lang') || 'uz';
+let balance = parseFloat(localStorage.getItem('balance')) || 1000.00;
+let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 
-  for(let i=0;i<20;i++){
+// Skinlar bazasi (Siz aytgan ranglar va narxlar bilan)
+const allSkins = [
+    { name: "P250 | Sand", price: 2, rarity: "rarity-blue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujbXzZk2p_Lcm7_v4mJhInFxfXnO67ummJW4NE_2-qS99SmiwS3_hU6Y236I9SUI1RvZAnR_VTrle_vgsS06J_AmnVru3I8pSGKw_9u9fE/200fx200f" },
+    { name: "AK-47 | Slate", price: 45, rarity: "rarity-darkblue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjx2jJemkV09-5lpKKqPrxN7LEmyVQ7p0o3-uUrNms2wXsr0o9Z27ycY_AdlA6ZArR_FPrw7u508Xv6p_MyHphu3Ih4S7D30vgfU9_v_o/200fx200f" },
+    { name: "AWP | Asiimov", price: 280, rarity: "rarity-gold", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2D8B65cn37mXpIn32Aex_Uo9am_7d46ScAI_M1vXq1C_x7-8hJ7u78_Bz3Rqu3U8pSGKezYVpGk/200fx200f" },
+    { name: "M9 | Crimson", price: 4500, rarity: "rarity-legendary", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1f_BYi5H49KZlY2Ek_P7Nrfum25V4dB8xOzA_In0iVbkq0o5ZTr0J9TAdw9sYFvYr1S6x7u508S96ZzKy3pgvCJx4X7D30vgr6vY66E/200fx200f" },
+    { name: "AWP | Gungnir", price: 18000, rarity: "rarity-rainbow", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2G9X7sB3i7rE8I_0iVax-kY9YDrzLYCWcVU2M1rV-Fi2xLu50Ze56J_IzHdg6HQ8pSGKr2YyK_Y/200fx200f" }
+];
 
-    const fake = items[Math.floor(Math.random()*items.length)];
+const caseData = [
+    { name: "Standard", price: 10, skins: allSkins.slice(0, 3) },
+    { name: "Elite", price: 100, skins: allSkins.slice(1, 4) },
+    { name: "Godlike", price: 1000, skins: allSkins.slice(2, 5) }
+];
 
-    roll.innerHTML += `
-      <div class="roll-card ${fake.rarity}">
-        <div>${fake.icon}</div>
-        <h3>${fake.name}</h3>
-        <p>${fake.price}$</p>
-      </div>
-    `;
-  }
+function updateLanguageUI() {
+    const l = i18n[currentLang];
+    document.getElementById('nav-cases').innerText = l.nav_cases;
+    document.getElementById('nav-inv').innerText = l.nav_inv;
+    document.getElementById('nav-profile').innerText = l.nav_profile;
+    document.getElementById('title-cases').innerText = l.title_cases;
+    document.getElementById('title-inv').innerText = l.title_inv;
+    document.getElementById('title-profile').innerText = l.title_profile;
+    document.getElementById('label-lang').innerText = l.label_lang;
+    document.getElementById('label-stats').innerText = l.label_stats;
+    document.getElementById('opening-text').innerText = l.opening;
+    document.getElementById('close-modal').innerText = l.btn_close;
+    renderCases();
+}
 
-  setTimeout(()=>{
+function renderCases() {
+    const container = document.getElementById('case-list');
+    container.innerHTML = '';
+    caseData.forEach((c, idx) => {
+        const div = document.createElement('div');
+        div.className = 'case-card';
+        div.innerHTML = `<h3>${c.name}</h3><p>${c.price} $</p><button onclick="openCase(${idx})">${i18n[currentLang].btn_open}</button>`;
+        container.appendChild(div);
+    });
+}
 
-    inventory.push(wonItem);
+function openCase(idx) {
+    const c = caseData[idx];
+    if (balance < c.price) return alert(i18n[currentLang].msg_money);
 
+    balance -= c.price;
+    updateGlobalData();
+
+    const modal = document.getElementById('game-modal');
+    const carousel = document.getElementById('carousel');
+    modal.classList.remove('hidden');
+    carousel.innerHTML = '';
+    carousel.style.transition = 'none';
+    carousel.style.transform = 'translateX(0)';
+
+    const winIndex = 30;
+    let winner;
+
+    for (let i = 0; i < 45; i++) {
+        const item = c.skins[Math.floor(Math.random() * c.skins.length)];
+        const card = document.createElement('div');
+        card.className = `skin-card ${item.rarity}`;
+        card.innerHTML = `<img src="${item.img}"><span>${item.name}</span><b>${item.price}$</b>`;
+        carousel.appendChild(card);
+        if (i === winIndex) winner = item;
+    }
+
+    setTimeout(() => {
+        carousel.style.transition = 'transform 5s cubic-bezier(0.1, 0, 0.1, 1)';
+        carousel.style.transform = `translateX(-${(winIndex * 112) - 104}px)`;
+    }, 100);
+
+    setTimeout(() => {
+        inventory.push(winner);
+        updateGlobalData();
+        document.getElementById('close-modal').classList.remove('hidden');
+        alert(i18n[currentLang].msg_win + winner.name);
+    }, 5600);
+}
+
+function renderInventory() {
+    const container = document.getElementById('inventory-list');
+    container.innerHTML = '';
+    inventory.forEach((item, i) => {
+        const div = document.createElement('div');
+        div.className = `inv-item ${item.rarity}`;
+        div.innerHTML = `<img src="${item.img}"><b>${item.price}$</b><button onclick="sellItem(${i})">${i18n[currentLang].btn_sell}</button>`;
+        container.appendChild(div);
+    });
+}
+
+function sellItem(i) {
+    balance += inventory[i].price;
+    inventory.splice(i, 1);
+    updateGlobalData();
+}
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    updateLanguageUI();
     renderInventory();
-
-    document.getElementById("winItem").innerHTML = `
-      <div class="win-card ${wonItem.rarity}">
-          <div class="big-icon">${wonItem.icon}</div>
-          <h2>${wonItem.name}</h2>
-          <span>${wonItem.price}$</span>
-      </div>
-    `;
-
-    saveGame();
-
-  },3000);
 }
 
-/* =========================
-   CLOSE MODAL
-========================= */
-
-function closeModal(){
-  document.getElementById("openModal").style.display = "none";
+function updateGlobalData() {
+    document.getElementById('balance').innerText = balance.toFixed(2);
+    localStorage.setItem('balance', balance);
+    localStorage.setItem('inventory', JSON.stringify(inventory));
+    renderInventory();
 }
 
-/* =========================
-   PROMOCODE
-========================= */
-
-function usePromo(){
-
-  const val = document.getElementById("promoInput").value;
-
-  if(val === "FREE" && usedPromo === "false"){
-
-      balance += 10000;
-      usedPromo = "true";
-
-      alert("10000$ berildi!");
-
-      updateBalance();
-      saveGame();
-
-  }else{
-      alert("Promo ishlatilgan yoki noto‘g‘ri");
-  }
+function showSection(name) {
+    document.getElementById('cases-section').classList.toggle('hidden', name !== 'cases');
+    document.getElementById('inventory-section').classList.toggle('hidden', name !== 'inventory');
+    document.getElementById('profile-section').classList.toggle('hidden', name !== 'profile');
 }
 
-/* =========================
-   DAILY REWARD
-========================= */
-
-function claimDaily(){
-
-  const now = Date.now();
-
-  if(now - lastDaily < 86400000){
-      alert("Daily allaqachon olindi!");
-      return;
-  }
-
-  balance += 100;
-
-  lastDaily = now;
-
-  updateBalance();
-  saveGame();
-
-  alert("100$ daily reward oldingiz!");
+function closeModal() {
+    document.getElementById('game-modal').classList.add('hidden');
+    document.getElementById('close-modal').classList.add('hidden');
 }
 
-/* =========================
-   LANGUAGE
-========================= */
-
-function setLanguage(lang){
-
-  if(lang === "uz"){
-
-    document.getElementById("titleCases").innerText = "Keys Tanlang";
-
-  }else{
-
-    document.getElementById("titleCases").innerText = "Select Case";
-  }
-}
-
-/* =========================
-   START
-========================= */
-
-updateBalance();
-renderInventory();
+// Initial Load
+document.getElementById('user-name').innerText = tg.initDataUnsafe.user?.first_name || "User";
+if(tg.initDataUnsafe.user?.photo_url) document.getElementById('user-photo').src = tg.initDataUnsafe.user.photo_url;
+updateLanguageUI();
+updateGlobalData();
