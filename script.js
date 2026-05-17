@@ -227,3 +227,55 @@ tg.initDataUnsafe.user.photo_url;
 
 updateLanguageUI();
 updateGlobalData();
+const promoCodes = {
+
+    "FREE100": 100,
+
+    "CREATOR": 500,
+
+    "LUCKY1000": 1000
+
+};
+
+function usePromoCode() {
+
+    const input =
+        document.getElementById("promo-input");
+
+    const code =
+        input.value.toUpperCase();
+
+    // Oldin ishlatilganmi
+    if (localStorage.getItem("promo_" + code)) {
+
+        alert("❌ Bu promo code ishlatilgan!");
+
+        return;
+    }
+
+    // Promo mavjudmi
+    if (promoCodes[code]) {
+
+        balance += promoCodes[code];
+
+        updateGlobalData();
+
+        localStorage.setItem(
+            "promo_" + code,
+            "used"
+        );
+
+        alert(
+            "🎉 Promo code activated! +" +
+            promoCodes[code] +
+            "$"
+        );
+
+        input.value = "";
+
+    } else {
+
+        alert("❌ Noto'g'ri promo code!");
+
+    }
+        }
