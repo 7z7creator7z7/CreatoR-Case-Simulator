@@ -4,17 +4,17 @@ tg.expand();
 // Til ma'lumotlari
 const i18n = {
     uz: {
-        nav_cases: "🎁Keyslar", nav_inv: "Inventar", nav_profile: "Profil",
-        title_cases: "Keys Tanlang", title_inv: "Mening Inventarim", title_profile: "Sozlamalar",
-        label_lang: "Tilni tanlang:", label_stats: "Sizning natijangiz yaqin orada bu yerda bo'ladi.",
-        btn_open: "Ochish", btn_sell: "Sotish", btn_close: "Yopish",
-        msg_money: "Mablag' yetarli emas!", msg_win: "Tabriklaymiz! Siz yutdingiz: ",
-        opening: "Keys ochilmoqda..."
+        nav_cases: "🎁Keyslar", nav_inv: "🎒Inventar", nav_profile: "👤Profil",
+        title_cases: "Keys Tanlang", title_inv: "Mening Inventarim", title_profile: "⚙️Sozlamalar",
+        label_lang: "🇺🇿 Tilni tanlang:", label_stats: "Sizning natijangiz yaqin orada bu yerda bo'ladi.",
+        btn_open: "✅Ochish", btn_sell: "⛔Sotish", btn_close: "🚫Yopish",
+        msg_money: "Mablag' yetarli emas!😥", msg_win: "🔰Tabriklaymiz! Siz yutdingiz 🎉: ",
+        opening: "🎁 Keys ochilmoqda..."
     },
     en: {
         nav_cases: "Cases", nav_inv: "Inventory", nav_profile: "Profile",
         title_cases: "Select Case", title_inv: "My Inventory", title_profile: "Settings",
-        label_lang: "Select Language:", label_stats: "Your statistics will be here soon.",
+        label_lang: "🇬🇧 Select Language:", label_stats: "Your statistics will be here soon.",
         btn_open: "Open", btn_sell: "Sell", btn_close: "Close",
         msg_money: "Not enough money!", msg_win: "Congratulations! You won: ",
         opening: "Opening case..."
@@ -28,16 +28,16 @@ let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 // Skinlar bazasi (Siz aytgan ranglar va narxlar bilan)
 const allSkins = [
     { name: "P250 | Sand", price: 2, rarity: "rarity-blue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujbXzZk2p_Lcm7_v4mJhInFxfXnO67ummJW4NE_2-qS99SmiwS3_hU6Y236I9SUI1RvZAnR_VTrle_vgsS06J_AmnVru3I8pSGKw_9u9fE/200fx200f" },
-    { name: "AK-47 | Slate", price: 45, rarity: "rarity-darkblue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjx2jJemkV09-5lpKKqPrxN7LEmyVQ7p0o3-uUrNms2wXsr0o9Z27ycY_AdlA6ZArR_FPrw7u508Xv6p_MyHphu3Ih4S7D30vgfU9_v_o/200fx200f" },
-    { name: "AWP | Asiimov", price: 280, rarity: "rarity-gold", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2D8B65cn37mXpIn32Aex_Uo9am_7d46ScAI_M1vXq1C_x7-8hJ7u78_Bz3Rqu3U8pSGKezYVpGk/200fx200f" },
-    { name: "M9 | Crimson", price: 4500, rarity: "rarity-legendary", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1f_BYi5H49KZlY2Ek_P7Nrfum25V4dB8xOzA_In0iVbkq0o5ZTr0J9TAdw9sYFvYr1S6x7u508S96ZzKy3pgvCJx4X7D30vgr6vY66E/200fx200f" },
-    { name: "AWP | Gungnir", price: 18000, rarity: "rarity-rainbow", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2G9X7sB3i7rE8I_0iVax-kY9YDrzLYCWcVU2M1rV-Fi2xLu50Ze56J_IzHdg6HQ8pSGKr2YyK_Y/200fx200f" }
+    { name: "AK-47 | Slate", price: 4, rarity: "rarity-darkblue", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjx2jJemkV09-5lpKKqPrxN7LEmyVQ7p0o3-uUrNms2wXsr0o9Z27ycY_AdlA6ZArR_FPrw7u508Xv6p_MyHphu3Ih4S7D30vgfU9_v_o/200fx200f" },
+    { name: "AWP | Asiimov", price: 6, rarity: "rarity-gold", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2D8B65cn37mXpIn32Aex_Uo9am_7d46ScAI_M1vXq1C_x7-8hJ7u78_Bz3Rqu3U8pSGKezYVpGk/200fx200f" },
+    { name: "M9 | Crimson", price: 8, rarity: "rarity-legendary", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf1f_BYi5H49KZlY2Ek_P7Nrfum25V4dB8xOzA_In0iVbkq0o5ZTr0J9TAdw9sYFvYr1S6x7u508S96ZzKy3pgvCJx4X7D30vgr6vY66E/200fx200f" },
+    { name: "AWP | Gungnir", price: 10, rarity: "rarity-rainbow", img: "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17PLfYQJD_9W7m5a0mvLwOq7c2G9X7sB3i7rE8I_0iVax-kY9YDrzLYCWcVU2M1rV-Fi2xLu50Ze56J_IzHdg6HQ8pSGKr2YyK_Y/200fx200f" }
 ];
 
 const caseData = [
-    { name: "Standard", price: 10, skins: allSkins.slice(0, 3) },
-    { name: "Elite", price: 100, skins: allSkins.slice(1, 4) },
-    { name: "Godlike", price: 1000, skins: allSkins.slice(2, 5) }
+    { name: "📦 Oddiy", price: 10, skins: allSkins.slice(0, 5) },
+    { name: "🔰 Elite", price: 100, skins: allSkins.slice(0, 5) },
+    { name: "🎰 Lucky", price: 1000, skins: allSkins.slice(0, 5) }
 ];
 
 function updateLanguageUI() {
