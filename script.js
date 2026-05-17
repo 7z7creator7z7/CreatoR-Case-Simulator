@@ -82,24 +82,24 @@ document.addEventListener("click", (e) => {
 const i18n = {
     uz: {
         nav_cases: "🎁Keyslar", nav_inv: "🎒Inventar", nav_profile: "👤Profil",
-        title_cases: "Keys Tanlang", title_inv: "Mening Inventarim", title_profile: "⚙️Sozlamalar",
-        label_lang: "🇺🇿 Tilni tanlang:", label_stats: "Sizning natijangiz yaqin orada bu yerda bo'ladi.",
+        title_cases: "👑 Keys Tanlang", title_inv: "🎒Mening Inventarim", title_profile: "⚙️Sozlamalar",
+        label_lang: "🇺🇿 Tilni tanlang:", label_stats: "📊 Sizning natijangiz yaqin orada bu yerda bo'ladi.⌛",
         btn_open: "✅Ochish", btn_sell: "⛔Sotish", btn_close: "🚫Yopish",
         msg_money: "Mablag' yetarli emas!😥", msg_win: "🔰Tabriklaymiz! Siz yutdingiz 🎉: ",
         opening: "🎁 Keys ochilmoqda..."
     },
     en: {
-        nav_cases: "Cases", nav_inv: "Inventory", nav_profile: "Profile",
-        title_cases: "Select Case", title_inv: "My Inventory", title_profile: "Settings",
-        label_lang: "🇬🇧 Select Language:", label_stats: "Your statistics will be here soon.",
-        btn_open: "Open", btn_sell: "Sell", btn_close: "Close",
-        msg_money: "Not enough money!", msg_win: "Congratulations! You won: ",
-        opening: "Opening case..."
+        nav_cases: "🎁Cases", nav_inv: "🎒Inventory", nav_profile: "👤Profile",
+        title_cases: "👑Select Case", title_inv: "🎒My Inventory", title_profile: "⚙️Settings",
+        label_lang: "🇬🇧 Select Language:", label_stats: "📊 Your statistics will be here soon.⌛",
+        btn_open: "Open", btn_sell: "⛔Sell", btn_close: "🚫Close",
+        msg_money: "Not enough money!😥", msg_win: "🔰Congratulations! You won 🎉: ",
+        opening: "🎁 Opening case..."
     }
 };
 
 let currentLang = localStorage.getItem('lang') || 'uz';
-let balance = parseFloat(localStorage.getItem('balance')) || 1000.00;
+let balance = parseFloat(localStorage.getItem('balance')) || 1.000.000;
 let inventory = JSON.parse(localStorage.getItem('inventory')) || [];
 
 // Skinlar bazasi
