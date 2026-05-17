@@ -106,6 +106,20 @@
 </div>
 
 <script src="script.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyApxJ2-uN2EkrcMv5lwRQmwnTl_QdidKU8",
+    authDomain: "creator-9c0f0.firebaseapp.com",
+    projectId: "creator-9c0f0",
+    storageBucket: "creator-9c0f0.appspot.com",
+    messagingSenderId: "134225376606",
+    appId: "1:134225376606:web:5b119eda2a42fde80acbcf",
+    measurementId: "G-7YYM8MZ5ND"
+  };
+
+  window.app = initializeApp(firebaseConfig);
+                </script>
 </body>
 </html>
