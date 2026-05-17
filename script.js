@@ -1,34 +1,52 @@
-// SOUND EFFECTS
+// SOUND SYSTEM
 const audioCtx = new (
     window.AudioContext ||
     window.webkitAudioContext
 )();
 
-function playSound(freq, duration) {
+function clickSound() {
 
-    const oscillator =
-        audioCtx.createOscillator();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
 
-    const gainNode =
-        audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
 
-    oscillator.connect(gainNode);
+    osc.type = "square";
+    osc.frequency.value = 500;
 
-    gainNode.connect(audioCtx.destination);
+    gain.gain.value = 0.05;
 
-    oscillator.type = "square";
-
-    oscillator.frequency.value = freq;
-
-    gainNode.gain.value = 0.1;
-
-    oscillator.start();
+    osc.start();
 
     setTimeout(() => {
 
-        oscillator.stop();
+        osc.stop();
 
-    }, duration);
+    }, 60);
+
+}
+
+function tickSound(freq = 700) {
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.type = "triangle";
+    osc.frequency.value = freq;
+
+    gain.gain.value = 0.03;
+
+    osc.start();
+
+    setTimeout(() => {
+
+        osc.stop();
+
+    }, 40);
 
 }
 const tg = window.Telegram.WebApp;
@@ -38,7 +56,7 @@ document.addEventListener("click", (e) => {
 
     if (e.target.tagName === "BUTTON") {
 
-        playSound(500, 80);
+        clickSound();
 
     }
 
@@ -178,8 +196,6 @@ function renderCases() {
 }
 
 function openCase(idx) {
-    // OPEN CASE SOUND
-playSound(200, 300);
     const c = caseData[idx];
     if (balance < c.price) return alert(i18n[currentLang].msg_money);
 
@@ -212,14 +228,27 @@ playSound(200, 300);
         carousel.style.transition = 'transform 5s cubic-bezier(0.1, 0, 0.1, 1)';
         carousel.style.transform = `translateX(-${(winIndex * 112) - 104}px)`;
     }, 100);
+    // TICK SOUND ANIMATION
+let speed = 60;
+
+for (let i = 0; i < 35; i++) {
+
+    setTimeout(() => {
+
+        tickSound(
+            600 + (i * 8)
+        );
+
+    }, speed);
+
+    speed += i * 12;
+
+}
 
     setTimeout(() => {
         inventory.push(winner);
         updateGlobalData();
         document.getElementById('close-modal').classList.remove('hidden');
-        // WIN SOUND
-playSound(900, 500);
-        
         alert(i18n[currentLang].msg_win + winner.name);
     }, 5600);
 }
@@ -332,4 +361,4 @@ function usePromoCode() {
         alert("❌ Noto'g'ri promo code!");
 
     }
-        }
+     }
