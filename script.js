@@ -285,7 +285,7 @@ function usePromoCode() {
 
     }
         }
-// 🔘 TAP / CLICK SOUND
+// 🔊 CLICK SOUND (auto)
 function playTap() {
   const ctx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -306,8 +306,29 @@ function playTap() {
 }
 
 
-// 📦 CASE OPEN SOUND (tic tic → sekin to‘xtaydi)
-function playCaseOpen() {
+// 📦 CASE START SOUND (bosilganda)
+function playCaseStart() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  osc.type = "sine";
+  osc.frequency.value = 300;
+
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  osc.start();
+  osc.stop(ctx.currentTime + 0.2);
+}
+
+
+// 📦 CASE OPEN SPIN (tic-tic → sekin to‘xtaydi)
+function playCaseSpin() {
   const ctx = new (window.AudioContext || window.webkitAudioContext)();
 
   let delay = 40;
@@ -318,23 +339,23 @@ function playCaseOpen() {
     const gain = ctx.createGain();
 
     osc.type = "square";
-    osc.frequency.value = 1200;
+    osc.frequency.value = 1100;
 
-    gain.gain.setValueAtTime(0.18, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.035);
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
 
     osc.connect(gain);
     gain.connect(ctx.destination);
 
     osc.start();
-    osc.stop(ctx.currentTime + 0.035);
+    osc.stop(ctx.currentTime + 0.03);
   }
 
   function loop() {
     if (!running) return;
 
     tick();
-    delay += 18;
+    delay += 20;
 
     if (delay > 520) {
       running = false;
@@ -345,4 +366,4 @@ function playCaseOpen() {
   }
 
   loop();
-            }
+}
