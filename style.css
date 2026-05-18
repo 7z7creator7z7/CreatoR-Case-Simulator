@@ -209,6 +209,8 @@ input:checked + .slider:before {
 .top3 { background: #cd7f32; color: white; }
 #balance {
 
+} 
+    
 .close-btn {
   font-size: 12px;      /* matn kichik */
   padding: 6px 12px;    /* tugma ichidagi joy kichik */
