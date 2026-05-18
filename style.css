@@ -207,7 +207,7 @@ input:checked + .slider:before {
 .top1 { background: gold; color: black; }
 .top2 { background: silver; color: black; }
 .top3 { background: #cd7f32; color: white; }
-#balance {} 
+#balance {
 
 .close-btn {
   font-size: 12px;      /* matn kichik */
