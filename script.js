@@ -182,7 +182,7 @@ const caseData = [
     { name: "💎 Elite", price: 25, skins: allSkins.slice(5, 14) },
     { name: "🎰 Lucky", price: 50, skins: allSkins.slice(6, 14) }, 
     { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(7, 15) },
-    { name: "💩 Ochma", price: 15, rarity: "rarity-rainbow", skins: allSkins.slice(0, 8) }
+    { name: "💩 Ochma", price: 15, skins: allSkins.slice(0, 8) }
 ];
 
 function updateLanguageUI() {
@@ -403,26 +403,3 @@ soundToggle.addEventListener(
 
     }
 );
-function getBackgroundColor(rarity) {
-    switch(rarity) {
-        case "blue": return "#3b82f6";     // Blue
-        case "green": return "#22c55e";    // Green
-        case "purple": return "#a855f7";   // Purple
-        case "yellow": return "#facc15";   // Yellow
-        case "red": return "#ef4444";      // Red
-        case "rainbow": return "rainbow-bg"; // CSS class nomi
-        default: return ""; // rarity yozilmasa default rangda qoladi
-    }
-}
-
-// Case elementini yaratishda:
-caseData.forEach(c => {
-    const div = document.createElement("div");
-    if (c.rarity === "rainbow") {
-        div.classList.add("rainbow-bg"); // CSS animatsiya ishlaydi
-    } else {
-        div.style.backgroundColor = getBackgroundColor(c.rarity);
-    }
-    div.innerText = c.name + " - $" + c.price;
-    document.body.appendChild(div);
-});
