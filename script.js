@@ -403,3 +403,26 @@ soundToggle.addEventListener(
 
     }
 );
+function getBackgroundColor(rarity) {
+    switch(rarity) {
+        case "blue": return "#3b82f6";     // Blue
+        case "green": return "#22c55e";    // Green
+        case "purple": return "#a855f7";   // Purple
+        case "yellow": return "#facc15";   // Yellow
+        case "red": return "#ef4444";      // Red
+        case "rainbow": return "rainbow-bg"; // CSS class nomi
+        default: return ""; // rarity yozilmasa default rangda qoladi
+    }
+}
+
+// Case elementini yaratishda:
+caseData.forEach(c => {
+    const div = document.createElement("div");
+    if (c.rarity === "rainbow") {
+        div.classList.add("rainbow-bg"); // CSS animatsiya ishlaydi
+    } else {
+        div.style.backgroundColor = getBackgroundColor(c.rarity);
+    }
+    div.innerText = c.name + " - $" + c.price;
+    document.body.appendChild(div);
+});
