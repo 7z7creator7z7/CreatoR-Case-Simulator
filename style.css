@@ -229,18 +229,36 @@ input:checked + .slider:before {
   0%   { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
 }
-<head>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    #matrix-label {
-      font-family: monospace;
-      color: #0f0;
-      font-size: 14px;
-      line-height: 18px;
-      height: 80px;
-      overflow: hidden;
-      background: black;
-      padding: 5px;
-    }
-  </style>
-</head>
+/* Matrix background faqat header ichida oqadi */
+#matrix-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;   /* bosishga halaqit bermaydi */
+  z-index: 0;             /* orqa fon */
+  overflow: hidden;
+}
+
+.matrix-line {
+  position: absolute;
+  top: -100%;
+  width: 100%;
+  color: #0f0;
+  font-family: monospace;
+  font-size: 14px;
+  white-space: nowrap;
+  animation: matrix-fall 5s linear infinite;
+}
+
+@keyframes matrix-fall {
+  from { top: -100%; }
+  to   { top: 100%; }
+}
+
+/* Nik, Balance va Profil rasm ustida ko‘rinishi uchun */
+#user-name, #balance, #user-photo {
+  position: relative;
+  z-index: 10;  /* Matrixdan yuqorida turadi */
+}
