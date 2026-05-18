@@ -119,6 +119,7 @@ const allSkins = [
     { name: "🔵 M4A4-2 🔵", price: 10, rarity: "rarity-blue", img: "./images/17.png"},
     { name: "🔵 Desert Eagle2 🔵", price: 10, rarity: "rarity-blue", img: "./images/18.png"},
     { name: "💎 | ASM | 💎", price: 500, rarity: "rarity-rainbow", img: "./images/19.png"},
+
 ];
 
 // AUTO RARITY SYSTEM
@@ -178,10 +179,10 @@ function getRandomItem(caseItems) {
 }
 
 const caseData = [
-    { name: "🔰 Oddiy", price: 10, skins: allSkins.slice(0, 15) },
-    { name: "💎 Elite", price: 25, skins: allSkins.slice(0, 15) },
-    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(0, 15) }, 
-    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(0, 16) }
+    { name: "🔰 Oddiy", price: 10, skins: allSkins.slice(0, 14) },
+    { name: "💎 Elite", price: 25, skins: allSkins.slice(0, 14) },
+    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(0, 14) }, 
+    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(15, 15) }
 ];
 
 function updateLanguageUI() {
