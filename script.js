@@ -118,8 +118,7 @@ const allSkins = [
     { name: "🔵 MAC-10 🔵", price: 10, rarity: "rarity-blue", img: "./images/16.png"},
     { name: "🔵 M4A4-2 🔵", price: 10, rarity: "rarity-blue", img: "./images/17.png"},
     { name: "🔵 Desert Eagle2 🔵", price: 10, rarity: "rarity-blue", img: "./images/18.png"},
-    { name: "🔵 P90 🔵", price: 10, rarity: "rarity-blue", img: "./images/19.png"},
-    { name: "💎 ASM 💎 ", price: 500, rarity: "rarity-rainbow", img: "./images/20.png"},
+    { name: "💎 | ASM | 💎", price: 500, rarity: "rarity-rainbow", img: "./images/19.png"},
 ];
 
 // AUTO RARITY SYSTEM
