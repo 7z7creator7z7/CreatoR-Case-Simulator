@@ -229,3 +229,18 @@ input:checked + .slider:before {
   0%   { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
 }
+<head>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #matrix-label {
+      font-family: monospace;
+      color: #0f0;
+      font-size: 14px;
+      line-height: 18px;
+      height: 80px;
+      overflow: hidden;
+      background: black;
+      padding: 5px;
+    }
+  </style>
+</head>
