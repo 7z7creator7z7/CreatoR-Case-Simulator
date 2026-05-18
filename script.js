@@ -322,19 +322,19 @@ updateLanguageUI();
 updateGlobalData();
 const promoCodes = {
 
-    FREE100: 100,
+    "FREE100" : 100,
 
-    CREATOR: 500,
+    "CREATOR" : 500,
 
-    LUCKY500: 500,
+    "LUCKY500" : 500,
         
-    NEWYEAR2026: 500,
+    "NEWYEAR2026" : 500,
 
-    27MART: 500,
+    "27MART" : 500,
 
-    CHAROS: 500,
+    "CHAROS" : 500,
 
-    King009: 500,
+    "King009" : 500,
     
 };
 
