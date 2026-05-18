@@ -334,7 +334,7 @@ const promoCodes = {
 
     "CHAROS" : 500,
 
-    "King009" : 500,
+    "KING009" : 500,
     
 };
 
