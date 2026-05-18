@@ -332,9 +332,7 @@ const promoCodes = {
 
     "27MART": 500,
 
-    "CHAROS": 500,
-    
-    "King009": 500
+    "CHAROSs": 500,
 };
 
 function usePromoCode() {
