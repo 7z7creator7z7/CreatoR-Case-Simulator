@@ -207,4 +207,16 @@ input:checked + .slider:before {
 .top1 { background: gold; color: black; }
 .top2 { background: silver; color: black; }
 .top3 { background: #cd7f32; color: white; }
-#balance {
+#balance {} 
+
+.close-btn {
+  font-size: 12px;      /* matn kichik */
+  padding: 6px 12px;    /* tugma ichidagi joy kichik */
+  width: 80px;          /* kengligi */
+  height: 30px;         /* balandligi */
+  background: #da3633;  /* rang */
+  border: none;
+  border-radius: 6px;
+  color: white;
+}
+
