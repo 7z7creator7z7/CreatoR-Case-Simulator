@@ -403,3 +403,22 @@ soundToggle.addEventListener(
 
     }
 );
+function startMatrix() {
+  const el = document.getElementById("matrix-label");
+  const chars = "01";
+  
+  setInterval(() => {
+    let lines = "";
+    // 5 qator random raqam hosil qilamiz
+    for (let r = 0; r < 5; r++) {
+      let line = "";
+      for (let i = 0; i < 40; i++) {
+        line += chars[Math.floor(Math.random() * chars.length)];
+      }
+      lines += line + "\n";
+    }
+    el.innerText = lines;
+  }, 150);
+}
+
+startMatrix();
