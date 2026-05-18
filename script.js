@@ -86,7 +86,7 @@ const i18n = {
         label_lang: "🇺🇿 Tilni tanlang:", label_stats: "📊 Sizning natijangiz yaqin orada bu yerda bo'ladi.⌛",
         btn_open: "✅Ochish", btn_sell: "⛔Sotish", btn_close: "🚫Yopish",
         msg_money: "Mablag' yetarli emas!😥", msg_win: "🔰Tabriklaymiz! Siz yutdingiz 🎉: ",
-        opening: "🎁 Keys ochilmoqda..."
+        opening: "🎁 𐂅Keys ochilmoqda..."
     },
     en: {
         nav_cases: "🎁Cases", nav_inv: "🎒Inventory", nav_profile: "👤Profile",
@@ -94,7 +94,7 @@ const i18n = {
         label_lang: "🇬🇧 Select Language:", label_stats: "📊 Your statistics will be here soon.⌛",
         btn_open: "Open", btn_sell: "⛔Sell", btn_close: "🚫Close",
         msg_money: "Not enough money!😥", msg_win: "🔰Congratulations! You won 🎉: ",
-        opening: "🎁 Opening case..."
+        opening: "🎁 𐂅Opening case..."
     }
 };
 
@@ -119,7 +119,7 @@ const allSkins = [
     { name: "🔵 M4A4-2 🔵", price: 10, rarity: "rarity-blue", img: "./images/17.png"},
     { name: "🔵 Desert Eagle2 🔵", price: 10, rarity: "rarity-blue", img: "./images/18.png"},
     { name: "🔵 P90 🔵", price: 10, rarity: "rarity-blue", img: "./images/19.png"},
-    { name: "🔵 M249 🔵", price: 18, rarity: "rarity-blue", img: "./images/20.png"},
+    { name: "💎 ASM 💎 ", price: 500, rarity: "rarity-rainbow", img: "./images/20.png"},
 ];
 
 // AUTO RARITY SYSTEM
@@ -179,10 +179,10 @@ function getRandomItem(caseItems) {
 }
 
 const caseData = [
-    { name: "🔰 Oddiy", price: 10, skins: allSkins.slice(0, 16) },
-    { name: "💎 Elite", price: 25, skins: allSkins.slice(8, 16) },
-    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(10, 16) }, 
-    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(15, 16) }
+    { name: "🔰 Oddiy", price: 10, skins: allSkins.slice(0, 15) },
+    { name: "💎 Elite", price: 25, skins: allSkins.slice(0, 15) },
+    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(0, 15) }, 
+    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(0, 16) }
 ];
 
 function updateLanguageUI() {
