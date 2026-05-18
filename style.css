@@ -229,4 +229,8 @@ input:checked + .slider:before {
   0%   { filter: hue-rotate(0deg); }
   100% { filter: hue-rotate(360deg); }
 }
-
+.rainbow-bg-case {
+  background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet);
+  background-size: 1400% 1400%;
+  animation: rainbowShift 5s linear infinite; /* tezroq aylanish */
+}
