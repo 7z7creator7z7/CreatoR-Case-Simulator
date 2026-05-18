@@ -179,8 +179,8 @@ function getRandomItem(caseItems) {
 }
 
 const caseData = [
-    { name: "📦 Oddiy", price: 10, skins: allSkins.slice(0, 16) },
-    { name: "🔰 Elite", price: 25, skins: allSkins.slice(8, 16) },
+    { name: "🔰 Oddiy", price: 10, skins: allSkins.slice(0, 16) },
+    { name: "💎 Elite", price: 25, skins: allSkins.slice(8, 16) },
     { name: "🎰 Lucky", price: 50, skins: allSkins.slice(10, 16) }, 
     { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(15, 16) }
 ];
