@@ -118,10 +118,10 @@ const allSkins = [
     { name: "🔵 Desert Eagle 🔵", price: 40, rarity: "rarity-blue", img: "./images/16.png"},
     { name: "🔵 AWP 🔵", price: 45, rarity: "rarity-blue", img: "./images/17.png"},
     { name: "🔵 AK-47 🔵", price: 50, rarity: "rarity-blue", img: "./images/18.png"},
-    { name: "💎 | ASM | 💎", price: 5000, rarity: "rarity-rainbow", img: "./images/19.png"},
     { name: "💎 | SOMSA | 💎", price: 2500, rarity: "rarity-rainbow", img: "./images/20.png"},
     { name: "💎 | Shaftoli | 💎", price: 2500, rarity: "rarity-rainbow", img: "./images/21.png"},
-    { name: "💎 | GILOS | 💎", price: 1500, rarity: "rarity-rainbow", img: "./images/22.png"}
+    { name: "💎 | GILOS | 💎", price: 1500, rarity: "rarity-rainbow", img: "./images/22.png"},
+    { name: "💎 | ASM | 💎", price: 5000, rarity: "rarity-rainbow", img: "./images/19.png"},
 ];
 
 // AUTO RARITY SYSTEM
