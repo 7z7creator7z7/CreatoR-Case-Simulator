@@ -118,7 +118,10 @@ const allSkins = [
     { name: "🔵 Desert Eagle 🔵", price: 40, rarity: "rarity-blue", img: "./images/16.png"},
     { name: "🔵 AWP 🔵", price: 45, rarity: "rarity-blue", img: "./images/17.png"},
     { name: "🔵 AK-47 🔵", price: 50, rarity: "rarity-blue", img: "./images/18.png"},
-    { name: "💎 | ASM | 💎", price: 5000, rarity: "rarity-rainbow", img: "./images/19.png"}
+    { name: "💎 | ASM | 💎", price: 5000, rarity: "rarity-rainbow", img: "./images/19.png"},
+    { name: "💎 | SOMSA | 💎", price: 2500, rarity: "rarity-rainbow", img: "./images/20.png"},
+    { name: "💎 | Shaftoli | 💎", price: 2500, rarity: "rarity-rainbow", img: "./images/21.png"},
+    { name: "💎 | GILOS | 💎", price: 1500, rarity: "rarity-rainbow", img: "./images/22.png"}
 ];
 
 // AUTO RARITY SYSTEM
@@ -178,10 +181,10 @@ function getRandomItem(caseItems) {
 }
 
 const caseData = [
-    { name: "🔰 Oddiy", price: 10, skins: allSkins.slice(0, 14) },
-    { name: "💎 Elite", price: 25, skins: allSkins.slice(5, 14) },
-    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(6, 14) }, 
-    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(7, 15) },
+    { name: "🔰 Oddiy", price: 10, skins: allSkins.slice(0, 17) },
+    { name: "💎 Elite", price: 25, skins: allSkins.slice(5, 17) },
+    { name: "🎰 Lucky", price: 50, skins: allSkins.slice(6, 17) }, 
+    { name: "🏆 Best Lucky", price: 75, skins: allSkins.slice(7, 17) },
     { name: "💩 Ochma", price: 15, skins: allSkins.slice(0, 8) }
 ];
 
