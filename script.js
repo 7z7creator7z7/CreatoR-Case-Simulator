@@ -113,12 +113,12 @@ const allSkins = [
     { name: "🔵 AK-47 🔵", price: 5, rarity: "rarity-blue", img: "./images/11.png"},
     { name: "🔵 USP-S 🔵", price: 6, rarity: "rarity-blue", img: "./images/12.png"},
     { name: "🔵 M4A4-1 🔵", price: 7, rarity: "rarity-blue", img: "./images/13.png"},
-    { name: "🔵 SSG 08 🔵", price: 8, rarity: "rarity-blue", img: "./images/14.png"},
-    { name: "🔵 P90 🔵", price: 10, rarity: "rarity-blue", img: "./images/15.png"},
-    { name: "🔵 Desert Eagle 🔵", price: 15, rarity: "rarity-blue", img: "./images/16.png"},
-    { name: "🔵 AWP 🔵", price: 30, rarity: "rarity-blue", img: "./images/17.png"},
-    { name: "🔵 AK-47 🔵", price: 40, rarity: "rarity-blue", img: "./images/18.png"},
-    { name: "💎 | ASM | 💎", price: 500, rarity: "rarity-rainbow", img: "./images/19.png"}
+    { name: "🔵 SSG 08 🔵", price: 25, rarity: "rarity-blue", img: "./images/14.png"},
+    { name: "🔵 P90 🔵", price: 30, rarity: "rarity-blue", img: "./images/15.png"},
+    { name: "🔵 Desert Eagle 🔵", price: 40, rarity: "rarity-blue", img: "./images/16.png"},
+    { name: "🔵 AWP 🔵", price: 45, rarity: "rarity-blue", img: "./images/17.png"},
+    { name: "🔵 AK-47 🔵", price: 50, rarity: "rarity-blue", img: "./images/18.png"},
+    { name: "💎 | ASM | 💎", price: 5000, rarity: "rarity-rainbow", img: "./images/19.png"}
 ];
 
 // AUTO RARITY SYSTEM
