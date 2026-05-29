@@ -1,3 +1,26 @@
+function showTopPopup(text, color = "red") {
+
+    const popup = document.createElement("div");
+    popup.className = "top-popup";
+    popup.innerText = text;
+
+    if (color === "red") {
+        popup.style.border = "2px solid #eb4b4b";
+        popup.style.boxShadow = "0 0 15px #eb4b4b";
+    }
+
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+        popup.classList.add("show");
+    }, 50);
+
+    setTimeout(() => {
+        popup.classList.remove("show");
+
+        setTimeout(() => popup.remove(), 400);
+    }, 3000);
+}
 // ================= SOUND SYSTEM =================
 
 const audioCtx = new (
@@ -160,7 +183,7 @@ const i18n = {
         label_lang: "🇬🇧 Select Language:",
         label_stats: "📊 Your statistics will be here soon.⌛",
 
-        btn_open: "Open",
+        btn_open: "✅Open",
         btn_sell: "⛔Sell",
         btn_close: "🚫Close",
 
@@ -204,7 +227,7 @@ const allSkins = [
     { name: "🔵 AWP 🔵", price: 9.50, rarity: "rarity-blue", img: "./images/17.png"},
     { name: "🔵 AK-47 🔵", price: 8.10, rarity: "rarity-blue", img: "./images/18.png"},
 
-    { name: "💎 | SOMSA | 💎", price: 250, rarity: "rarity-rainbow", img: "./images/20.png"},
+    { name: "💎 | SOMSA | 💎", price: 300, rarity: "rarity-rainbow", img: "./images/20.png"},
     { name: "💎 | Shaftoli | 💎", price: 250, rarity: "rarity-rainbow", img: "./images/21.png"},
     { name: "💎 | GILOS | 💎", price: 150, rarity: "rarity-rainbow", img: "./images/22.png"},
     { name: "💎 | ASM | 💎", price: 5000, rarity: "rarity-rainbow", img: "./images/19.png"},
@@ -272,16 +295,18 @@ function getRandomItem(caseItems) {
 // ================= CASES =================
 
 const caseData = [
+  
+    { name: "🖤Black", price: 5, skins: allSkins.slice(0, 14) },
 
     { name: "🔰 Oddiy", price: 50, skins: allSkins.slice(0, 15) },
 
-    { name: "💎 Elite", price: 100, skins: allSkins.slice(5, 16) },
+    { name: "💠 Elite", price: 100, skins: allSkins.slice(5, 15) },
 
-    { name: "🎰 Lucky", price: 150, skins: allSkins.slice(6, 17) },
+    { name: "🎰 Lucky", price: 150, skins: allSkins.slice(6, 16) },
 
-    { name: "🏆 Best Lucky", price: 275, skins: allSkins.slice(7, 19) },
+    { name: "🏆 Best Lucky", price: 275, skins: allSkins.slice(7, 18) },
 
-    { name: "💩 Ochma", price: 15, skins: allSkins.slice(0, 8) }
+    { name: "💎 Legendary", price: 500, skins: allSkins.slice(9, 20) }
 ];
 
 // ================= LANGUAGE UI =================
@@ -341,12 +366,14 @@ function renderCases() {
 function openCase(idx) {
 
     const c = caseData[idx];
+    
+if (balance < c.price) {
 
-    if (balance < c.price) {
+    showTopPopup(i18n[currentLang].msg_money, "red");
 
-        alert(i18n[currentLang].msg_money);
-        return;
-    }
+    return;
+}
+
 
     balance -= c.price;
 
@@ -757,4 +784,4 @@ soundToggle.addEventListener(
 
 updateLanguageUI();
 
-updateGlobalData();
+updateGlobalData(); 
