@@ -284,3 +284,26 @@ input:checked + .slider:before {
     font-size: 13px;
     margin-top: 2px;
 }
+.top-popup {
+    position: fixed;
+    top: -100px; /* dastlab yashirin */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(25,25,25,0.95);
+    border: 2px solid #eb4b4b;
+    border-radius: 12px;
+    padding: 10px 16px;
+    color: #ff4d4d;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 99999;
+    transition: 0.5s ease;
+    min-width: 200px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 15px rgba(235,75,75,0.6);
+}
+
+.top-popup.show {
+    top: 20px; /* animatsiyada tepaga chiqadi */
+}
