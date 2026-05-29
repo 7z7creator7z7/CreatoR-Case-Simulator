@@ -401,7 +401,7 @@ function openCase(idx) {
     setTimeout(() => {
 
         carousel.style.transition =
-            'transform 7s cubic-bezier(0.1,0,0.1,1)';
+            'transform 6.0s cubic-bezier(0.1,0,0.1,1)';
 
         carousel.style.transform =
             `translateX(-${(winIndex * 112) - 104}px)`;
@@ -757,4 +757,4 @@ soundToggle.addEventListener(
 
 updateLanguageUI();
 
-updateGlobalData(); 
+updateGlobalData();
