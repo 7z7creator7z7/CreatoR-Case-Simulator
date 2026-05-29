@@ -306,7 +306,7 @@ const caseData = [
 
     { name: "🏆 Best Lucky", price: 275, skins: allSkins.slice(7, 18) },
 
-    { name: "💎 Legendary", price: 500, skins: allSkins.slice(9, 20) }
+    { name: "💎 Legendary", price: 5000000, skins: allSkins.slice(9, 20) }
 ];
 
 // ================= LANGUAGE UI =================
