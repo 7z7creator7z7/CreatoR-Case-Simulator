@@ -215,22 +215,21 @@ const allSkins = [
     { name: "🔵 P250 🔵", price: 0.50, rarity: "rarity-blue", img: "./images/5.png"},
     { name: "🔵 UMP-45 🔵", price: 0.10, rarity: "rarity-blue", img: "./images/6.png"},
     { name: "🔵 FAMAS 🔵", price: 1.50, rarity: "rarity-blue", img: "./images/7.png"},
-    { name: "🔵 AWP 🔵", price: 0.20, rarity: "rarity-blue", img: "./images/8.png"},
-    { name: "🔵 NOVA 🔵", price: 3.50, rarity: "rarity-blue", img: "./images/9.png"},
-    { name: "🔵 GLOCK-18 🔵", price: 4.30, rarity: "rarity-blue", img: "./images/10.png"},
-    { name: "🔵 AK-47 🔵", price: 5.10, rarity: "rarity-blue", img: "./images/11.png"},
-    { name: "🔵 USP-S 🔵", price: 6.80, rarity: "rarity-blue", img: "./images/12.png"},
-    { name: "🔵 M4A4-1 🔵", price: 7.90, rarity: "rarity-blue", img: "./images/13.png"},
-    { name: "🔵 SSG 08 🔵", price: 2.50, rarity: "rarity-blue", img: "./images/14.png"},
-    { name: "🔵 P90 🔵", price: 3.90, rarity: "rarity-blue", img: "./images/15.png"},
-    { name: "🔵 Desert Eagle 🔵", price: 4.50, rarity: "rarity-blue", img: "./images/16.png"},
-    { name: "🔵 AWP 🔵", price: 9.50, rarity: "rarity-blue", img: "./images/17.png"},
-    { name: "🔵 AK-47 🔵", price: 8.10, rarity: "rarity-blue", img: "./images/18.png"},
-
-    { name: "💎 | SOMSA | 💎", price: 300, rarity: "rarity-rainbow", img: "./images/20.png"},
-    { name: "💎 | Shaftoli | 💎", price: 250, rarity: "rarity-rainbow", img: "./images/21.png"},
-    { name: "💎 | GILOS | 💎", price: 150, rarity: "rarity-rainbow", img: "./images/22.png"},
-    { name: "💎 | ASM | 💎", price: 5000, rarity: "rarity-rainbow", img: "./images/19.png"},
+    { name: "🔵 NOVA 🔵", price: 0.20, rarity: "rarity-blue", img: "./images/8.png"},
+    { name: "🔵 GLOCK-18 🔵", price: 3.50, rarity: "rarity-blue", img: "./images/9.png"},
+    { name: "🔵 AK-47 🔵", price: 4.30, rarity: "rarity-blue", img: "./images/10.png"},
+    { name: "🔵 USP-S 🔵", price: 5.10, rarity: "rarity-blue", img: "./images/11.png"},
+    { name: "🔵 M4A4 🔵", price: 6.80, rarity: "rarity-blue", img: "./images/12.png"},
+    { name: "🔵 SSG 08 🔵", price: 7.90, rarity: "rarity-blue", img: "./images/13.png"},
+    { name: "🔵 P90 🔵", price: 2.50, rarity: "rarity-blue", img: "./images/14.png"},
+    { name: "🔵 Desert Eagle 🔵", price: 4.50, rarity: "rarity-blue", img: "./images/15.png"},
+    { name: "🔵 AWP 🔵", price: 9.50, rarity: "rarity-blue", img: "./images/16.png"},
+    { name: "🔵 AK-47|Red🔵", price: 8.10, rarity: "rarity-blue", img: "./images/17.png"},
+    { name: "🔵 AK-47|Wolf🔵", price: 8.10, rarity: "rarity-blue", img: "./images/18.png"},
+    { name: "💎 | SOMSA | 💎", price: 300, rarity: "rarity-rainbow", img: "./images/19.png"},
+    { name: "💎 | Shaftoli | 💎", price: 250, rarity: "rarity-rainbow", img: "./images/20.png"},
+    { name: "💎 | GILOS | 💎", price: 150, rarity: "rarity-rainbow", img: "./images/21.png"},
+    { name: "💎 | ASM | 💎", price: 5000, rarity: "rarity-rainbow", img: "./images/12.png"},
 ];
 
 // ================= RARITY =================
@@ -306,7 +305,7 @@ const caseData = [
 
     { name: "🏆 Best Lucky", price: 275, skins: allSkins.slice(7, 18) },
 
-    { name: "💎 Legendary", price: 5000000, skins: allSkins.slice(9, 20) }
+    { name: "💎 Legendary", price: 500, skins: allSkins.slice(9, 20) }
 ];
 
 // ================= LANGUAGE UI =================
