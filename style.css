@@ -110,3 +110,33 @@ input:checked + .slider:before { transform: translateX(22px); }
     width: 20px;
     height: 20px;
 }
+/* Balansdagi MC token rasmi uchun */
+.currency-icon {
+    width: 25px;   /* Kenglikni qat'iy belgilaymiz */
+    height: 24px;  /* Balandlikni qat'iy belgilaymiz */
+    object-fit: contain; /* Rasm o'lchamini buzmasdan joylashtirish */
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* UC tugmasi ichidagi kichik ikonka uchun */
+.uc-icon {
+    width: 20px;   /* Bu kichikroq bo'lishi kerak */
+    height: 20px;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
+.balance{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.currency-icon{
+    width: 22px;
+    height: 22px;
+    position: relative;
+    top: -2px; /* teparoq chiqaradi */
+}
