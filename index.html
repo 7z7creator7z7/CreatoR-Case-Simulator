@@ -17,8 +17,11 @@
             <span id="user-name">Yuklanmoqda...</span>
         </div>
 
-        <div class="balance-info">
-            <div><span id="balance">0.00</span>💲</div>
+        <div class="header-right">
+            <div class="balance">
+                <span id="balance">47.03</span>
+                <img src="./images/mc1.png" alt="" class="currency-icon">
+            </div>
             <div class="uc-box">
                 ( <img src="./images/uc.png" alt="UC" class="uc-icon"> <span id="calculated-uc">0,00</span> UC )
             </div>
@@ -42,14 +45,12 @@
 
     <section id="profile-section" class="hidden">
         <h2 id="title-profile">👤 Profil</h2>
-
         <div class="profile-card">
             <p id="label-lang">🇺🇿 Tilni tanlang:</p>
             <div class="lang-buttons">
                 <button onclick="changeLanguage('uz')">🇺🇿 O'zbekcha</button>
                 <button onclick="changeLanguage('en')">🇺🇸 English</button>
             </div>
-
             <div class="sound-setting">
                 <span>🔊 Ovoz</span>
                 <label class="switch">
@@ -58,13 +59,11 @@
                 </label>
             </div>
         </div>
-
         <div class="promo-box">
             <h3>🎁 Promo Code</h3>
             <input type="text" id="promo-input" placeholder="Promo code...">
             <button onclick="usePromoCode()">✅ Activate</button>
         </div>
-
         <p id="label-stats">📊 Statistika tez kunda...</p>
     </section>
 
@@ -75,7 +74,7 @@
                 <div id="line"></div>
                 <div id="carousel"></div>
             </div>
-            <button id="close-modal" class="close-btn" onclick="closeModal()">Yopish</button>
+            <button id="close-modal" class="close-btn hidden" onclick="closeModal()">Yopish</button>
         </div>
     </div>
 
