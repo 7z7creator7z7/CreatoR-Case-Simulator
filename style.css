@@ -16,7 +16,7 @@ nav button { flex: 1; padding: 12px; background: #21262d; border: 1px solid #303
 .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
 .case-card { background: #161b22; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #30363d; transition: 0.3s; }
 .case-card:active { transform: scale(0.95); }
-.case-card button { background: #238636; color: white; border: none; padding: 10px 20px; border-radius: 6px; width: 100%; margin-top: 10px; font-weight: bold; }
+.case-card button { background: #4f1; color: Red; border: none; padding: 10px 20px; border-radius: 6px; width: 100%; margin-top: 10px; font-weight: bold; }
 
 .rarity-blue { border-bottom: 4px solid #4b69ff; }
 .rarity-darkblue { border-bottom: 4px solid #00008b; }
@@ -70,3 +70,43 @@ input:checked + .slider:before { transform: translateX(22px); }
 
 .top-popup { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: rgba(25,25,25,0.95); border: 2px solid #eb4b4b; border-radius: 12px; padding: 10px 16px; color: #ff4d4d; font-weight: bold; font-size: 14px; z-index: 99999; transition: 0.5s ease; min-width: 200px; text-align: center; backdrop-filter: blur(6px); box-shadow: 0 0 15px rgba(235,75,75,0.6); }
 .top-popup.show { top: 20px; }
+.case-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Ikki ustunli ko'rinish */
+    gap: 15px;
+    padding: 10px;
+}
+
+.case-card {
+    background: #161b22;
+    padding: 15px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid #30363d;
+}
+
+.case-image {
+    width: 100px; /* Rasmni o'lchami */
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.uc-button {
+    background: #21262d;
+    border: 1px solid #30363d;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.uc-icon {
+    width: 20px;
+    height: 20px;
+}
