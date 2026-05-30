@@ -1,17 +1,4 @@
 function showTopPopup(text, color = "red") {
-    const popup = document.createElement("div");
-    popup.className = "top-popup";
-    popup.innerText = text;
-    if (color === "red") {
-        popup.style.border = "2px solid #eb4b4b";
-        popup.style.boxShadow = "0 0 15px #eb4b4b";
-    }
-    document.body.appendChild(popup);
-    setTimeout(() => { popup.classList.add("show"); }, 50);
-    setTimeout(() => {
-        popup.classList.remove("show");
-        setTimeout(() => popup.remove(), 400);
-    }, 3000);
 }
 
 // ================= SOUND SYSTEM =================
@@ -172,32 +159,32 @@ const caseData = [
     {
         categoryTitle: "💲 Arzon Case",
         cases: [
-            { id: "arzon_tun", name: "🌃 Tun", price: 5, skins: allSkins.slice(0, 14) },
-            { id: "arzon_kun", name: "🏙️ Kun", price: 15, skins: allSkins.slice(0, 14) },
-            { id: "arzon_oy", name: "🌕 Oy", price: 25, skins: allSkins.slice(0, 14) },
-            { id: "arzon_quyosh", name: "☀️ Quyosh", price: 35, skins: allSkins.slice(0, 14) }
+            { id: "arzon_tun", name: "🌃 Tun", price: 5, img: "./images/1.png", skins: allSkins.slice(0, 14) },
+            { id: "arzon_kun", name: "🏙️ Kun", price: 15, img: "./images/1.png", skins: allSkins.slice(0, 14) },
+            { id: "arzon_oy", name: "🌕 Oy", price: 25, img: "./images/1.png", skins: allSkins.slice(0, 14) },
+            { id: "arzon_quyosh", name: "☀️ Quyosh", price: 35, img: "./images/1.png", skins: allSkins.slice(0, 14) }
         ]
     },
     {
         categoryTitle: "🏆 O'rtacha Case",
         cases: [
-            { id: "ortacha_noob", name: "Noob", price: 35, skins: allSkins.slice(0, 14) },
-            { id: "ortacha_epic", name: "Epic", price: 50, skins: allSkins.slice(0, 14) },
-            { id: "ortacha_pro", name: "Pro", price: 100, skins: allSkins.slice(0, 14) },
-            { id: "ortacha_ultra", name: "Ultra", price: 150, skins: allSkins.slice(0, 14) }
+            { id: "ortacha_noob", name: "Noob", price: 35, img: "./images/1.png", skins: allSkins.slice(0, 14) },
+            { id: "ortacha_epic", name: "Epic", price: 50, img: "./images/1.png", skins: allSkins.slice(0, 14) },
+            { id: "ortacha_pro", name: "Pro", price: 100, img: "./images/1.png", skins: allSkins.slice(0, 14) },
+            { id: "ortacha_ultra", name: "Ultra", price: 150, img: "./images/1.png", skins: allSkins.slice(0, 14) }
         ]
     },
-    
-        {
+    {
         categoryTitle: "👑 Qimmat Case",
         cases: [
-            { id: "qimmat_rare", name: "💠 Rare", price: 500, skins: allSkins.slice(0, 14) },
-            { id: "qimmat_epic", name: "🤑 Epic", price: 1000, skins: allSkins.slice(0, 14) },
-            { id: "qimmat_lucky", name: "🎰 Lucky", price: 1500, skins: allSkins.slice(0, 14) },
-            { id: "qimmat_legendary", name: "💎 Legendary", price: 2500, skins: allSkins.slice(0, 14) }
+            { id: "qimmat_rare", name: "💠 Rare", price: 500, img: "./images/1.png", skins: allSkins.slice(0, 14) },
+            { id: "qimmat_epic", name: "🤑 Epic", price: 1000, img: "./images/1.png", skins: allSkins.slice(0, 14) },
+            { id: "qimmat_lucky", name: "🎰 Lucky", price: 1500, img: "./images/1.png", skins: allSkins.slice(0, 14) },
+            { id: "qimmat_legendary", name: "💎 Legend", price: 2500, img: "./images/1.png", skins: allSkins.slice(0, 14) }
         ]
-    },
+    }
 ];
+
 
 // ================= LANGUAGE UI =================
 function updateLanguageUI() {
@@ -220,24 +207,25 @@ function renderCases() {
     container.innerHTML = '';
 
     caseData.forEach((category) => {
-        // Toifa sarlavhasini yaratish
+        // Toifa sarlavhasi
         const catHeader = document.createElement('h2');
         catHeader.className = 'category-title';
         catHeader.innerText = category.categoryTitle;
         container.appendChild(catHeader);
 
-        // Grid konteynerini yaratish
         const grid = document.createElement('div');
         grid.className = 'case-grid';
 
         category.cases.forEach((c) => {
             const div = document.createElement('div');
             div.className = 'case-card';
+            
+            // Rasmdagi dizayn bo'yicha HTML
             div.innerHTML = `
-                <h3>${c.name}</h3>
-                <p>${c.price}$</p>
-                <button onclick="openCaseById('${c.id}')">
-                    ${i18n[currentLang].btn_open}
+                <img src="${c.img}" alt="${c.name}" class="case-image">
+                <h3 class="case-name">${c.name}</h3>
+                <button onclick="openCaseById('${c.id}')" class="uc-button">
+                    <img src="./images/mc.png" class="uc-icon"> ${c.price.toFixed(1)} UC
                 </button>
             `;
             grid.appendChild(div);
@@ -246,6 +234,7 @@ function renderCases() {
         container.appendChild(grid);
     });
 }
+
 
 // ================= OPEN CASE BY ID =================
 function openCaseById(caseId) {
