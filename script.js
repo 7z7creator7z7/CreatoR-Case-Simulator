@@ -225,7 +225,7 @@ function renderCases() {
                 <img src="${c.img}" alt="${c.name}" class="case-image">
                 <h3 class="case-name">${c.name}</h3>
                 <button onclick="openCaseById('${c.id}')" class="uc-button">
-                    <img src="./images/mc.png" class="uc-icon"> ${c.price.toFixed(1)} UC
+                    <img src="./images/mc.png" class="uc-icon"> ${c.price.toFixed(1)} MC
                 </button>
             `;
             grid.appendChild(div);
@@ -280,7 +280,7 @@ function openCaseById(caseId) {
     }
 
     setTimeout(() => {
-        carousel.style.transition = 'transform 6.0s cubic-bezier(0.1,0,0.1,1)';
+        carousel.style.transition = 'transform 7.3s cubic-bezier(0.1,0,0.1,1)';
         carousel.style.transform = `translateX(-${(winIndex * 112) - 104}px)`;
     }, 100);
 
@@ -311,7 +311,7 @@ function openCaseById(caseId) {
             popup.classList.remove("show");
             setTimeout(() => { popup.remove(); }, 500);
         }, 4000);
-    }, 5600);
+    }, 7600);
 }
 
 // ================= INVENTORY =================
