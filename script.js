@@ -170,22 +170,33 @@ function getRandomItem(caseItems) {
 // ================= TOIFALANGAN CASES MA'LUMOTI =================
 const caseData = [
     {
-        categoryTitle: "👑 Arzon Case",
+        categoryTitle: "💲 Arzon Case",
         cases: [
-            { id: "arzon_black", name: "🖤Black", price: 5, skins: allSkins.slice(0, 14) },
-            { id: "arzon_rare", name: "Rare", price: 15, skins: allSkins.slice(0, 14) },
-            { id: "arzon_lucky", name: "Lucky", price: 25, skins: allSkins.slice(0, 14) }
+            { id: "arzon_tun", name: "🌃 Tun", price: 5, skins: allSkins.slice(0, 14) },
+            { id: "arzon_kun", name: "🏙️ Kun", price: 15, skins: allSkins.slice(0, 14) },
+            { id: "arzon_oy", name: "🌕 Oy", price: 25, skins: allSkins.slice(0, 14) },
+            { id: "arzon_quyosh", name: "☀️ Quyosh", price: 35, skins: allSkins.slice(0, 14) }
         ]
     },
     {
-        categoryTitle: "👑 O'rtacha Case",
+        categoryTitle: "🏆 O'rtacha Case",
         cases: [
             { id: "ortacha_noob", name: "Noob", price: 35, skins: allSkins.slice(0, 14) },
             { id: "ortacha_epic", name: "Epic", price: 50, skins: allSkins.slice(0, 14) },
             { id: "ortacha_pro", name: "Pro", price: 100, skins: allSkins.slice(0, 14) },
             { id: "ortacha_ultra", name: "Ultra", price: 150, skins: allSkins.slice(0, 14) }
         ]
-    }
+    },
+    
+        {
+        categoryTitle: "👑 Qimmat Case",
+        cases: [
+            { id: "qimmat_rare", name: "💠 Rare", price: 500, skins: allSkins.slice(0, 14) },
+            { id: "qimmat_epic", name: "🤑 Epic", price: 1000, skins: allSkins.slice(0, 14) },
+            { id: "qimmat_lucky", name: "🎰 Lucky", price: 1500, skins: allSkins.slice(0, 14) },
+            { id: "qimmat_legendary", name: "💎 Legendary", price: 2500, skins: allSkins.slice(0, 14) }
+        ]
+    },
 ];
 
 // ================= LANGUAGE UI =================
