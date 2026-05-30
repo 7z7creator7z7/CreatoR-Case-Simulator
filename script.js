@@ -1,5 +1,25 @@
 function showTopPopup(text, color = "red") {
+    // Agar avvalgi popup bo'lsa, uni o'chiramiz
+    const oldPopup = document.querySelector('.top-popup');
+    if (oldPopup) oldPopup.remove();
+
+    const popup = document.createElement("div");
+    popup.className = "top-popup";
+    popup.innerText = text;
+    popup.style.borderColor = color;
+    popup.style.color = color;
+    document.body.appendChild(popup);
+
+    // Animatsiya uchun biroz kutamiz
+    setTimeout(() => { popup.classList.add("show"); }, 50);
+
+    // 3 soniyadan keyin yopamiz
+    setTimeout(() => {
+        popup.classList.remove("show");
+        setTimeout(() => { popup.remove(); }, 500);
+    }, 3000);
 }
+
 
 // ================= SOUND SYSTEM =================
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
