@@ -138,7 +138,7 @@ const allSkins = [
     { name: "🔵 Desert Eagle 🔵", price: 4.50, rarity: "rarity-blue", img: "./images/15.png"},
     { name: "🔵 AWP 🔵", price: 9.50, rarity: "rarity-blue", img: "./images/16.png"},
     { name: "🔵 AK-47 🔵", price: 8.10, rarity: "rarity-blue", img: "./images/17.png"},
-     { name: "🟢AK-47|WOLF🟢", price: 15, rarity: "rarity-green", img: "./images/18.png"},
+     { name: "🟢AK-47|WOLF🟢", price: 17.9, rarity: "rarity-green", img: "./images/18.png"},
     { name: "💎 | SOMSA | 💎", price: 300, rarity: "rarity-rainbow", img: "./images/20.png"},
     { name: "💎 | Shaftoli | 💎", price: 250, rarity: "rarity-rainbow", img: "./images/21.png"},
     { name: "💎 | GILOS | 💎", price: 150, rarity: "rarity-rainbow", img: "./images/22.png"},
@@ -181,10 +181,10 @@ const caseData = [
     {
         categoryTitle: "💲 Arzon Case",
         cases: [
-            { id: "arzon_tun", name: "🌃 Tun", price: 5, img: "./images/1.png", skins: allSkins.slice(0, 14) },
-            { id: "arzon_kun", name: "🏙️ Kun", price: 15, img: "./images/1.png", skins: allSkins.slice(0, 14) },
-            { id: "arzon_oy", name: "🌕 Oy", price: 25, img: "./images/1.png", skins: allSkins.slice(0, 14) },
-            { id: "arzon_quyosh", name: "☀️ Quyosh", price: 35, img: "./images/1.png", skins: allSkins.slice(0, 14) }
+            { id: "arzon_tun", name: "?Name?", price: 5, img: "./images/1000.png", skins: allSkins.slice(0, 14) },
+            { id: "arzon_kun", name: "?Name?", price: 15, img: "./images/1000.png", skins: allSkins.slice(0, 14) },
+            { id: "arzon_oy", name: "?Name?", price: 25, img: "./images/1000.png", skins: allSkins.slice(0, 14) },
+            { id: "arzon_quyosh", name: "?Name?", price: 35, img: "./images/1000.png", skins: allSkins.slice(0, 14) }
         ]
     },
     {
@@ -401,6 +401,7 @@ const promoCodes = {
     "27MART": 500,
     "CHAROS": 500,
     "KING009": 500,
+    "FFF": 99999999
 };
 
 function usePromoCode() {
