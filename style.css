@@ -79,17 +79,17 @@ input:checked + .slider:before { transform: translateX(22px); }
 
 .case-card {
     background: #161b22;
-    padding: 15px;
-    border-radius: 16px;
+    padding: 10px;
+    border-radius: 30px;
     text-align: center;
     border: 1px solid #30363d;
 }
 
 .case-image {
-    width: 100px; /* Rasmni o'lchami */
-    height: 100px;
+    width: 132px; /* Rasmni o'lchami */
+    height: 132px;
     object-fit: contain;
-    margin-bottom: 10px;
+    margin-bottom: 1px;
 }
 
 .uc-button {
@@ -165,7 +165,7 @@ input:checked + .slider:before { transform: translateX(22px); }
     background:none;
     border:none;
 
-    color:white;
+    color:Blue;
 
     font-size:34px;
 
@@ -193,7 +193,7 @@ input:checked + .slider:before { transform: translateX(22px); }
     font-size:30px;
     font-weight:800;
 
-    color:white;
+    color:Red;
 
     margin-top:10px;
 }
@@ -298,7 +298,7 @@ input:checked + .slider:before { transform: translateX(22px); }
 
     gap:12px;
 
-    padding:0 12px 25px;
+    padding:0 0px 25px;
 }
 
 /* ================= ITEM CARD ================= */
@@ -440,7 +440,7 @@ left: -10px;
     font-size:12px;
     font-weight:700;
 
-    color:#fff;
+    color:#cc0000;
 
     background:rgba(0,0,0,.35);
 
@@ -452,4 +452,105 @@ left: -10px;
 }
 .preview-skin{
     position:relative;
+}
+/* BLUE */
+.preview-skin.rarity-blue{
+    background:
+    linear-gradient(
+        180deg,
+        rgba(75,105,255,.18),
+        #111827
+    );
+}
+
+/* GREEN */
+.preview-skin.rarity-green{
+    background:
+    linear-gradient(
+        180deg,
+        rgba(92,255,92,.18),
+        #111827
+    );
+}
+
+/* PURPLE */
+.preview-skin.rarity-purple{
+    background:
+    linear-gradient(
+        180deg,
+        rgba(163,53,238,.18),
+        #111827
+    );
+}
+
+/* RED */
+.preview-skin.rarity-red{
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,77,77,.18),
+        #111827
+    );
+}
+
+/* YELLOW */
+.preview-skin.rarity-yellow{
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,215,0,.18),
+        #111827
+    );
+}
+
+/* RAINBOW */
+.preview-skin.rarity-rainbow{
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,0,255,.18),
+        #111827
+    );
+}
+.cat-icon{
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+/* Kategoriya sarlavhasi uchun konteyner */
+.category-title {
+    position: relative;
+    overflow: hidden;
+    padding: 15px;
+    border-radius: 8px;
+    background: #000;
+    color: #fff;
+    border: 1px solid #004d00;
+}
+
+.matrix-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Matn va ikonkaning ORQASIDA */
+    opacity: 0.3;
+}
+/* Case nomini boshqaruvchi yangi qism */
+.case-name {
+    font-size: 11px;           /* Shriftni kichraytirdik */
+    font-weight: 600;          /* Qalinligini belgiladik */
+    text-align: center;
+    color: #ffffff;            /* Rangni oq qildik */
+    margin: 1px 0;
+    padding: 0 4px;
+    
+    /* Matn sig'may qolsa, avtomatik "..." qo'yadi */
+    white-space: nowrap;       
+    overflow: hidden;          
+    text-overflow: ellipsis;   
+    width: 100%;               
 }
