@@ -24,17 +24,70 @@ function showTopPopup(text, color = "red") {
 // ================= SOUND SYSTEM =================
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+function sellSound() {
+    if (!audioCtx || !soundEnabled) return;
+
+    const now = audioCtx.currentTime;
+
+    // 1. "Ka" qismi (pastroq, zarbli)
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    osc1.connect(gain1);
+    gain1.connect(audioCtx.destination);
+    osc1.type = "square";
+    osc1.frequency.setValueAtTime(400, now);
+    gain1.gain.setValueAtTime(0.2, now);
+    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+    osc1.start(now);
+    osc1.stop(now + 0.1);
+
+    // 2. "Ching" qismi (balandroq, jarangdor)
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    osc2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+    osc2.type = "sine"; // "Ching" uchun sine yaxshiroq
+    osc2.frequency.setValueAtTime(1200, now + 0.05); // "Ka"dan keyinroq
+    osc2.frequency.exponentialRampToValueAtTime(2000, now + 0.25);
+    gain2.gain.setValueAtTime(0.15, now + 0.05);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+    osc2.start(now + 0.05);
+    osc2.stop(now + 0.3);
+
+    // Xotirani tozalash
+    osc1.onended = () => { osc1.disconnect(); gain1.disconnect(); };
+    osc2.onended = () => { osc2.disconnect(); gain2.disconnect(); };
+}
+
+
 function clickSound() {
     if (!soundEnabled) return;
-    const osc = audioCtx.createOscillator();
+
+    const osc1 = audioCtx.createOscillator();
+    const osc2 = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-    osc.connect(gain);
+
+    osc1.connect(gain);
+    osc2.connect(gain);
     gain.connect(audioCtx.destination);
-    osc.type = "square";
-    osc.frequency.value = 500;
-    gain.gain.value = 0.05;
-    osc.start();
-    setTimeout(() => { osc.stop(); }, 60);
+
+    osc1.type = "triangle";
+    osc2.type = "sine";
+
+    osc1.frequency.value = 700;
+    osc2.frequency.value = 1200;
+
+    gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioCtx.currentTime + 0.08
+    );
+
+    osc1.start();
+    osc2.start();
+
+    osc1.stop(audioCtx.currentTime + 0.08);
+    osc2.stop(audioCtx.currentTime + 0.08);
 }
 
 function tickSound(freq = 700) {
@@ -81,7 +134,17 @@ if (soundEnabled === null) {
 }
 
 document.addEventListener("click", (e) => {
-    if (e.target.tagName === "BUTTON") {
+
+    if (
+        e.target.closest(".sell-btn")
+    ) {
+        return;
+    }
+
+    if (
+        e.target.tagName === "BUTTON" ||
+        e.target.closest("button")
+    ) {
         clickSound();
     }
 });
@@ -246,7 +309,7 @@ function renderCases() {
             div.innerHTML = `
                 <img src="${c.img}" alt="${c.name}" class="case-image">
                 <h3 class="case-name">${c.name}</h3>
-                <button onclick="openCaseById('${c.id}')" class="uc-button">
+                <button onclick="showCasePreview('${c.id}')" class="uc-button">
                     <img src="./images/mc.png" class="uc-icon"> ${c.price.toFixed(1)} MC
                 </button>
             `;
@@ -346,8 +409,8 @@ function renderInventory() {
         div.innerHTML = `
             <img src="${item.img}">
             <b>${item.price}$</b>
-            <button onclick="sellItem(${i})">
-                ${i18n[currentLang].btn_sell}
+            <button class="sell-btn" onclick="sellItem(${i})">
+               ${i18n[currentLang].btn_sell}
             </button>
         `;
         container.appendChild(div);
@@ -355,8 +418,13 @@ function renderInventory() {
 }
 
 function sellItem(i) {
+
+    sellSound();
+
     balance += inventory[i].price;
+
     inventory.splice(i, 1);
+
     updateGlobalData();
 }
 
@@ -480,7 +548,115 @@ function updateUCBalance() {
     let formattedUC = ucAmount.toFixed(2).replace('.', ',');
     ucElement.innerText = formattedUC;
 }
+let selectedCase = null;
+function showCasePreview(caseId){
+ document.getElementById("preview-open-btn").onclick = () => {
+    closeCasePreview();
+    openCaseById(selectedCase.id);
+};
 
+    selectedCase = null;
+
+    for(let cat of caseData){
+
+        const found = cat.cases.find(
+            c => c.id === caseId
+        );
+
+        if(found){
+            selectedCase = found;
+            break;
+        }
+    }
+
+    if(!selectedCase) return;
+
+    // CASE RASMI
+    document.getElementById("preview-case-img").src =
+        selectedCase.img;
+
+    // CASE NOMI
+    document.getElementById("preview-case-name").innerText =
+        selectedCase.name;
+
+    // CASE NARXI
+    document.getElementById("preview-case-price").innerHTML = `
+        <img src="./images/mc2.png" class="mc-icon">
+        <span>${selectedCase.price.toFixed(1)} MC</span>
+    `;
+
+    // ITEMLAR
+    const skinsDiv =
+        document.getElementById("preview-skins");
+
+    skinsDiv.innerHTML = "";
+
+    const rarityOrder = {
+        "rarity-blue": 1,
+        "rarity-green": 2,
+        "rarity-purple": 3,
+        "rarity-red": 4,
+        "rarity-yellow": 5,
+        "rarity-rainbow": 6
+    };
+
+    const sortedSkins =
+        [...selectedCase.skins].sort((a,b)=>
+            rarityOrder[a.rarity] -
+            rarityOrder[b.rarity]
+        );
+
+    sortedSkins.forEach(item => {
+
+        const skin =
+            document.createElement("div");
+
+        skin.className =
+            `preview-skin ${item.rarity}`;
+
+skin.innerHTML = `
+    <img src="${item.img}">
+
+    <div class="skin-name">
+        ${item.name}
+    </div>
+
+    <div class="skin-price">
+        $${item.price}
+    </div>
+
+    <div class="drop-chance">
+        ${getChance(item.rarity)}
+    </div>
+
+    <div class="rarity-line"></div>
+`;
+
+        skinsDiv.appendChild(skin);
+    });
+
+    document
+        .getElementById("case-preview-modal")
+        .classList.remove("hidden");
+}
+function closeCasePreview() {
+    document
+        .getElementById("case-preview-modal")
+        .classList.add("hidden");
+}
+function getChance(rarity){
+
+    const chances = {
+        "rarity-blue": "60%",
+        "rarity-green": "22%",
+        "rarity-purple": "11%",
+        "rarity-yellow": "4%",
+        "rarity-red": "2%",
+        "rarity-rainbow": "1%"
+    };
+
+    return chances[rarity];
+}
 // ================= START =================
 updateLanguageUI();
 updateGlobalData();
