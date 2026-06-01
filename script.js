@@ -205,8 +205,9 @@ const allSkins = [
     { name: "💎 | SOMSA | 💎", price: 300, rarity: "rarity-rainbow", img: "./images/20.png"},
     { name: "💎 | Shaftoli | 💎", price: 250, rarity: "rarity-rainbow", img: "./images/21.png"},
     { name: "💎 | GILOS | 💎", price: 150, rarity: "rarity-rainbow", img: "./images/22.png"},
-    { name: "💎 | ASM | 💎", price: 5000, rarity: "rarity-rainbow", img: "./images/19.png"},
-    { name: "❄️ | LEDNIK | ❄️", price: 5000, rarity: "rarity-rainbow", img: "./images/23.png"},
+    { name: "💎 | ASM | 💎", price: 500, rarity: "rarity-rainbow", img: "./images/19.png"},
+    { name: "❄️ | LEDNIK | ❄️", price: 500, rarity: "rarity-rainbow", img: "./images/23.png"},
+    { name: "Mercuriy Soldier Set", price: 8025.87, rarity: "rarity-yellow", img: "./images/24.Avif"},
 ];
 
 const rarityChances = {
@@ -242,34 +243,44 @@ function getRandomItem(caseItems) {
 // ================= TOIFALANGAN CASES MA'LUMOTI =================
 const caseData = [
     {
-        categoryTitle: "💲 Arzon Case",
+        categoryTitle: '<img src="./images/noob.avif" class="cat-icon"> Arzon Case',
         cases: [
-            { id: "arzon_tun", name: "?Name?", price: 5, img: "./images/1000.png", skins: allSkins.slice(0, 14) },
-            { id: "arzon_kun", name: "?Name?", price: 15, img: "./images/1000.png", skins: allSkins.slice(0, 14) },
-            { id: "arzon_oy", name: "?Name?", price: 25, img: "./images/1000.png", skins: allSkins.slice(0, 14) },
-            { id: "arzon_quyosh", name: "?Name?", price: 35, img: "./images/1000.png", skins: allSkins.slice(0, 14) }
+            { id: "Lanatlangan Aralashma", name: "Lanatlangan Aralashma", price: 5, img: "./images/1000.avif", skins: allSkins.slice(0, 10) },
+            { id: "Oltin Halokat", name: "Oltin Halokat", price: 15, img: "./images/1001.avif", skins: allSkins.slice(0, 12) },
+            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv", price: 25, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
+            { id: "Birinchi Damlama", name: "Birinchi Damlama", price: 35, img: "./images/1003.avif", skins: allSkins.slice(0, 14) },
+            { id: "Shisha Bashorat", name: "Shisha Bashorat", price: 35, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
+            { id: "Lyumenxaym", name: "Lyumenxaym", price: 35, img: "./images/1005.avif", skins: allSkins.slice(0, 14) },
+            { id: "Arximagning Sovgasi", name: "Arximagning Sovg'asi", price: 35, img: "./images/1006.avif", skins: allSkins.slice(0, 14) },
+            { id: "Arkess", name: "Arkess", price: 35, img: "./images/1007.avif", skins: allSkins.slice(0, 14) },
         ]
     },
     {
-        categoryTitle: "🏆 O'rtacha Case",
+        categoryTitle: '<img src="./images/pro.avif" class="cat-icon"> Bepul Case',
         cases: [
-            { id: "ortacha_noob", name: "Noob", price: 35, img: "./images/1.png", skins: allSkins.slice(0, 14) },
-            { id: "ortacha_epic", name: "Epic", price: 50, img: "./images/1.png", skins: allSkins.slice(0, 14) },
-            { id: "ortacha_pro", name: "Pro", price: 100, img: "./images/1.png", skins: allSkins.slice(0, 14) },
-            { id: "ortacha_ultra", name: "Ultra", price: 150, img: "./images/1.png", skins: allSkins.slice(0, 14) }
+            { id: "telegram", name: "Telegram", price: 0, img: "./images/1008.avif", skins: allSkins.slice(12, 18) },
+            { id: "vk", name: "VK", price: 0, img: "./images/1009.avif", skins: allSkins.slice(14, 19) }
+        ]
+    },
+        {
+        categoryTitle: '<img src="./images/elite.avif" class="cat-icon"> Ortacha Case',
+        cases: [
+            { id: "ortacha_noob", name: "Noob", price: 35, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
+            { id: "ortacha_epic", name: "Epic", price: 50, img: "./images/1005.avif", skins: allSkins.slice(5, 16) },
+            { id: "ortacha_pro", name: "Pro", price: 100, img: "./images/1006.avif", skins: allSkins.slice(10, 18) },
+            { id: "ortacha_ultra", name: "Ultra", price: 150, img: "./images/1007.avif", skins: allSkins.slice(10, 20) }
         ]
     },
     {
-        categoryTitle: "👑 Qimmat Case",
+        categoryTitle: '<img src="./images/aura.avif" class="cat-icon"> Legendary Case',
         cases: [
-            { id: "qimmat_rare", name: "💠 Rare", price: 500, img: "./images/1.png", skins: allSkins.slice(0, 14) },
-            { id: "qimmat_epic", name: "🤑 Epic", price: 1000, img: "./images/1.png", skins: allSkins.slice(0, 14) },
-            { id: "qimmat_lucky", name: "🎰 Lucky", price: 1500, img: "./images/1.png", skins: allSkins.slice(0, 14) },
-            { id: "qimmat_legendary", name: "💎 Legend", price: 2500, img: "./images/1.png", skins: allSkins.slice(0, 14) }
+            { id: "faraun_case", name: "FARAUN", price: 5000, img: "./images/1010.avif", skins: allSkins.slice(19, 50) },
+            { id: "mythic_fire", name: "Fire", price: 7500, img: "./images/1011.avif", skins: allSkins.slice(0, 14) },
+            { id: "mythic_ice", name: "Ice", price: 7500, img: "./images/1012.avif", skins: allSkins.slice(18, 20) },
+            { id: "god_tier", name: "GOD", price: 10000, img: "./images/1013.avif", skins: allSkins.slice(0, 14) }
         ]
     }
 ];
-
 
 // ================= LANGUAGE UI =================
 function updateLanguageUI() {
@@ -292,20 +303,28 @@ function renderCases() {
     container.innerHTML = '';
 
     caseData.forEach((category) => {
-        // Toifa sarlavhasi
+        
+        // 1. Toifa sarlavhasini yaratish
         const catHeader = document.createElement('h2');
         catHeader.className = 'category-title';
-        catHeader.innerText = category.categoryTitle;
+        
+        // innerHTML orqali ikonkali nomni qo'shamiz
+        catHeader.innerHTML = category.categoryTitle;
         container.appendChild(catHeader);
 
+        // 2. Matrix effektini shu sarlavha ichiga ishga tushirish
+        // (Eslatma: initMatrixEffect funksiyasi script faylingizda borligiga ishonch hosil qiling)
+        initMatrixEffect(catHeader); 
+
+        // 3. Grid yaratish
         const grid = document.createElement('div');
         grid.className = 'case-grid';
 
+        // 4. Har bir case'ni render qilish
         category.cases.forEach((c) => {
             const div = document.createElement('div');
             div.className = 'case-card';
             
-            // Rasmdagi dizayn bo'yicha HTML
             div.innerHTML = `
                 <img src="${c.img}" alt="${c.name}" class="case-image">
                 <h3 class="case-name">${c.name}</h3>
@@ -319,7 +338,6 @@ function renderCases() {
         container.appendChild(grid);
     });
 }
-
 
 // ================= OPEN CASE BY ID =================
 function openCaseById(caseId) {
@@ -469,7 +487,6 @@ const promoCodes = {
     "27MART": 500,
     "CHAROS": 500,
     "KING009": 500,
-    "FFF": 99999999
 };
 
 function usePromoCode() {
@@ -544,7 +561,7 @@ soundToggle.addEventListener("change", () => {
 function updateUCBalance() {
     const ucElement = document.getElementById("calculated-uc");
     if (!ucElement) return;
-    let ucAmount = (balance * 60) / 5000;
+    let ucAmount = (balance * 60) / 98;
     let formattedUC = ucAmount.toFixed(2).replace('.', ',');
     ucElement.innerText = formattedUC;
 }
@@ -656,6 +673,36 @@ function getChance(rarity){
     };
 
     return chances[rarity];
+}
+// Har bir kategoyaga raqamlar tushadigan funksiya
+function initMatrixEffect(catHeader) {
+    const canvas = document.createElement('canvas');
+    canvas.className = 'matrix-canvas';
+    catHeader.appendChild(canvas);
+    
+    const ctx = canvas.getContext('2d');
+    canvas.width = catHeader.offsetWidth;
+    canvas.height = catHeader.offsetHeight;
+
+    const nums = "0123456789";
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0F0"; // Yashil rang
+        ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = nums.charAt(Math.floor(Math.random() * nums.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(draw, 50);
 }
 // ================= START =================
 updateLanguageUI();
