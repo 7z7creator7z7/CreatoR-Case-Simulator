@@ -77,7 +77,61 @@
             <button id="close-modal" class="close-btn hidden" onclick="closeModal()">Yopish</button>
         </div>
     </div>
+<!-- CASE PREVIEW MODAL -->
+<div id="case-preview-modal" class="case-preview-modal hidden">
 
+    <!-- BACK BUTTON -->
+    <div class="preview-header">
+        <button onclick="closeCasePreview()" class="back-btn">
+            ←
+        </button>
+    </div>
+
+    <!-- CASE INFO -->
+    <div class="case-preview-top">
+
+        <img
+            id="preview-case-img"
+            src=""
+            class="preview-case-image"
+        >
+
+        <div
+            id="preview-case-name"
+            class="case-title"
+        ></div>
+
+        <div
+            id="preview-case-price"
+            class="case-price"
+        ></div>
+
+        <button
+            id="preview-open-btn"
+            class="open-btn"
+        >
+            <img
+                src="./images/mc.png"
+                class="open-icon"
+            >
+
+            <span>Ochish</span>
+        </button>
+
+    </div>
+
+    <!-- TITLE -->
+    <div class="case-items-title">
+        CASE TARKIBI
+    </div>
+
+    <!-- SKINS -->
+    <div
+        id="preview-skins"
+        class="case-grid"
+    ></div>
+
+</div>
 </div>
 
 <script src="script.js"></script>
