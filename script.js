@@ -247,7 +247,7 @@ const caseData = [
         cases: [
             { id: "Lanatlangan Aralashma", name: "Lanatlangan Aralashma", price: 19.13, img: "./images/1000.avif", skins: allSkins.slice(0, 10) },
             { id: "Oltin Halokat", name: "Oltin Halokat", price: 39.23, img: "./images/1001.avif", skins: allSkins.slice(0, 12) },
-            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv", price: 59,82, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
+            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv", price: 59.82, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
             { id: "Birinchi Damlama", name: "Birinchi Damlama", price: 35, img: "./images/1003.avif", skins: allSkins.slice(0, 14) },
             { id: "Shisha Bashorat", name: "Shisha Bashorat", price: 35, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
             { id: "Lyumenxaym", name: "Lyumenxaym", price: 35, img: "./images/1005.avif", skins: allSkins.slice(0, 14) },
