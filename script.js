@@ -258,8 +258,8 @@ const caseData = [
     {
         categoryTitle: '<img src="./images/pro.avif" class="cat-icon"> Bepul Case',
         cases: [
-            { id: "telegram", name: "Telegram", price: 0, img: "./images/1008.avif", skins: allSkins.slice(0, 14) },
-            { id: "vk", name: "VK", price: 0, img: "./images/1009.avif", skins: allSkins.slice(0, 14) }
+            { id: "telegram", name: "Telegram", price: 10, img: "./images/1008.avif", skins: allSkins.slice(0, 14) },
+            { id: "vk", name: "VK", price: 10, img: "./images/1009.avif", skins: allSkins.slice(0, 14) }
         ]
     },
         {
