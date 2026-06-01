@@ -140,3 +140,316 @@ input:checked + .slider:before { transform: translateX(22px); }
     position: relative;
     top: -2px; /* teparoq chiqaradi */
 }
+/* ================= CASE PREVIEW ================= */
+
+.case-preview-modal{
+    position:fixed;
+    inset:0;
+    z-index:999999;
+
+    overflow-y:auto;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #13203a,
+        #080d15 70%
+    );
+}
+
+.preview-header{
+    padding:15px;
+}
+
+.back-btn{
+    background:none;
+    border:none;
+
+    color:white;
+
+    font-size:34px;
+
+    cursor:pointer;
+}
+
+/* ================= TOP ================= */
+
+.case-preview-top{
+    text-align:center;
+    padding:10px 15px;
+}
+
+.preview-case-image{
+    width:220px;
+    height:220px;
+
+    object-fit:contain;
+
+    display:block;
+    margin:auto;
+}
+
+.case-title{
+    font-size:30px;
+    font-weight:800;
+
+    color:white;
+
+    margin-top:10px;
+}
+
+.case-price{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:8px;
+
+    margin-top:10px;
+
+    padding:10px 18px;
+
+    border-radius:14px;
+
+    background:
+    rgba(255,255,255,.08);
+
+    border:
+    1px solid rgba(255,255,255,.1);
+
+    color:white;
+
+    font-size:18px;
+    font-weight:700;
+}
+
+.mc-icon{
+    width:24px;
+    height:24px;
+
+    object-fit:contain;
+}
+
+/* ================= OPEN BUTTON ================= */
+
+.open-btn{
+
+    width:92%;
+    max-width:420px;
+
+    margin:15px auto 5px;
+
+    height:70px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#42ff00;
+
+    color:black;
+
+    font-size:22px;
+    font-weight:800;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:10px;
+
+    cursor:pointer;
+}
+
+.open-btn:active{
+    transform:scale(.97);
+}
+
+.open-icon{
+    width:30px;
+    height:30px;
+}
+
+/* ================= TITLE ================= */
+
+.case-items-title{
+
+    margin-top:20px;
+    margin-bottom:15px;
+
+    text-align:center;
+
+    color:#9aa4b2;
+
+    font-size:17px;
+    font-weight:700;
+
+    letter-spacing:1px;
+}
+
+/* ================= GRID ================= */
+
+.case-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:12px;
+
+    padding:0 12px 25px;
+}
+
+/* ================= ITEM CARD ================= */
+
+.preview-skin{
+
+    background:
+    linear-gradient(
+        180deg,
+        #18212f,
+        #111827
+    );
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    text-align:center;
+}
+
+.preview-skin img{
+
+    width:100%;
+    height:110px;
+
+    object-fit:contain;
+
+    display:block;
+
+    padding:10px;
+    
+    position: relative;
+left: -10px;
+}
+
+/* ================= ITEM NAME ================= */
+
+.skin-name{
+
+    color:white;
+
+    font-size:14px;
+    font-weight:600;
+
+    padding:0 8px;
+
+    min-height:38px;
+}
+
+/* ================= ITEM PRICE ================= */
+
+.skin-price{
+
+    color:#ffd700;
+
+    font-size:15px;
+    font-weight:700;
+
+    margin:8px 0;
+}
+
+/* ================= RARITY LINE ================= */
+
+.rarity-line{
+
+    width:100%;
+    height:6px;
+}
+
+/* BLUE */
+
+.preview-skin.rarity-blue .rarity-line{
+    background:#4b69ff;
+}
+
+/* GREEN */
+
+.preview-skin.rarity-green .rarity-line{
+    background:#5cff5c;
+}
+
+/* PURPLE */
+
+.preview-skin.rarity-purple .rarity-line{
+    background:#a335ee;
+}
+
+/* RED */
+
+.preview-skin.rarity-red .rarity-line{
+    background:#ff4d4d;
+}
+
+/* GOLD */
+
+.preview-skin.rarity-yellow .rarity-line{
+    background:#ffd700;
+}
+
+/* RAINBOW */
+
+.preview-skin.rarity-rainbow .rarity-line{
+    background:
+    linear-gradient(
+        90deg,
+        red,
+        orange,
+        yellow,
+        green,
+        cyan,
+        blue,
+        violet
+    );
+}
+.preview-case-image{
+    width: 320px;
+    border-radius: 18px;
+    padding: 8px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #161b22,
+        #161b22,
+        #161b22
+    );
+
+    box-shadow:
+        0 0 25px rgba(59,130,246,.35);
+}
+.drop-chance{
+    position:absolute;
+    bottom:12px;
+    right:12px;
+
+    font-size:12px;
+    font-weight:700;
+
+    color:#fff;
+
+    background:rgba(0,0,0,.35);
+
+    padding:3px 8px;
+
+    border-radius:8px;
+
+    border:1px solid rgba(255,255,255,.15);
+}
+.preview-skin{
+    position:relative;
+}
