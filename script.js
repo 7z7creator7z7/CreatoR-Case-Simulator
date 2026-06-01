@@ -207,7 +207,7 @@ const allSkins = [
     { name: "💎 | GILOS | 💎", price: 150, rarity: "rarity-rainbow", img: "./images/22.png"},
     { name: "💎 | ASM | 💎", price: 500, rarity: "rarity-rainbow", img: "./images/19.png"},
     { name: "❄️ | LEDNIK | ❄️", price: 500, rarity: "rarity-rainbow", img: "./images/23.png"},
-    { name: "Mercuriy Soldier Set", price: 8025.87, rarity: "rarity-yellow", img: "./images/24.Avif"},
+    { name: "Mercuriy Soldier Set", price: 8025.87, rarity: "rarity-yellow", img: "./images/24.avif"},
 ];
 
 const rarityChances = {
