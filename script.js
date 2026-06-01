@@ -245,9 +245,9 @@ const caseData = [
     {
         categoryTitle: '<img src="./images/noob.avif" class="cat-icon"> Arzon Case',
         cases: [
-            { id: "Lanatlangan Aralashma", name: "Lanatlangan Aralashma", price: 5, img: "./images/1000.avif", skins: allSkins.slice(0, 10) },
-            { id: "Oltin Halokat", name: "Oltin Halokat", price: 15, img: "./images/1001.avif", skins: allSkins.slice(0, 12) },
-            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv", price: 25, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
+            { id: "Lanatlangan Aralashma", name: "Lanatlangan Aralashma", price: 19.13, img: "./images/1000.avif", skins: allSkins.slice(0, 10) },
+            { id: "Oltin Halokat", name: "Oltin Halokat", price: 39.23, img: "./images/1001.avif", skins: allSkins.slice(0, 12) },
+            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv", price: 59,82, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
             { id: "Birinchi Damlama", name: "Birinchi Damlama", price: 35, img: "./images/1003.avif", skins: allSkins.slice(0, 14) },
             { id: "Shisha Bashorat", name: "Shisha Bashorat", price: 35, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
             { id: "Lyumenxaym", name: "Lyumenxaym", price: 35, img: "./images/1005.avif", skins: allSkins.slice(0, 14) },
@@ -258,17 +258,17 @@ const caseData = [
     {
         categoryTitle: '<img src="./images/pro.avif" class="cat-icon"> Bepul Case',
         cases: [
-            { id: "telegram", name: "Telegram", price: 0, img: "./images/1008.avif", skins: allSkins.slice(12, 18) },
-            { id: "vk", name: "VK", price: 0, img: "./images/1009.avif", skins: allSkins.slice(14, 19) }
+            { id: "telegram", name: "Telegram", price: 0, img: "./images/1008.avif", skins: allSkins.slice(0, 14) },
+            { id: "vk", name: "VK", price: 0, img: "./images/1009.avif", skins: allSkins.slice(0, 14) }
         ]
     },
         {
         categoryTitle: '<img src="./images/elite.avif" class="cat-icon"> Ortacha Case',
         cases: [
             { id: "ortacha_noob", name: "Noob", price: 35, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
-            { id: "ortacha_epic", name: "Epic", price: 50, img: "./images/1005.avif", skins: allSkins.slice(5, 16) },
-            { id: "ortacha_pro", name: "Pro", price: 100, img: "./images/1006.avif", skins: allSkins.slice(10, 18) },
-            { id: "ortacha_ultra", name: "Ultra", price: 150, img: "./images/1007.avif", skins: allSkins.slice(10, 20) }
+            { id: "ortacha_epic", name: "Epic", price: 50, img: "./images/1005.avif", skins: allSkins.slice(0, 14) },
+            { id: "ortacha_pro", name: "Pro", price: 100, img: "./images/1006.avif", skins: allSkins.slice(0, 14) },
+            { id: "ortacha_ultra", name: "Ultra", price: 150, img: "./images/1007.avif", skins: allSkins.slice(0, 14) }
         ]
     },
     {
@@ -276,7 +276,7 @@ const caseData = [
         cases: [
             { id: "faraun_case", name: "FARAUN", price: 5000, img: "./images/1010.avif", skins: allSkins.slice(19, 50) },
             { id: "mythic_fire", name: "Fire", price: 7500, img: "./images/1011.avif", skins: allSkins.slice(0, 14) },
-            { id: "mythic_ice", name: "Ice", price: 7500, img: "./images/1012.avif", skins: allSkins.slice(18, 20) },
+            { id: "mythic_ice", name: "Ice", price: 7500, img: "./images/1012.avif", skins: allSkins.slice(0, 14) },
             { id: "god_tier", name: "GOD", price: 10000, img: "./images/1013.avif", skins: allSkins.slice(0, 14) }
         ]
     }
