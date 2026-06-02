@@ -337,7 +337,6 @@ function renderCases() {
     });
 }
 
-
 // ================= OPEN CASE BY ID =================
 function openCaseById(caseId) {
     let c = null;
@@ -383,15 +382,17 @@ function openCaseById(caseId) {
 
     setTimeout(() => {
         carousel.style.transition = 'transform 7.3s cubic-bezier(0.1,0,0.1,1)';
-        carousel.style.transform = `translateX(-${(winIndex * 102.2) - 320}px)`;
-    }, 104);
+        carousel.style.transform = `translateX(-${(winIndex * 114) - 104}px)`;
+    }, 100);
 
+    // Ovozlar uchun
     let speed = 60;
     for (let i = 0; i < 35; i++) {
         setTimeout(() => { tickSound(600 + (i * 8)); }, speed);
         speed += i * 12;
     }
 
+    // YUTUQNI KO'RSATISH (Faqat bitta blok qoldiring)
     setTimeout(() => {
         inventory.push(winner);
         updateGlobalData();
@@ -399,7 +400,8 @@ function openCaseById(caseId) {
         levelUpSound();
 
         const popup = document.createElement("div");
-        popup.className = "win-popup";
+        popup.className = `win-popup ${winner.rarity}`; 
+        
         popup.innerHTML = `
             <img src="${winner.img}">
             <div class="win-popup-info">
@@ -408,41 +410,15 @@ function openCaseById(caseId) {
             </div>
         `;
         document.body.appendChild(popup);
+        
         setTimeout(() => { popup.classList.add("show"); }, 50);
         setTimeout(() => {
             popup.classList.remove("show");
             setTimeout(() => { popup.remove(); }, 500);
         }, 4000);
     }, 7600);
-    // ... oldingi kodlar
-setTimeout(() => {
-    inventory.push(winner);
-    updateGlobalData();
-    document.getElementById('close-modal').classList.remove('hidden');
-    levelUpSound();
-
-    const popup = document.createElement("div");
-    
-    // YENI: Rarity klassini popupga qo'shamiz
-    popup.className = `win-popup ${winner.rarity}`; 
-    
-    popup.innerHTML = `
-        <img src="${winner.img}">
-        <div class="win-popup-info">
-            <div class="win-popup-name">${winner.name}</div>
-            <div class="win-popup-price">💰 ${winner.price}$</div>
-        </div>
-    `;
-    document.body.appendChild(popup);
-    
-    setTimeout(() => { popup.classList.add("show"); }, 50);
-    setTimeout(() => {
-        popup.classList.remove("show");
-        setTimeout(() => { popup.remove(); }, 500);
-    }, 4000);
-}, 7600);
-
 }
+
 
 // ================= INVENTORY =================
 function renderInventory() {
