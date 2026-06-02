@@ -243,7 +243,7 @@ function getRandomItem(caseItems) {
 // ================= TOIFALANGAN CASES MA'LUMOTI =================
 const caseData = [
     {
-        categoryTitle: '<img src="./images/noob.avif" class="cat-icon"> Arzon Case',
+        categoryTitle: '<img src="./images/noob.avif" class="cat-icon"> Sehrgar gunohlari',
         cases: [
             { id: "Lanatlangan Aralashma", name: "Lanatlangan Aralashma", price: 19.13, img: "./images/1000.avif", skins: allSkins.slice(0, 10) },
             { id: "Oltin Halokat", name: "Oltin Halokat", price: 39.23, img: "./images/1001.avif", skins: allSkins.slice(0, 12) },
@@ -263,21 +263,19 @@ const caseData = [
         ]
     },
         {
-        categoryTitle: '<img src="./images/elite.avif" class="cat-icon"> Ortacha Case',
+        categoryTitle: '<img src="./images/elite.avif" class="cat-icon"> Faqat toplar uchun',
         cases: [
-            { id: "ortacha_noob", name: "Noob", price: 35, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
-            { id: "ortacha_epic", name: "Epic", price: 50, img: "./images/1005.avif", skins: allSkins.slice(0, 14) },
-            { id: "ortacha_pro", name: "Pro", price: 100, img: "./images/1006.avif", skins: allSkins.slice(0, 14) },
-            { id: "ortacha_ultra", name: "Ultra", price: 150, img: "./images/1007.avif", skins: allSkins.slice(0, 14) }
+            { id: "viktor", name: "VIKTOR",rarity: "rarity-yellow", price: 35, img: "./images/1010.avif", skins: allSkins.slice(0, 14) },
+            { id: "sara", name: "SARA", price: 50, img: "./images/1011.avif", skins: allSkins.slice(0, 14) },
+            { id: "andy", name: "ANDY", price: 100, img: "./images/1012.avif", skins: allSkins.slice(0, 14) },
+            { id: "karlo", name: "KARLO", price: 150, img: "./images/1013.avif", skins: allSkins.slice(0, 14) }
         ]
     },
     {
-        categoryTitle: '<img src="./images/aura.avif" class="cat-icon"> Legendary Case',
+        categoryTitle: '<img src="./images/aura.avif" class="cat-icon"> Oyinchilar tanlovi',
         cases: [
-            { id: "faraun_case", name: "FARAUN", price: 5000, img: "./images/1010.avif", skins: allSkins.slice(19, 50) },
-            { id: "mythic_fire", name: "Fire", price: 7500, img: "./images/1011.avif", skins: allSkins.slice(0, 14) },
-            { id: "mythic_ice", name: "Ice", price: 7500, img: "./images/1012.avif", skins: allSkins.slice(0, 14) },
-            { id: "god_tier", name: "GOD", price: 10000, img: "./images/1013.avif", skins: allSkins.slice(0, 14) }
+            { id: "faraun_case", name: "FARAUN",rarity: "rarity-yellow", price: 5000, img: "./images/1014.avif", skins: allSkins.slice(19, 50)},
+            { id: "avtomobil", name: "Avtomobillar", price: 7500, img: "./images/1015.avif", skins: allSkins.slice(0, 14) },
         ]
     }
 ];
@@ -307,23 +305,23 @@ function renderCases() {
         // 1. Toifa sarlavhasini yaratish
         const catHeader = document.createElement('h2');
         catHeader.className = 'category-title';
-        
-        // innerHTML orqali ikonkali nomni qo'shamiz
         catHeader.innerHTML = category.categoryTitle;
         container.appendChild(catHeader);
 
-        // 2. Matrix effektini shu sarlavha ichiga ishga tushirish
-        // (Eslatma: initMatrixEffect funksiyasi script faylingizda borligiga ishonch hosil qiling)
+        // Matrix effektini qo'shish
         initMatrixEffect(catHeader); 
 
-        // 3. Grid yaratish
+        // 2. Grid yaratish
         const grid = document.createElement('div');
         grid.className = 'case-grid';
 
-        // 4. Har bir case'ni render qilish
+        // 3. Har bir case'ni render qilish
         category.cases.forEach((c) => {
             const div = document.createElement('div');
-            div.className = 'case-card';
+            
+            // rarity klassini qo'shish (agar rarity bo'lmasa, default bo'ladi)
+            const rarityClass = c.rarity || 'rarity-blue'; 
+            div.className = `case-card ${rarityClass}`;
             
             div.innerHTML = `
                 <img src="${c.img}" alt="${c.name}" class="case-image">
@@ -338,6 +336,7 @@ function renderCases() {
         container.appendChild(grid);
     });
 }
+
 
 // ================= OPEN CASE BY ID =================
 function openCaseById(caseId) {
@@ -384,8 +383,8 @@ function openCaseById(caseId) {
 
     setTimeout(() => {
         carousel.style.transition = 'transform 7.3s cubic-bezier(0.1,0,0.1,1)';
-        carousel.style.transform = `translateX(-${(winIndex * 112) - 104}px)`;
-    }, 100);
+        carousel.style.transform = `translateX(-${(winIndex * 102.2) - 320}px)`;
+    }, 104);
 
     let speed = 60;
     for (let i = 0; i < 35; i++) {
@@ -415,6 +414,34 @@ function openCaseById(caseId) {
             setTimeout(() => { popup.remove(); }, 500);
         }, 4000);
     }, 7600);
+    // ... oldingi kodlar
+setTimeout(() => {
+    inventory.push(winner);
+    updateGlobalData();
+    document.getElementById('close-modal').classList.remove('hidden');
+    levelUpSound();
+
+    const popup = document.createElement("div");
+    
+    // YENI: Rarity klassini popupga qo'shamiz
+    popup.className = `win-popup ${winner.rarity}`; 
+    
+    popup.innerHTML = `
+        <img src="${winner.img}">
+        <div class="win-popup-info">
+            <div class="win-popup-name">${winner.name}</div>
+            <div class="win-popup-price">💰 ${winner.price}$</div>
+        </div>
+    `;
+    document.body.appendChild(popup);
+    
+    setTimeout(() => { popup.classList.add("show"); }, 50);
+    setTimeout(() => {
+        popup.classList.remove("show");
+        setTimeout(() => { popup.remove(); }, 500);
+    }, 4000);
+}, 7600);
+
 }
 
 // ================= INVENTORY =================
@@ -432,6 +459,7 @@ function renderInventory() {
             </button>
         `;
         container.appendChild(div);
+        
     });
 }
 
@@ -566,103 +594,124 @@ function updateUCBalance() {
     ucElement.innerText = formattedUC;
 }
 let selectedCase = null;
-function showCasePreview(caseId){
- document.getElementById("preview-open-btn").onclick = () => {
-    closeCasePreview();
-    openCaseById(selectedCase.id);
-};
+// ================= RENDER TOIFALANGAN CASES =================
+function renderCases() {
+    const container = document.getElementById('case-list');
+    container.innerHTML = '';
 
-    selectedCase = null;
+    caseData.forEach((category) => {
+        
+        // 1. Toifa sarlavhasini yaratish
+        const catHeader = document.createElement('h2');
+        catHeader.className = 'category-title';
+        catHeader.innerHTML = category.categoryTitle;
+        container.appendChild(catHeader);
 
-    for(let cat of caseData){
+        // 2. Matrix effektini ishga tushirish
+        initMatrixEffect(catHeader); 
 
-        const found = cat.cases.find(
-            c => c.id === caseId
-        );
+        // 3. Grid yaratish
+        const grid = document.createElement('div');
+        grid.className = 'case-grid';
 
-        if(found){
+        // 4. Har bir case'ni render qilish
+        category.cases.forEach((c) => {
+            const div = document.createElement('div');
+            
+            // Rarity klassi (agar yo'q bo'lsa default 'rarity-blue')
+            const rarityClass = c.rarity || 'rarity-blue';
+            div.className = `case-card ${rarityClass}`;
+            
+            div.innerHTML = `
+                <img src="${c.img}" alt="${c.name}" class="case-image">
+                <h3 class="case-name">${c.name}</h3>
+                <button onclick="showCasePreview('${c.id}')" class="uc-button">
+                    <img src="./images/mc.png" class="uc-icon"> ${c.price.toFixed(1)} MC
+                </button>
+            `;
+            grid.appendChild(div);
+        });
+
+        container.appendChild(grid);
+    });
+}
+
+// ================= SHOW CASE PREVIEW =================
+function showCasePreview(caseId) {
+    // 1. Dastlab case ni topib olamiz
+    let selectedCase = null;
+    for (let cat of caseData) {
+        const found = cat.cases.find(c => c.id === caseId);
+        if (found) {
             selectedCase = found;
             break;
         }
     }
 
-    if(!selectedCase) return;
+    if (!selectedCase) return; // Topilmasa chiqib ketamiz
 
-    // CASE RASMI
-    document.getElementById("preview-case-img").src =
-        selectedCase.img;
+    // 2. Case RASMI va uning klassini yangilash
+    // ID preview-case-img bo'lgan rasm elementini tanlaymiz
+    const previewImg = document.getElementById("preview-case-img");
+    previewImg.src = selectedCase.img;
+    
+    // Klassni yangilash (Eski klasslar o'chib, yangisi qo'shiladi)
+    previewImg.className = `preview-case-image ${selectedCase.rarity || 'rarity-blue'}`;
 
-    // CASE NOMI
-    document.getElementById("preview-case-name").innerText =
-        selectedCase.name;
+    // 3. CASE NOMI
+    document.getElementById("preview-case-name").innerText = selectedCase.name;
 
-    // CASE NARXI
+    // 4. CASE NARXI
     document.getElementById("preview-case-price").innerHTML = `
         <img src="./images/mc2.png" class="mc-icon">
         <span>${selectedCase.price.toFixed(1)} MC</span>
     `;
 
-    // ITEMLAR
-    const skinsDiv =
-        document.getElementById("preview-skins");
+    // 5. OCHISH TUGMASI
+    document.getElementById("preview-open-btn").onclick = () => {
+        closeCasePreview();
+        openCaseById(selectedCase.id);
+    };
 
+    // 6. ITEMLARni render qilish
+    const skinsDiv = document.getElementById("preview-skins");
     skinsDiv.innerHTML = "";
 
     const rarityOrder = {
-        "rarity-blue": 1,
-        "rarity-green": 2,
-        "rarity-purple": 3,
-        "rarity-red": 4,
-        "rarity-yellow": 5,
+        "rarity-blue": 1, 
+        "rarity-green": 2, 
+        "rarity-purple": 3, 
+        "rarity-red": 4, 
+        "rarity-yellow": 5, 
         "rarity-rainbow": 6
     };
 
-    const sortedSkins =
-        [...selectedCase.skins].sort((a,b)=>
-            rarityOrder[a.rarity] -
-            rarityOrder[b.rarity]
-        );
+    const sortedSkins = [...selectedCase.skins].sort((a, b) => 
+        (rarityOrder[a.rarity] || 0) - (rarityOrder[b.rarity] || 0)
+    );
 
     sortedSkins.forEach(item => {
-
-        const skin =
-            document.createElement("div");
-
-        skin.className =
-            `preview-skin ${item.rarity}`;
-
-skin.innerHTML = `
-    <img src="${item.img}">
-
-    <div class="skin-name">
-        ${item.name}
-    </div>
-
-    <div class="skin-price">
-        $${item.price}
-    </div>
-
-    <div class="drop-chance">
-        ${getChance(item.rarity)}
-    </div>
-
-    <div class="rarity-line"></div>
-`;
-
+        const skin = document.createElement("div");
+        skin.className = `preview-skin ${item.rarity}`;
+        skin.innerHTML = `
+            <img src="${item.img}">
+            <div class="skin-name">${item.name}</div>
+            <div class="skin-price">$${item.price}</div>
+            <div class="drop-chance">${getChance(item.rarity)}</div>
+            <div class="rarity-line"></div>
+        `;
         skinsDiv.appendChild(skin);
     });
 
-    document
-        .getElementById("case-preview-modal")
-        .classList.remove("hidden");
+    // Modalni ko'rsatish
+    document.getElementById("case-preview-modal").classList.remove("hidden");
 }
-function closeCasePreview() {
-    document
-        .getElementById("case-preview-modal")
-        .classList.add("hidden");
-}
-function getChance(rarity){
 
+function closeCasePreview() {
+    document.getElementById("case-preview-modal").classList.add("hidden");
+}
+
+function getChance(rarity) {
     const chances = {
         "rarity-blue": "60%",
         "rarity-green": "22%",
@@ -671,10 +720,10 @@ function getChance(rarity){
         "rarity-red": "2%",
         "rarity-rainbow": "1%"
     };
-
-    return chances[rarity];
+    return chances[rarity] || "1%";
 }
-// Har bir kategoyaga raqamlar tushadigan funksiya
+
+// MATRIX EFFECT
 function initMatrixEffect(catHeader) {
     const canvas = document.createElement('canvas');
     canvas.className = 'matrix-canvas';
@@ -692,7 +741,7 @@ function initMatrixEffect(catHeader) {
     function draw() {
         ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#0F0"; // Yashil rang
+        ctx.fillStyle = "#0F0"; 
         ctx.font = fontSize + "px monospace";
 
         for (let i = 0; i < drops.length; i++) {
@@ -704,6 +753,7 @@ function initMatrixEffect(catHeader) {
     }
     setInterval(draw, 50);
 }
+
 // ================= START =================
 updateLanguageUI();
 updateGlobalData();
