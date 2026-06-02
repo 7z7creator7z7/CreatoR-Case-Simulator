@@ -554,3 +554,62 @@ left: -10px;
     text-overflow: ellipsis;   
     width: 100%;               
 }
+/* Ruletka kartalari uchun (Preview'dagi kabi dizayn) */
+.skin-card {
+    min-width: 110px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2px;
+    border-radius: 12px;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.skin-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+/* Rarity bo'yicha fonlar (Ruletka uchun) */
+.skin-card.rarity-blue { background: linear-gradient(180deg, rgba(75,105,255,.18), #111827); }
+.skin-card.rarity-green { background: linear-gradient(180deg, rgba(92,255,92,.18), #111827); }
+.skin-card.rarity-purple { background: linear-gradient(180deg, rgba(163,53,238,.18), #111827); }
+.skin-card.rarity-red { background: linear-gradient(180deg, rgba(255,77,77,.18), #111827); }
+.skin-card.rarity-yellow { background: linear-gradient(180deg, rgba(255,215,0,.18), #111827); }
+.skin-card.rarity-rainbow { background: linear-gradient(180deg, rgba(255,0,255,.18), #111827); }
+
+/* Pastki chiziq */
+.skin-card .rarity-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Rarity chiziq ranglari */
+.skin-card.rarity-blue .rarity-line { background: #4b69ff; }
+.skin-card.rarity-green .rarity-line { background: #5cff5c; }
+.skin-card.rarity-purple .rarity-line { background: #a335ee; }
+.skin-card.rarity-red .rarity-line { background: #ff4d4d; }
+.skin-card.rarity-yellow .rarity-line { background: #ffd700; }
+.skin-card.rarity-rainbow .rarity-line { background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet); }
+/* Pop-up asosi */
+.win-popup {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    /* Fonni raritiyaga qarab o'zgartiramiz */
+}
+
+/* Rarity'ga qarab pop-up foni */
+.win-popup.rarity-blue { background: linear-gradient(135deg, rgba(75,105,255,0.3), #111827); border-color: #4b69ff; }
+.win-popup.rarity-green { background: linear-gradient(135deg, rgba(92,255,92,0.3), #111827); border-color: #5cff5c; }
+.win-popup.rarity-purple { background: linear-gradient(135deg, rgba(163,53,238,0.3), #111827); border-color: #a335ee; }
+.win-popup.rarity-red { background: linear-gradient(135deg, rgba(255,77,77,0.3), #111827); border-color: #ff4d4d; }
+.win-popup.rarity-yellow { background: linear-gradient(135deg, rgba(255,215,0,0.3), #111827); border-color: #ffd700; }
+.win-popup.rarity-rainbow { background: linear-gradient(135deg, rgba(255,0,255,0.3), #111827); border-color: #ff00ff; }
