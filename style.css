@@ -458,7 +458,7 @@ left: -10px;
     background:
     linear-gradient(
         180deg,
-        rgba(75,105,255,.18),
+        rgba(75,105,255,0.8),
         #111827
     );
 }
@@ -468,7 +468,7 @@ left: -10px;
     background:
     linear-gradient(
         180deg,
-        rgba(92,255,92,.18),
+        rgba(92,255,92,0.8),
         #111827
     );
 }
@@ -478,7 +478,7 @@ left: -10px;
     background:
     linear-gradient(
         180deg,
-        rgba(163,53,238,.18),
+        rgba(163,53,238,0.8),
         #111827
     );
 }
@@ -488,7 +488,7 @@ left: -10px;
     background:
     linear-gradient(
         180deg,
-        rgba(255,77,77,.18),
+        rgba(255,77,77,0.8),
         #111827
     );
 }
@@ -498,7 +498,7 @@ left: -10px;
     background:
     linear-gradient(
         180deg,
-        rgba(255,215,0,.18),
+        rgba(255,215,0,0.8),
         #111827
     );
 }
@@ -508,7 +508,7 @@ left: -10px;
     background:
     linear-gradient(
         180deg,
-        rgba(255,0,255,.18),
+        rgba(255,0,255,0.8),
         #111827
     );
 }
@@ -699,4 +699,8 @@ left: -10px;
     color: #888 !important;         /* Kulrang matn */
     cursor: not-allowed;
     opacity: 0.7;
+}
+.skin-price {
+  position: relative;
+  left: -50px; /* chapga 5px suradi */
 }
