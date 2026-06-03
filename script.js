@@ -189,12 +189,12 @@ let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
 // ================= SKINS =================
 const allSkins = [
     { name: "Boxerbolt Hoverboard", price: 35.28,chance: 4.1,rarity: "rarity-red", img: "./images/5.avif"},
-    { name: "🔵 UMP-45 🔵", price: 0.10, rarity: "rarity-blue", img: "./images/6.png"},
-    { name: "🔵 FAMAS 🔵", price: 1.50, rarity: "rarity-blue", img: "./images/7.png"},
-    { name: "🔵 NOVA 🔵", price: 3.50, rarity: "rarity-blue", img: "./images/8.png"},
-    { name: "🔵 GLOCK-18 🔵", price: 4.30, rarity: "rarity-blue", img: "./images/9.png"},
-    { name: "🔵 AK-47 🔵", price: 5.10, rarity: "rarity-blue", img: "./images/10.png"},
-    { name: "🔵 USP-S 🔵", price: 6.80, rarity: "rarity-blue", img: "./images/11.png"},
+    { name: "Field Commander", price: 170.20,chance:0.01, rarity: "rarity-purple", img: "./images/6.avif"},
+    { name: "Blazing Vermillion", price: 155.48,chance:0.02, rarity: "rarity-purple", img: "./images/7.avif"},
+    { name: "Thorn Bramble", price: 137.85,chance:0.03, rarity: "rarity-purple", img: "./images/8.avif"},
+    { name: "Blood Lotus", price: 122.25,chance:0.03, rarity: "rarity-purple", img: "./images/9.avif"},
+    { name: "Shrine Keeper", price: 120.73,chance:0.05, rarity: "rarity-purple", img: "./images/10.avif"},
+    { name: "Armored Hunter", price: 102.52,chance:0.17, rarity: "rarity-purple", img: "./images/11.avif"},
     { name: "🔵 M4A4 🔵", price: 7.90, rarity: "rarity-blue", img: "./images/12.png"},
     { name: "🔵 SSG 08 🔵", price: 2.50, rarity: "rarity-blue", img: "./images/13.png"},
     { name: "🔵 P90 🔵", price: 3.90, rarity: "rarity-blue", img: "./images/14.png"},
