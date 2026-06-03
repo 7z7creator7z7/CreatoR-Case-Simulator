@@ -163,7 +163,7 @@ const i18n = {
         btn_sell: "⛔Sotish",
         btn_close: "🚫Yopish",
         msg_money: "❌ Mablag' yetarli emas!",
-        opening: "🎁 𐂅Keys ochilmoqda..."
+        opening: "🎁 Keys ochilmoqda 𓃹 ..."
     },
     en: {
         nav_cases: "🎁Cases",
@@ -177,7 +177,7 @@ const i18n = {
         btn_sell: "⛔Sell",
         btn_close: "🚫Close",
         msg_money: "❌ Not enough money!",
-        opening: "🎁 𐂅Opening case..."
+        opening: "🎁 Opening case..."
     }
 };
 
@@ -188,7 +188,7 @@ let inventory = JSON.parse(localStorage.getItem("inventory")) || [];
 
 // ================= SKINS =================
 const allSkins = [
-    { name: "🔵 P250 🔵", price: 0.50, rarity: "rarity-blue", img: "./images/5.png"},
+    { name: "Boxerbolt Hoverboard", price: 35.28,chance: 4.1,rarity: "rarity-red", img: "./images/5.avif"},
     { name: "🔵 UMP-45 🔵", price: 0.10, rarity: "rarity-blue", img: "./images/6.png"},
     { name: "🔵 FAMAS 🔵", price: 1.50, rarity: "rarity-blue", img: "./images/7.png"},
     { name: "🔵 NOVA 🔵", price: 3.50, rarity: "rarity-blue", img: "./images/8.png"},
@@ -210,36 +210,87 @@ const allSkins = [
     { name: "Mercuriy Soldier Set", price: 8025.87, rarity: "rarity-yellow", img: "./images/24.avif"},
 ];
 
-const rarityChances = {
-    "rarity-blue": 60,
-    "rarity-green": 22,
-    "rarity-purple": 11,
-    "rarity-yellow": 4,
-    "rarity-red": 2,
-    "rarity-rainbow": 1
-};
-
 function getRandomItem(caseItems) {
-    const availableRarities = [...new Set(caseItems.map(i => i.rarity))];
-    const filteredChances = {};
-    let total = 0;
-    availableRarities.forEach(rarity => {
-        filteredChances[rarity] = rarityChances[rarity];
-        total += rarityChances[rarity];
+
+    const items = [...caseItems];
+
+    let fixedChance = 0;
+
+    items.forEach(item => {
+        if (item.chance) {
+            fixedChance += item.chance;
+        }
     });
-    let random = Math.random() * total;
-    let selectedRarity;
-    for (let rarity in filteredChances) {
-        random -= filteredChances[rarity];
-        if (random <= 0) {
-            selectedRarity = rarity;
-            break;
+
+    let remainingChance = 100 - fixedChance;
+
+    const autoItems = items.filter(item => item.chance == null);
+
+    if (autoItems.length > 0) {
+
+        let totalWeight = 0;
+
+        autoItems.forEach(item => {
+            item._weight = 1 / Math.max(item.price, 0.01);
+            totalWeight += item._weight;
+        });
+
+        autoItems.forEach(item => {
+            item._finalChance =
+                (item._weight / totalWeight) * remainingChance;
+        });
+    }
+
+    items.forEach(item => {
+        if (item.chance != null) {
+            item._finalChance = item.chance;
+        }
+    });
+
+    let rand = Math.random() * 100;
+
+    for (const item of items) {
+
+        rand -= item._finalChance;
+
+        if (rand <= 0) {
+            return item;
         }
     }
-    const filteredItems = caseItems.filter(item => item.rarity === selectedRarity);
-    return filteredItems[Math.floor(Math.random() * filteredItems.length)];
-}
 
+    return items[0];
+}
+function calculateChance(item, caseItems) {
+
+    if (item.chance != null) {
+        return item.chance;
+    }
+
+    let fixedChance = 0;
+
+    caseItems.forEach(i => {
+        if (i.chance != null) {
+            fixedChance += i.chance;
+        }
+    });
+
+    let remaining = Math.max(0, 100 - fixedChance);
+
+    const autoItems = caseItems.filter(i => i.chance == null);
+
+    let totalWeight = 0;
+
+    autoItems.forEach(i => {
+        i._weight = 1 / Math.max(i.price, 0.01);
+        totalWeight += i._weight;
+    });
+
+    const weight = 1 / Math.max(item.price, 0.01);
+
+    let chance = (weight / totalWeight) * remaining;
+
+    return chance;
+}
 // ================= TOIFALANGAN CASES MA'LUMOTI =================
 const caseData = [
     {
@@ -491,6 +542,7 @@ const promoCodes = {
     "27MART": 500,
     "CHAROS": 500,
     "KING009": 500,
+    "SEVGI": 100000,
 };
 
 function usePromoCode() {
@@ -654,12 +706,12 @@ function showCasePreview(caseId) {
     skinsDiv.innerHTML = "";
 
     const rarityOrder = {
-        "rarity-blue": 1, 
-        "rarity-green": 2, 
-        "rarity-purple": 3, 
-        "rarity-red": 4, 
-        "rarity-yellow": 5, 
-        "rarity-rainbow": 6
+        "rarity-blue": 6, 
+        "rarity-green": 5, 
+        "rarity-purple": 4, 
+        "rarity-red": 3, 
+        "rarity-yellow": 2, 
+        "rarity-rainbow": 1
     };
 
     const sortedSkins = [...selectedCase.skins].sort((a, b) => 
@@ -673,7 +725,9 @@ function showCasePreview(caseId) {
             <img src="${item.img}">
             <div class="skin-name">${item.name}</div>
             <div class="skin-price">$${item.price}</div>
-            <div class="drop-chance">${getChance(item.rarity)}</div>
+           <div class="drop-chance">
+    ${formatChance(calculateChance(item, selectedCase.skins))}
+</div>
             <div class="rarity-line"></div>
         `;
         skinsDiv.appendChild(skin);
@@ -687,17 +741,7 @@ function closeCasePreview() {
     document.getElementById("case-preview-modal").classList.add("hidden");
 }
 
-function getChance(rarity) {
-    const chances = {
-        "rarity-blue": "60%",
-        "rarity-green": "22%",
-        "rarity-purple": "11%",
-        "rarity-yellow": "4%",
-        "rarity-red": "2%",
-        "rarity-rainbow": "1%"
-    };
-    return chances[rarity] || "1%";
-}
+
 
 // MATRIX EFFECT
 function initMatrixEffect(catHeader) {
@@ -728,6 +772,17 @@ function initMatrixEffect(catHeader) {
         }
     }
     setInterval(draw, 50);
+    
+}
+function formatChance(value) {
+    if (value <= 0) return "0%";
+    if (value < 0.01) return "<0.01%";
+
+    // 5.00001 → 5%
+    let formatted = parseFloat(value.toFixed(2));
+
+    // 5.10 → 5.1
+    return formatted.toString().replace(/\.0$/, '') + "%";
 }
 
 // ================= START =================
