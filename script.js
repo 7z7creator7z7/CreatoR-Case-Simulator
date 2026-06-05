@@ -195,7 +195,7 @@ const allSkins = [
     { name: "Blood Lotus", price: 122.25,chance:0.03, rarity: "rarity-purple", img: "./images/9.avif"},
     { name: "Shrine Keeper", price: 120.73,chance:0.05, rarity: "rarity-purple", img: "./images/10.avif"},
     { name: "Armored Hunter", price: 102.52,chance:0.17, rarity: "rarity-purple", img: "./images/11.avif"},
-    { name: "🔵 M4A4 🔵", price: 7.90, rarity: "rarity-blue", img: "./images/12.png"},
+    { name: "Son Goku UAZ", price: 83.11,chance:0.44, rarity: "rarity-blue", img: "./images/12.avif"},
     { name: "🔵 SSG 08 🔵", price: 2.50, rarity: "rarity-blue", img: "./images/13.png"},
     { name: "🔵 P90 🔵", price: 3.90, rarity: "rarity-blue", img: "./images/14.png"},
     { name: "🔵 Desert Eagle 🔵", price: 4.50, rarity: "rarity-blue", img: "./images/15.png"},
@@ -309,8 +309,8 @@ const caseData = [
     {
         categoryTitle: '<img src="./images/pro.avif" class="cat-icon"> Bepul Case',
         cases: [
-            { id: "telegram", name: "Telegram", price: 10, img: "./images/1008.avif", skins: allSkins.slice(0, 14) },
-            { id: "vk", name: "VK", price: 10, img: "./images/1009.avif", skins: allSkins.slice(0, 14) }
+            { id: "telegram", name: "Telegram", price: 0, img: "./images/1008.avif", skins: allSkins.slice(0, 14) },
+            { id: "vk", name: "VK", price: 0, img: "./images/1009.avif", skins: allSkins.slice(0, 14) }
         ]
     },
         {
@@ -390,6 +390,42 @@ function renderCases() {
 
 // ================= OPEN CASE BY ID =================
 function openCaseById(caseId) {
+
+    // Faqat telegram va vk caselariga 24 soatlik limit
+    if (caseId === "telegram" || caseId === "vk") {
+
+        const lastOpen = localStorage.getItem("case_open_" + caseId);
+
+        if (lastOpen) {
+            const passed = Date.now() - parseInt(lastOpen);
+
+            if (passed < 24 * 60 * 60 * 1000) {
+
+                const hours = Math.floor(
+                    (24 * 60 * 60 * 1000 - passed) / (60 * 60 * 1000)
+                );
+
+                const minutes = Math.floor(
+                    ((24 * 60 * 60 * 1000 - passed) % (60 * 60 * 1000)) /
+                    (60 * 1000)
+                );
+
+                showTopPopup(
+                    `⏳ Bu caseni qayta ochish uchun ${hours} soat ${minutes} daqiqa kuting!`,
+                    "orange"
+                );
+
+                return;
+            }
+        }
+
+        localStorage.setItem(
+            "case_open_" + caseId,
+            Date.now()
+        );
+    }
+
+    // qolgan openCaseById kodi shu yerdan davom etadi...
     let c = null;
     for (let cat of caseData) {
         c = cat.cases.find(item => item.id === caseId);
