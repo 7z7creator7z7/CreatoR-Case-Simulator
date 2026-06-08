@@ -28,11 +28,37 @@
         </div>
     </header>
 
-    <nav>
-        <button onclick="showSection('cases')" id="nav-cases">🎁 Keyslar</button>
-        <button onclick="showSection('inventory')" id="nav-inv">🎒 Inventar</button>
-        <button onclick="showSection('profile')" id="nav-profile">👤 Profil</button>
-    </nav>
+<!-- Navigatsiya -->
+<nav>
+    <button onclick="showSection('cases')" id="nav-cases">🎁 Keyslar</button>
+    <button onclick="showSection('inventory')" id="nav-inv">🎒 Inventar</button>
+    <button onclick="showSection('games')" id="nav-games">🎮 O'yinlar</button>
+    <button onclick="showSection('profile')" id="nav-profile">👤 Profil</button>
+</nav>
+
+<!-- Yangi O'yinlar Bo'limi -->
+<section id="games-section" class="hidden">
+    <h2 id="title-games">🎮 Mini O'yinlar</h2>
+    <div class="games-grid">
+        <div class="game-card" onclick="openGame('Crash')">
+            <img src="./images/crash.png" alt="Crash">
+            <span>Crash</span>
+        </div>
+        <div class="game-card" onclick="openGame('Mines')">
+            <img src="./images/mines.png" alt="Mines">
+            <span>Mines</span>
+        </div>
+        <div class="game-card" onclick="openGame('Upgrade')">
+            <img src="./images/upgrade.png" alt="Upgrade">
+            <span>Upgrade</span>
+        </div>
+        <div class="game-card" onclick="openGame('Wheel')">
+            <img src="./images/wheel.png" alt="Wheel">
+            <span>Wheel</span>
+        </div>
+    </div>
+</section>
+
 
     <section id="cases-section">
         <div id="case-list"></div>
