@@ -152,34 +152,74 @@ document.addEventListener("click", (e) => {
 // ================= LANGUAGE =================
 const i18n = {
     uz: {
-        nav_cases: "🎁Keyslar",
-        nav_inv: "🎒Inventar",
-        nav_profile: "👤Profil",
-        title_inv: "🎒Mening Inventarim",
-        title_profile: "⚙️Sozlamalar",
+        nav_cases: "🎁 Keyslar",
+        nav_games: "🎮 O'yinlar",
+        nav_inv: "🎒 Inventar",
+        nav_profile: "👤 Profil",
+        
+        title_inv: "🎒 Mening Inventarim",
+        title_games: "🎮 Mini O'yinlar",
+        title_profile: "⚙️ Sozlamalar",
+        
         label_lang: "🇺🇿 Tilni tanlang:",
         label_stats: "📊 Sizning natijangiz yaqin orada bu yerda bo'ladi.⌛",
-        btn_open: "✅Ochish",
-        btn_sell: "⛔Sotish",
-        btn_close: "🚫Yopish",
+        
+        btn_open: "✅ Ochish",
+        btn_sell: "⛔ Sotish",
+        btn_close: "🚫 Yopish",
+        
         msg_money: "❌ Mablag' yetarli emas!",
         opening: "🎁 Keys ochilmoqda 𓃹 ..."
     },
     en: {
-        nav_cases: "🎁Cases",
-        nav_inv: "🎒Inventory",
-        nav_profile: "👤Profile",
-        title_inv: "🎒My Inventory",
-        title_profile: "⚙️Settings",
+        nav_cases: "🎁 Cases",
+        nav_games: "🎮 Games",
+        nav_inv: "🎒 Inventory",
+        nav_profile: "👤 Profile",
+        
+        title_inv: "🎒 My Inventory",
+        title_games: "🎮 Mini Games",
+        title_profile: "⚙️ Settings",
+        
         label_lang: "🇬🇧 Select Language:",
         label_stats: "📊 Your statistics will be here soon.⌛",
-        btn_open: "✅Open",
-        btn_sell: "⛔Sell",
-        btn_close: "🚫Close",
+        
+        btn_open: "✅ Open",
+        btn_sell: "⛔ Sell",
+        btn_close: "🚫 Close",
+        
         msg_money: "❌ Not enough money!",
-        opening: "🎁 Opening case..."
+        opening: "🎁 Opening case 𓃹 ..."
     }
 };
+
+// ================= UI YANGILASH FUNKSIYASI =================
+function updateLanguageUI() {
+    const l = i18n[currentLang];
+    
+    // Navigatsiya
+    document.getElementById('nav-cases').innerText = l.nav_cases;
+    document.getElementById('nav-games').innerText = l.nav_games;
+    document.getElementById('nav-inv').innerText = l.nav_inv;
+    document.getElementById('nav-profile').innerText = l.nav_profile;
+    
+    // Sarlavhalar
+    document.getElementById('title-inv').innerText = l.title_inv;
+    if(document.getElementById('title-games')) document.getElementById('title-games').innerText = l.title_games;
+    document.getElementById('title-profile').innerText = l.title_profile;
+    
+    // Profil qismi
+    document.getElementById('label-lang').innerText = l.label_lang;
+    document.getElementById('label-stats').innerText = l.label_stats;
+    
+    // Modal va o'yin qismi
+    document.getElementById('opening-text').innerText = l.opening;
+    document.getElementById('close-modal').innerText = l.btn_close;
+    
+    // Caseslarni qayta render qilish
+    renderCases();
+}
+
 
 // ================= SAVE DATA =================
 let currentLang = localStorage.getItem("lang") || "uz";
@@ -330,21 +370,6 @@ const caseData = [
         ]
     }
 ];
-
-// ================= LANGUAGE UI =================
-function updateLanguageUI() {
-    const l = i18n[currentLang];
-    document.getElementById('nav-cases').innerText = l.nav_cases;
-    document.getElementById('nav-inv').innerText = l.nav_inv;
-    document.getElementById('nav-profile').innerText = l.nav_profile;
-    document.getElementById('title-inv').innerText = l.title_inv;
-    document.getElementById('title-profile').innerText = l.title_profile;
-    document.getElementById('label-lang').innerText = l.label_lang;
-    document.getElementById('label-stats').innerText = l.label_stats;
-    document.getElementById('opening-text').innerText = l.opening;
-    document.getElementById('close-modal').innerText = l.btn_close;
-    renderCases();
-}
 
 // ================= RENDER TOIFALANGAN CASES =================
 function renderCases() {
@@ -552,16 +577,40 @@ function updateGlobalData() {
     updateUCBalance();
 }
 
+// ================= BO'LIMLARNI BOSHQARISH =================
 function showSection(name) {
-    document.getElementById('cases-section').classList.toggle('hidden', name !== 'cases');
-    document.getElementById('inventory-section').classList.toggle('hidden', name !== 'inventory');
-    document.getElementById('profile-section').classList.toggle('hidden', name !== 'profile');
+    // Barcha bo'limlar IDlari
+    const sections = ['cases', 'games', 'inventory', 'profile'];
+    
+    sections.forEach(section => {
+        const element = document.getElementById(section + '-section');
+        if (element) {
+            // Agar nomi mos kelsa 'hidden'ni olib tashlaymiz, aks holda qo'shamiz
+            element.classList.toggle('hidden', name !== section);
+        }
+    });
+
+    // Telegram MainButton ni xohlasangiz bo'limga qarab o'zgartirishingiz mumkin
+    if (name === 'games') {
+        tg.MainButton.hide(); 
+    }
 }
 
+// ================= MODALLARNI YOPISH =================
 function closeModal() {
-    document.getElementById('game-modal').classList.add('hidden');
-    document.getElementById('close-modal').classList.add('hidden');
+    // Asosiy o'yin modalini yopish
+    const gameModal = document.getElementById('game-modal');
+    if (gameModal) gameModal.classList.add('hidden');
+    
+    // Yopish tugmasini yashirish
+    const closeBtn = document.getElementById('close-modal');
+    if (closeBtn) closeBtn.classList.add('hidden');
+    
+    // Case preview modalini ham yopib qo'yish (agar ochiq bo'lsa)
+    const previewModal = document.getElementById('case-preview-modal');
+    if (previewModal) previewModal.classList.add('hidden');
 }
+
 
 // ================= USER =================
 document.getElementById('user-name').innerText = tg.initDataUnsafe.user?.first_name || "User";
