@@ -704,3 +704,40 @@ left: -10px;
   position: relative;
   left: -50px; /* chapga 5px suradi */
 }
+.games-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+}
+
+.game-card {
+    background: #161b22;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #30363d;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.game-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* 1x1 nisbat */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.game-card span {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.game-card:active {
+    transform: scale(0.95);
+    background: #1f242d;
+}
