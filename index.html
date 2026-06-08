@@ -158,33 +158,6 @@
     ></div>
 
 </div>
-<div class="crash-game-ui">
-    <div id="crash-multiplier" style="font-size: 50px; font-weight: bold;">1.00x</div>
-    <div class="history-bar" id="history-bar" style="display: flex; gap: 5px;"></div>
-</div>
-
-<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-<script>
-    // Render URL'ingizni shu yerga yozing
-    const socket = io('https://SIZNING-RENDER-LINKINGIZ.onrender.com');
-
-    // Multiplier yangilanishi
-    socket.on('multiplier', (val) => {
-        document.getElementById('crash-multiplier').innerText = val + 'x';
-    });
-
-    // Crash bo'lganda
-    socket.on('crash', (val) => {
-        document.getElementById('crash-multiplier').style.color = 'red';
-        document.getElementById('crash-multiplier').innerText = val + 'x CRASHED';
-    });
-
-    // History (Tarix)
-    socket.on('history', (history) => {
-        const bar = document.getElementById('history-bar');
-        bar.innerHTML = history.map(h => `<div class="hist-item">${h}x</div>`).join('');
-    });
-</script>
 
 <script src="script.js"></script>
 </body>
