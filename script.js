@@ -570,9 +570,20 @@ function changeLanguage(lang) {
 }
 
 function updateGlobalData() {
-    document.getElementById('balance').innerText = balance.toFixed(2);
+    document.getElementById('balance').innerText =
+        balance.toFixed(2);
+
+    const previewBalance =
+        document.getElementById('preview-balance');
+
+    if (previewBalance) {
+        previewBalance.innerText =
+            balance.toFixed(2);
+    }
+
     localStorage.setItem('balance', balance);
     localStorage.setItem('inventory', JSON.stringify(inventory));
+
     renderInventory();
     updateUCBalance();
 }
