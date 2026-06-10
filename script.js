@@ -875,32 +875,34 @@ function claimReward(day) {
         parseInt(localStorage.getItem("dailyClaimTime")) || 0;
 
     // ⛔ 24 soat blok
-if (lastClaimTime && now - lastClaimTime < 24 * 60 * 60 * 1000) {
+    if (lastClaimTime && now - lastClaimTime < 24 * 60 * 60 * 1000) {
 
-    const remaining = (24 * 60 * 60 * 1000) - (now - lastClaimTime);
+        const remaining = (24 * 60 * 60 * 1000) - (now - lastClaimTime);
 
-    const hours = Math.floor(remaining / (60 * 60 * 1000));
-    const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
-    const seconds = Math.floor((remaining % (60 * 1000)) / 1000);
+        const hours = Math.floor(remaining / (60 * 60 * 1000));
+        const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+        const seconds = Math.floor((remaining % (60 * 1000)) / 1000);
 
-    let text = "⏳ Keyingi reward uchun: ";
+        let text = "⏳ Keyingi reward uchun: ";
 
-    if (hours > 0) text += `${hours} soat `;
-    if (minutes > 0) text += `${minutes} daqiqa `;
-    text += `${seconds} soniya kuting!`;
+        if (hours > 0) text += `${hours} soat `;
+        if (minutes > 0) text += `${minutes} daqiqa `;
+        text += `${seconds} soniya kuting!`;
 
-    showTopPopup(text, "orange");
-    return;
-}
-if (day !== currentDay) {
+        showTopPopup(text, "orange");
+        return;
+    }
+
+    if (day !== currentDay) {
         showTopPopup("❌ Bu kun ochilmagan!", "red");
         return;
     }
 
-if (lastClaimedDay === day) {
-    showTopPopup("❌ Allaqachon olingan!", "orange");
-    return;
-    }
+    // ❌ SHU JOY O‘CHIRILDI:
+    // if (lastClaimedDay === day) {
+    //     showTopPopup("❌ Allaqachon olingan!", "orange");
+    //     return;
+    // }
 
     // 🎁 REWARD
     if (day === 7) {
@@ -925,7 +927,15 @@ if (lastClaimedDay === day) {
     updateGlobalData();
     renderDailyReward();
 
-    showTopPopup("✅ Reward olindi!", "lime");
+let rewardText;
+
+if (day === 7) {
+    rewardText = `🎁 Voucher olindi (${100} MC)!`;
+} else {
+    rewardText = `💰 +${day * 10} MC olindi!`;
+}
+
+showTopPopup(rewardText, "lime");
 }
 function renderDailyReward() {
 
@@ -1064,9 +1074,9 @@ function updateDailyProgress() {
     let passed = now - lastLoginTime;
 
     const DAY = 24 * 60 * 60 * 1000;
-    const RESET_TIME = 48 * 60 * 60 * 1000; // 🔥 48 soat
+    const RESET_TIME = 48 * 60 * 60 * 1000;
 
-    // 🔴 RESET (48 soatdan oshsa)
+    // 🔴 48 soat + login yo‘q = RESET
     if (passed >= RESET_TIME) {
         currentDay = 1;
         lastClaimedDay = 0;
@@ -1074,20 +1084,58 @@ function updateDailyProgress() {
         localStorage.setItem("currentDay", currentDay);
         localStorage.setItem("lastClaimedDay", lastClaimedDay);
 
-        showTopPopup("🔄 48 soatdan ko'p kirmaganingiz uchun daily reward reset bo‘ldi!", "orange");
+        showTopPopup(
+            "🔄 48 soatdan ko'p kirmaganingiz uchun daily reward reset bo‘ldi!",
+            "orange"
+        );
     }
 
-    // 🟢 PROGRESS UPDATE (reset bo‘lmasa)
-    else {
-        const skippedDays = Math.floor(passed / DAY);
-
-        if (skippedDays > 0) {
-            currentDay = Math.min(7, currentDay + skippedDays);
+    // 🟢 24 soat o‘tgan bo‘lsa NEXT DAY ochiladi (faqat +1)
+    else if (passed >= DAY) {
+        // ❗ faqat 1 qadam oshadi, skip emas
+        if (currentDay < 7) {
+            currentDay = currentDay + 1;
             localStorage.setItem("currentDay", currentDay);
         }
     }
 
-    // 💾 har safar login yangilanadi
+    // 💾 login update HAR DOIM
+    localStorage.setItem("lastLoginTime", now);
+}
+function updateDailyProgress() {
+    const now = Date.now();
+
+    let lastLoginTime = parseInt(localStorage.getItem("lastLoginTime")) || now;
+    let passed = now - lastLoginTime;
+
+    const RESET_TIME = 48 * 60 * 60 * 1000;
+
+    let streak = parseInt(localStorage.getItem("streak")) || 1;
+
+    // 🔴 48 soat kirmasa reset
+    if (passed >= RESET_TIME) {
+        streak = 1;
+        currentDay = 1;
+
+        showTopPopup(
+            "🔄 48 soatdan ko'p kirmadingiz, streak reset bo‘ldi!",
+            "orange"
+        );
+    }
+
+    else {
+        const DAY = 24 * 60 * 60 * 1000;
+
+        if (passed >= DAY) {
+            streak += Math.floor(passed / DAY);
+
+            // 🔥 DISPLAY DAY doim 1–7 cycle
+            currentDay = ((streak - 1) % 7) + 1;
+        }
+    }
+
+    localStorage.setItem("streak", streak);
+    localStorage.setItem("currentDay", currentDay);
     localStorage.setItem("lastLoginTime", now);
 }
 let dailyLastTime =
