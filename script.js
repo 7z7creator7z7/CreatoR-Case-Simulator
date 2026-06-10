@@ -371,49 +371,6 @@ const caseData = [
         ]
     }
 ];
-
-// ================= RENDER TOIFALANGAN CASES =================
-function renderCases() {
-    const container = document.getElementById('case-list');
-    container.innerHTML = '';
-
-    caseData.forEach((category) => {
-        
-        // 1. Toifa sarlavhasini yaratish
-        const catHeader = document.createElement('h2');
-        catHeader.className = 'category-title';
-        catHeader.innerHTML = category.categoryTitle;
-        container.appendChild(catHeader);
-
-        // Matrix effektini qo'shish
-        initMatrixEffect(catHeader); 
-
-        // 2. Grid yaratish
-        const grid = document.createElement('div');
-        grid.className = 'case-grid';
-
-        // 3. Har bir case'ni render qilish
-        category.cases.forEach((c) => {
-            const div = document.createElement('div');
-            
-            // rarity klassini qo'shish (agar rarity bo'lmasa, default bo'ladi)
-            const rarityClass = c.rarity || 'rarity-blue'; 
-            div.className = `case-card ${rarityClass}`;
-            
-            div.innerHTML = `
-                <img src="${c.img}" alt="${c.name}" class="case-image">
-                <h3 class="case-name">${c.name}</h3>
-                <button onclick="showCasePreview('${c.id}')" class="uc-button">
-                    <img src="./images/mc.png" class="uc-icon"> ${c.price.toFixed(1)} MC
-                </button>
-            `;
-            grid.appendChild(div);
-        });
-
-        container.appendChild(grid);
-    });
-}
-
 // ================= OPEN CASE BY ID =================
 function openCaseById(caseId, voucherOpen = false) {
 
@@ -910,81 +867,65 @@ function getButtonColor(day) {
     if (day === currentDay) return "green"; // bugungi kun
     return "gray"; // hali kelmagan
 }
-
 function claimReward(day) {
-  const lastClaimTime =
-    localStorage.getItem("dailyClaimTime");
 
-if (lastClaimTime) {
+    const now = Date.now();
 
-    const passed =
-        Date.now() - parseInt(lastClaimTime);
+    const lastClaimTime =
+        parseInt(localStorage.getItem("dailyClaimTime")) || 0;
 
-    if (passed < 24 * 60 * 60 * 1000) {
+    // ⛔ 24 soat blok
+if (lastClaimTime && now - lastClaimTime < 24 * 60 * 60 * 1000) {
 
-        const hours = Math.floor(
-            (24 * 60 * 60 * 1000 - passed) /
-            (60 * 60 * 1000)
-        );
+    const remaining = (24 * 60 * 60 * 1000) - (now - lastClaimTime);
 
-        const minutes = Math.floor(
-            ((24 * 60 * 60 * 1000 - passed) %
-            (60 * 60 * 1000)) /
-            (60 * 1000)
-        );
+    const hours = Math.floor(remaining / (60 * 60 * 1000));
+    const minutes = Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000));
+    const seconds = Math.floor((remaining % (60 * 1000)) / 1000);
 
-        showTopPopup(
-            `⏳ ${hours} soat ${minutes} daqiqa kuting`,
-            "orange"
-        );
+    let text = "⏳ Keyingi reward uchun: ";
 
-        return;
-    }
+    if (hours > 0) text += `${hours} soat `;
+    if (minutes > 0) text += `${minutes} daqiqa `;
+    text += `${seconds} soniya kuting!`;
+
+    showTopPopup(text, "orange");
+    return;
 }
-    if (day !== currentDay) {
-        showTopPopup("❌ Bu kunni olish mumkin emas!", "red");
+if (day !== currentDay) {
+        showTopPopup("❌ Bu kun ochilmagan!", "red");
         return;
     }
 
-    if (lastClaimedDay === day) {
-        showTopPopup("❌ Mukofot allaqachon olingan!", "orange");
-        return;
+if (lastClaimedDay === day) {
+    showTopPopup("❌ Allaqachon olingan!", "orange");
+    return;
     }
 
-    // ================= REWARD SYSTEM =================
-
+    // 🎁 REWARD
     if (day === 7) {
-        // 🎁 VOUCHER ITEM (inventoryga tushadi)
-        const voucherItem = {
-            name: "🎁 Daily Voucher (Day 7)",
+        inventory.push({
+            name: "🎁 Voucher Day 7",
             price: 100,
             rarity: "rarity-yellow",
             img: "./images/voucher.png"
-        };
-
-        inventory.push(voucherItem);
-
-        showTopPopup("🎉 Day 7 Voucher olindi!", "lime");
-
+        });
     } else {
-        // 💰 oddiy reward
-        let reward = day * 10;
-
-        balance += reward;
-
-        showTopPopup("✅ +" + reward + " MC oldingiz!", "lime");
+        balance += day * 10;
     }
 
-    updateGlobalData();
-
+    // SAVE
     lastClaimedDay = day;
     currentDay++;
 
+    localStorage.setItem("dailyClaimTime", now);
     localStorage.setItem("currentDay", currentDay);
     localStorage.setItem("lastClaimedDay", lastClaimedDay);
-    localStorage.setItem("streak", streak);
 
+    updateGlobalData();
     renderDailyReward();
+
+    showTopPopup("✅ Reward olindi!", "lime");
 }
 function renderDailyReward() {
 
@@ -1116,7 +1057,45 @@ function updateVoucherBalance(){
 
     el.innerText = balance.toFixed(2);
 }
+function updateDailyProgress() {
+    const now = Date.now();
+
+    let lastLoginTime = parseInt(localStorage.getItem("lastLoginTime")) || now;
+    let passed = now - lastLoginTime;
+
+    const DAY = 24 * 60 * 60 * 1000;
+    const RESET_TIME = 48 * 60 * 60 * 1000; // 🔥 48 soat
+
+    // 🔴 RESET (48 soatdan oshsa)
+    if (passed >= RESET_TIME) {
+        currentDay = 1;
+        lastClaimedDay = 0;
+
+        localStorage.setItem("currentDay", currentDay);
+        localStorage.setItem("lastClaimedDay", lastClaimedDay);
+
+        showTopPopup("🔄 48 soatdan ko'p kirmaganingiz uchun daily reward reset bo‘ldi!", "orange");
+    }
+
+    // 🟢 PROGRESS UPDATE (reset bo‘lmasa)
+    else {
+        const skippedDays = Math.floor(passed / DAY);
+
+        if (skippedDays > 0) {
+            currentDay = Math.min(7, currentDay + skippedDays);
+            localStorage.setItem("currentDay", currentDay);
+        }
+    }
+
+    // 💾 har safar login yangilanadi
+    localStorage.setItem("lastLoginTime", now);
+}
+let dailyLastTime =
+    parseInt(localStorage.getItem("dailyLastTime")) || 0;
+let lastLoginTime =
+    parseInt(localStorage.getItem("lastLoginTime")) || Date.now();
 // ================= START =================
 updateLanguageUI();
 updateGlobalData();
 updateVoucherBalance();
+updateDailyProgress();
