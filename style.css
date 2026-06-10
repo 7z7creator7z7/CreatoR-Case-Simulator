@@ -632,6 +632,7 @@ left: -10px;
 .inv-item.rarity-purple { background: linear-gradient(180deg, rgba(163,53,238,0.7), #111827); }
 .inv-item.rarity-red { background: linear-gradient(180deg, rgba(255,77,77,0.7), #111827); }
 .inv-item.rarity-yellow { background: linear-gradient(180deg, rgba(255,215,0,0.7), #111827); }
+.inv-item.rarity-rainbow 
 
 /* Tepadagi TO'QROQ label */
 .inv-label {
@@ -766,4 +767,343 @@ left: -10px;
 .preview-balance img{
     width:24px;
     height:24px;
+}
+.reward-modal {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.85);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.reward-content {
+    background:#222;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+    color:#fff;
+    width:90%;
+    max-width:500px;
+}
+.reward-grid {
+    display:grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:15px;
+    margin:20px 0;
+}
+.reward-day {
+    background:#333;
+    border-radius:8px;
+    padding:10px;
+    text-align:center;
+}
+.reward-day img {
+    width:60px; height:60px;
+    object-fit:cover;
+}
+.day-label { margin:5px 0; font-weight:bold; }
+.claim-btn {
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+.claim-btn.green { background:#0a0; color:#fff; }
+.claim-btn.red { background:#a00; color:#fff; }
+.claim-btn.gray { background:#555; color:#ccc; }
+.voucher-box {
+    margin-top:20px;
+    background:#111;
+    padding:10px;
+    border-radius:8px;
+}
+.voucher-img { width:100px; }
+.close-btn {
+    margin-top: 5px;
+    background:red;
+    border:none;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:6px;
+    cursor:pointer;
+}
+.reward-btn {
+    width: 100%;        /* butun profil bo‘limini egallaydi */
+    height: 50px;       /* tugma balandligi */
+    font-size: 15px;    /* yozuv kattaligi */
+    background: #FF0000; /* qizil rang */
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px; /* yumaloqlik */
+}
+.reward-btn:hover {
+    background: #DC143C; /* hoverda to‘q qizil */
+}
+.inv-item.rarity-rainbow {
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,0,255,0.7),
+        #111827
+    );
+}
+.reward-content{
+    position:relative;
+}
+
+.reward-close{
+    position:absolute;
+    top:10px;
+    left:10px;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#ff3b30;
+    color:white;
+
+    font-size:22px;
+    font-weight:bold;
+}
+
+.reward-balance{
+    position:absolute;
+    top:10px;
+    right:10px;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    background:#161b22;
+    border:2px solid #355dff;
+
+    padding:8px 14px;
+    border-radius:12px;
+
+    font-weight:bold;
+}
+
+.reward-balance img{
+    width:22px;
+    height:22px;
+}
+
+.daily-counter{
+    margin-top:45px;
+    margin-bottom:15px;
+
+    font-size:18px;
+    font-weight:bold;
+
+    color:#ffd700;
+}
+.reward-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.reward-back{
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:8px;
+    font-size:24px;
+}
+
+.reward-balance-box{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.reward-balance-box img{
+    width:24px;
+}
+
+#daily-counter{
+    text-align:center;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+.reward-modal{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.7);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.reward-content{
+    background:#1b1b1b;
+    padding:20px;
+    border-radius:12px;
+    width:90%;
+    max-width:400px;
+}
+
+#voucher-case-list{
+    display:grid;
+    gap:10px;
+    max-height:300px;
+    overflow:auto;
+}
+/* ================= VOUCHER MODAL ================= */
+
+#voucher-case-modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.85);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+#voucher-case-modal.hidden{
+display:none;
+}
+
+.voucher-modal-content{
+width:92%;
+max-width:850px;
+max-height:88vh;
+overflow-y:auto;
+background:#161b22;
+border-radius:20px;
+padding:18px;
+box-sizing:border-box;
+}
+
+/* ================= CASE LIST ================= */
+
+#voucher-case-list{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+gap:16px;
+margin-top:15px;
+}
+
+/* ================= CASE CARD ================= */
+
+#voucher-case-list .case-card{
+background:#0d1117;
+border-radius:16px;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding-bottom:12px;
+box-shadow:0 0 10px rgba(0,0,0,.35);
+}
+
+/* 🔥 IMAGE SMALLER HERE */
+#voucher-case-list .case-card img{
+width:100%;
+height:150px;   /* OLD 180px → NEW SMALLER */
+object-fit:cover;
+display:block;
+}
+
+#voucher-case-list .case-card div{
+text-align:center;
+margin-top:6px;
+font-size:14px;
+}
+
+#voucher-case-list .case-card button{
+width:88%;
+margin-top:8px;
+height:40px;
+border:none;
+border-radius:10px;
+background:#39ff14;
+color:#000;
+font-weight:700;
+cursor:pointer;
+}
+
+/* ================= INVENTORY FIX ================= */
+
+.inv-item{
+position:relative;
+z-index:1;
+}
+
+#voucher-case-modal .case-card{
+position:relative;
+z-index:100000;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px){
+
+#voucher-case-list{  
+    grid-template-columns:1fr;  
+}  
+
+#voucher-case-list .case-card img{  
+    height:180px; /* mobile ham kichikroq balans */  
+}
+
+}
+#voucher-case-list .case-card img{
+width:90% !important;
+height:120px !important;
+object-fit:contain;
+margin-top:8px;
+border-radius:12px;
+}
+@media(max-width:600px){
+#voucher-case-list .case-card img{
+width:85% !important;
+height:150px !important;
+}
+}
+.voucher-balance{
+    position: sticky;   /* scroll bo‘lsa ham qoladi */
+    top: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    width: fit-content;
+
+    margin-left: auto;  /* o‘ng tomonga chiqaradi */
+
+    padding: 8px 14px;
+
+    background: #161b22;
+    border: 2px solid #355dff;
+    border-radius: 12px;
+
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+
+    box-shadow: 0 0 15px rgba(53,93,255,.4);
+    z-index: 999999;
+}
+
+.voucher-balance img{
+    width: 22px;
+    height: 22px;
 }
