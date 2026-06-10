@@ -1,3 +1,4 @@
+let activeVoucherIndex = null;
 function showTopPopup(text, color = "red") {
     // Agar avvalgi popup bo'lsa, uni o'chiramiz
     const oldPopup = document.querySelector('.top-popup');
@@ -166,7 +167,7 @@ const i18n = {
         
         btn_open: "✅ Ochish",
         btn_sell: "⛔ Sotish",
-        btn_close: "🚫 Yopish",
+        btn_close: "🚫Yopish",
         
         msg_money: "❌ Mablag' yetarli emas!",
         opening: "🎁 Keys ochilmoqda 𓃹 ..."
@@ -414,7 +415,7 @@ function renderCases() {
 }
 
 // ================= OPEN CASE BY ID =================
-function openCaseById(caseId) {
+function openCaseById(caseId, voucherOpen = false) {
 
     // Faqat telegram va vk caselariga 24 soatlik limit
     if (caseId === "telegram" || caseId === "vk") {
@@ -464,8 +465,10 @@ function openCaseById(caseId) {
         return;
     }
 
+if (!voucherOpen) {
     balance -= c.price;
     updateGlobalData();
+}
 
     const modal = document.getElementById('game-modal');
     const carousel = document.getElementById('carousel');
@@ -542,9 +545,10 @@ function renderInventory() {
         div.innerHTML = `
             <img src="${item.img}">
             <b>${item.price}$</b>
-            <button class="sell-btn" onclick="sellItem(${i})">
-               ${i18n[currentLang].btn_sell}
-            </button>
+${item.name.includes("Voucher")
+    ? `<button class="sell-btn" onclick="activateVoucher(${i})">⚡ Activate</button>`
+    : `<button class="sell-btn" onclick="sellItem(${i})">${i18n[currentLang].btn_sell}</button>`
+}
         `;
         container.appendChild(div);
         
@@ -631,76 +635,67 @@ if (tg.initDataUnsafe.user?.photo_url) {
 
 // ================= PROMO CODES =================
 const promoCodes = {
-    "FREE100": 100,
-    "CREATOR": 500,
-    "LUCKY500": 500,
-    "NEWYEAR2026": 500,
-    "27MART": 500,
-    "CHAROS": 500,
-    "KING009": 500,
-    "SEVGI": 100000,
-};
+    // 💰 MC beradiganlar
+    "FREE100": { type: "balance", value: 100 },
+    "CREATOR": { type: "balance", value: 500 },
+    "NEWYEAR2026": { type: "balance", value: 100 },
+    "KING009": { type: "balance", value: 500 },
 
+    // 🎁 voucher beradiganlar
+    "C6HLKE": { type: "voucher", value: 10 },
+    "Y4AGN2": { type: "voucher", value: 100 },
+    "0LBSV2": { type: "voucher", value: 500 },
+    "V51JB8": { type: "voucher", value: 1000 }
+};
 function usePromoCode() {
     const input = document.getElementById("promo-input");
-    const code = input.value.toUpperCase();
+    const code = input.value.trim().toUpperCase();
 
-    if (localStorage.getItem("promo_" + code)) {
-        const popup = document.createElement("div");
-        popup.innerHTML = "😑 Bu promo code ishlatilgan!";
-        popup.style.color = "#cc6600";
-        popup.style.background = "#222";
-        popup.style.padding = "15px";
-        popup.style.position = "fixed";
-        popup.style.top = "20px";
-        popup.style.left = "50%";
-        popup.style.transform = "translateX(-50%)";
-        popup.style.borderRadius = "10px";
-        popup.style.fontSize = "20px";
-        popup.style.zIndex = "9999";
-        document.body.appendChild(popup);
-        setTimeout(() => { popup.remove(); }, 5000);
+    if (!code) {
+        showTopPopup("❌ Kod kiriting!", "red");
         return;
     }
 
-    if (promoCodes[code]) {
-        balance += promoCodes[code];
-        updateGlobalData();
-        localStorage.setItem("promo_" + code, "used");
-
-        const popup = document.createElement("div");
-        popup.innerHTML = "🎉 Muvaffaqiyatli! +" + promoCodes[code] + "$";
-        popup.style.color = "lime";
-        popup.style.background = "#222";
-        popup.style.padding = "15px";
-        popup.style.position = "fixed";
-        popup.style.top = "20px";
-        popup.style.left = "50%";
-        popup.style.transform = "translateX(-50%)";
-        popup.style.borderRadius = "10px";
-        popup.style.fontSize = "20px";
-        popup.style.zIndex = "9999";
-        document.body.appendChild(popup);
-        setTimeout(() => { popup.remove(); }, 5000);
-        input.value = "";
-    } else {
-        const popup = document.createElement("div");
-        popup.innerHTML = "❌ Noto'g'ri promo code!";
-        popup.style.color = "red";
-        popup.style.background = "#222";
-        popup.style.padding = "15px";
-        popup.style.position = "fixed";
-        popup.style.top = "20px";
-        popup.style.left = "50%";
-        popup.style.transform = "translateX(-50%)";
-        popup.style.borderRadius = "10px";
-        popup.style.fontSize = "20px";
-        popup.style.zIndex = "9999";
-        document.body.appendChild(popup);
-        setTimeout(() => { popup.remove(); }, 5000);
+    if (localStorage.getItem("promo_" + code)) {
+        showTopPopup("😑 Bu promo code ishlatilgan!", "orange");
+        return;
     }
-}
 
+    const promo = promoCodes[code];
+
+    if (!promo) {
+        showTopPopup("❌ Noto‘g‘ri promo code!", "red");
+        return;
+    }
+
+    // BALANCE
+    if (promo.type === "balance") {
+        balance += promo.value;
+        updateGlobalData();
+
+        showTopPopup(`💰 +${promo.value} MC olindi!`, "lime");
+    }
+
+    // VOUCHER
+    if (promo.type === "voucher") {
+        const voucher = {
+            type: "voucher",
+            name: `🎁 Voucher ${promo.value} MC`,
+            price: promo.value,
+            rarity: "rarity-yellow",
+            img: "./images/voucher.png",
+            value: promo.value
+        };
+
+        inventory.push(voucher);
+        updateGlobalData();
+
+        showTopPopup(`🎁 Voucher (${promo.value} MC) olindi!`, "lime");
+    }
+
+    localStorage.setItem("promo_" + code, "used");
+    input.value = "";
+}
 // ================= SOUND TOGGLE =================
 const soundToggle = document.getElementById("sound-toggle");
 soundToggle.checked = soundEnabled;
@@ -763,7 +758,6 @@ function renderCases() {
 // ================= SHOW CASE PREVIEW =================
 function showCasePreview(caseId) {
     // 1. Dastlab case ni topib olamiz
-    let selectedCase = null;
     for (let cat of caseData) {
         const found = cat.cases.find(c => c.id === caseId);
         if (found) {
@@ -880,7 +874,249 @@ function formatChance(value) {
     // 5.10 → 5.1
     return formatted.toString().replace(/\.0$/, '') + "%";
 }
+let currentDay =
+    parseInt(localStorage.getItem("currentDay")) || 1;
 
+let lastClaimedDay =
+    parseInt(localStorage.getItem("lastClaimedDay")) || 0;
+
+let streak =
+    parseInt(localStorage.getItem("streak")) || 1;
+function closeDailyReward() {
+    document.getElementById("daily-reward-modal").classList.add("hidden");
+}
+
+function openDailyReward() {
+
+    document.getElementById(
+        "reward-balance"
+    ).innerText =
+    balance.toFixed(2);
+
+    document.getElementById(
+        "daily-counter"
+    ).innerText =
+    "Daily Counter : Day " + currentDay;
+
+    renderDailyReward();
+
+    document.getElementById(
+        "daily-reward-modal"
+    ).classList.remove("hidden");
+}
+
+function getButtonColor(day) {
+    if (day < currentDay) return "red"; // oldingi kun olingan
+    if (day === currentDay) return "green"; // bugungi kun
+    return "gray"; // hali kelmagan
+}
+
+function claimReward(day) {
+  const lastClaimTime =
+    localStorage.getItem("dailyClaimTime");
+
+if (lastClaimTime) {
+
+    const passed =
+        Date.now() - parseInt(lastClaimTime);
+
+    if (passed < 24 * 60 * 60 * 1000) {
+
+        const hours = Math.floor(
+            (24 * 60 * 60 * 1000 - passed) /
+            (60 * 60 * 1000)
+        );
+
+        const minutes = Math.floor(
+            ((24 * 60 * 60 * 1000 - passed) %
+            (60 * 60 * 1000)) /
+            (60 * 1000)
+        );
+
+        showTopPopup(
+            `⏳ ${hours} soat ${minutes} daqiqa kuting`,
+            "orange"
+        );
+
+        return;
+    }
+}
+    if (day !== currentDay) {
+        showTopPopup("❌ Bu kunni olish mumkin emas!", "red");
+        return;
+    }
+
+    if (lastClaimedDay === day) {
+        showTopPopup("❌ Mukofot allaqachon olingan!", "orange");
+        return;
+    }
+
+    // ================= REWARD SYSTEM =================
+
+    if (day === 7) {
+        // 🎁 VOUCHER ITEM (inventoryga tushadi)
+        const voucherItem = {
+            name: "🎁 Daily Voucher (Day 7)",
+            price: 100,
+            rarity: "rarity-yellow",
+            img: "./images/voucher.png"
+        };
+
+        inventory.push(voucherItem);
+
+        showTopPopup("🎉 Day 7 Voucher olindi!", "lime");
+
+    } else {
+        // 💰 oddiy reward
+        let reward = day * 10;
+
+        balance += reward;
+
+        showTopPopup("✅ +" + reward + " MC oldingiz!", "lime");
+    }
+
+    updateGlobalData();
+
+    lastClaimedDay = day;
+    currentDay++;
+
+    localStorage.setItem("currentDay", currentDay);
+    localStorage.setItem("lastClaimedDay", lastClaimedDay);
+    localStorage.setItem("streak", streak);
+
+    renderDailyReward();
+}
+function renderDailyReward() {
+
+    const grid = document.getElementById("reward-grid");
+
+    if (!grid) return;
+
+    grid.innerHTML = "";
+
+    for (let day = 1; day <= 7; day++) {
+
+        const btn = document.createElement("button");
+
+        btn.className = "reward-day";
+
+        btn.innerText = "Day " + day;
+
+        btn.style.background =
+            getButtonColor(day);
+
+        btn.onclick = () => claimReward(day);
+
+        grid.appendChild(btn);
+    }
+}
+function activateVoucher(i) {
+
+    activeVoucherIndex = i;
+
+    document
+        .getElementById("voucher-case-modal")
+        .classList.remove("hidden");
+
+    renderVoucherCases();
+}
+function renderVoucherCases() {
+
+    const container =
+        document.getElementById("voucher-case-list");
+
+    container.innerHTML = "";
+
+    caseData.forEach(cat => {
+        cat.cases.forEach(c => {
+
+            const div = document.createElement("div");
+            div.className = "case-card";
+
+            div.innerHTML = `
+                <img src="${c.img}">
+                <div>${c.name}</div>
+                <div>${c.price} MC</div>
+
+                <button onclick="tryOpenVoucherCase('${c.id}')">
+                    OPEN
+                </button>
+            `;
+
+            container.appendChild(div);
+        });
+    });
+}
+function tryOpenVoucherCase(caseId) {
+
+    const voucher = inventory[activeVoucherIndex];
+    if (!voucher) return;
+
+    const c = caseData
+        .flatMap(cat => cat.cases)
+        .find(x => x.id === caseId);
+
+    if (!c) return;
+
+    // Voucher case narxidan katta yoki teng
+    if (voucher.price >= c.price) {
+
+        const remain = voucher.price - c.price;
+
+        if (remain > 0) {
+            balance += remain;
+
+            showTopPopup(
+                `💰 +${remain} MC qaytarildi`,
+                "lime"
+            );
+        }
+
+    } else {
+
+        // Voucher yetmaydi
+        const diff = c.price - voucher.price;
+
+        if (balance < diff) {
+            showTopPopup(
+                "❌ Mablag' yetarli emas!",
+                "red"
+            );
+            return;
+        }
+
+        balance -= diff;
+
+        showTopPopup(
+            `💰 -${diff} MC`,
+            "orange"
+        );
+    }
+
+// Voucher o'chiriladi
+inventory.splice(activeVoucherIndex, 1);
+activeVoucherIndex = null;
+
+updateGlobalData();
+
+closeVoucherModal();
+
+// Voucher bilan ochilayotganini bildiradi
+openCaseById(caseId, true);
+}
+function closeVoucherModal() {
+    document
+        .getElementById("voucher-case-modal")
+        .classList.add("hidden");
+}
+function updateVoucherBalance(){
+    const el = document.getElementById("voucher-balance");
+
+    if(!el) return;
+
+    el.innerText = balance.toFixed(2);
+}
 // ================= START =================
 updateLanguageUI();
 updateGlobalData();
+updateVoucherBalance();
