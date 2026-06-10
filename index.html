@@ -8,7 +8,23 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
+<!-- VOUCHER CASE MODAL -->
+<div id="voucher-case-modal" class="hidden reward-modal">
+    <div class="reward-content">
+<div class="voucher-balance">
+    <img src="./images/mc1.png" alt="">
+    <span id="voucher-balance">0</span>
+</div>
+        <h3>🎁 Voucher Case Select</h3>
 
+        <div id="voucher-case-list"></div>
+
+        <button onclick="closeVoucherModal()" class="close-btn">
+            Cancel
+        </button>
+
+    </div>
+</div>
 <div id="app">
 
     <header>
@@ -91,6 +107,29 @@
             <button onclick="usePromoCode()">✅ Activate</button>
         </div>
         <p id="label-stats">📊 Statistika tez kunda...</p>
+        <div class="daily-reward-box">
+    <button onclick="openDailyReward()" class="reward-btn">🎁 Daily Reward</button>
+</div>
+
+<!-- DAILY REWARD MODAL -->
+<div id="daily-reward-modal" class="hidden reward-modal">
+    <div class="reward-content">
+      <button onclick="closeDailyReward()" class="reward-close">
+✕
+</button>
+
+<div class="reward-balance">
+    <img src="./images/mc1.png">
+    <span id="reward-balance">0.00</span>
+</div>
+
+<div id="daily-counter" class="daily-counter">
+    Daily Counter : Day 1
+</div>
+        <h3>🎉 Daily Reward</h3>
+        <div id="reward-grid" class="reward-grid"></div>
+    </div>
+</div>
     </section>
 
     <div id="game-modal" class="hidden">
