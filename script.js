@@ -919,11 +919,11 @@ function claimReward(day) {
     // SAVE
 lastClaimedDay = day;
 
-if (day >= 7) {
-    currentDay = 1;
-} else {
-    currentDay++;
-}
+streak++;
+
+currentDay = ((streak - 1) % 7) + 1;
+
+localStorage.setItem("streak", streak);
 
     localStorage.setItem("dailyClaimTime", now);
     localStorage.setItem("currentDay", currentDay);
@@ -932,6 +932,9 @@ if (day >= 7) {
     updateGlobalData();
     renderDailyReward();
 
+let streak =
+    parseInt(localStorage.getItem("streak")) || 1;
+   
 let rewardText;
 
 if (day === 7) {
@@ -1103,10 +1106,9 @@ function updateDailyProgress() {
             currentDay = ((streak - 1) % 7) + 1;
         }
     }
-
-    localStorage.setItem("streak", streak);
-    localStorage.setItem("currentDay", currentDay);
-    localStorage.setItem("lastLoginTime", now);
+localStorage.setItem("currentDay", 1);
+localStorage.setItem("streak", 1);
+localStorage.setItem("lastClaimedDay", 0);
 }
 let dailyLastTime =
     parseInt(localStorage.getItem("dailyLastTime")) || 0;
