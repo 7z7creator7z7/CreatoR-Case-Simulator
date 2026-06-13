@@ -917,8 +917,13 @@ function claimReward(day) {
     }
 
     // SAVE
-    lastClaimedDay = day;
+lastClaimedDay = day;
+
+if (day >= 7) {
+    currentDay = 1;
+} else {
     currentDay++;
+}
 
     localStorage.setItem("dailyClaimTime", now);
     localStorage.setItem("currentDay", currentDay);
@@ -1066,41 +1071,6 @@ function updateVoucherBalance(){
     if(!el) return;
 
     el.innerText = balance.toFixed(2);
-}
-function updateDailyProgress() {
-    const now = Date.now();
-
-    let lastLoginTime = parseInt(localStorage.getItem("lastLoginTime")) || now;
-    let passed = now - lastLoginTime;
-
-    const DAY = 24 * 60 * 60 * 1000;
-    const RESET_TIME = 48 * 60 * 60 * 1000;
-
-    // 🔴 48 soat + login yo‘q = RESET
-    if (passed >= RESET_TIME) {
-        currentDay = 1;
-        lastClaimedDay = 0;
-
-        localStorage.setItem("currentDay", currentDay);
-        localStorage.setItem("lastClaimedDay", lastClaimedDay);
-
-        showTopPopup(
-            "🔄 48 soatdan ko'p kirmaganingiz uchun daily reward reset bo‘ldi!",
-            "orange"
-        );
-    }
-
-    // 🟢 24 soat o‘tgan bo‘lsa NEXT DAY ochiladi (faqat +1)
-    else if (passed >= DAY) {
-        // ❗ faqat 1 qadam oshadi, skip emas
-        if (currentDay < 7) {
-            currentDay = currentDay + 1;
-            localStorage.setItem("currentDay", currentDay);
-        }
-    }
-
-    // 💾 login update HAR DOIM
-    localStorage.setItem("lastLoginTime", now);
 }
 function updateDailyProgress() {
     const now = Date.now();
