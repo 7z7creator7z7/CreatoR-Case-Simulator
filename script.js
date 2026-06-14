@@ -236,19 +236,19 @@ const allSkins = [
     { name: "Blood Lotus", price: 122.25,chance:0.03, rarity: "rarity-purple", img: "./images/9.avif"},
     { name: "Shrine Keeper", price: 120.73,chance:0.05, rarity: "rarity-purple", img: "./images/10.avif"},
     { name: "Armored Hunter", price: 102.52,chance:0.17, rarity: "rarity-purple", img: "./images/11.avif"},
-    { name: "Son Goku UAZ", price: 83.11,chance:0.44, rarity: "rarity-blue", img: "./images/12.avif"},
-    { name: "🔵 SSG 08 🔵", price: 2.50, rarity: "rarity-blue", img: "./images/13.png"},
-    { name: "🔵 P90 🔵", price: 3.90, rarity: "rarity-blue", img: "./images/14.png"},
-    { name: "🔵 Desert Eagle 🔵", price: 4.50, rarity: "rarity-blue", img: "./images/15.png"},
-    { name: "🔵 AWP 🔵", price: 9.50, rarity: "rarity-blue", img: "./images/16.png"},
-    { name: "🔵 AK-47 🔵", price: 8.10, rarity: "rarity-blue", img: "./images/17.png"},
-     { name: "🟢AK-47|WOLF🟢", price: 17.9, rarity: "rarity-green", img: "./images/18.png"},
-    { name: "💎 | SOMSA | 💎", price: 300, rarity: "rarity-rainbow", img: "./images/20.png"},
-    { name: "💎 | Shaftoli | 💎", price: 250, rarity: "rarity-rainbow", img: "./images/21.png"},
-    { name: "💎 | GILOS | 💎", price: 150, rarity: "rarity-rainbow", img: "./images/22.png"},
-    { name: "💎 | ASM | 💎", price: 500, rarity: "rarity-rainbow", img: "./images/19.png"},
-    { name: "❄️ | LEDNIK | ❄️", price: 500, rarity: "rarity-rainbow", img: "./images/23.png"},
-    { name: "Mercuriy Soldier Set", price: 8025.87, rarity: "rarity-yellow", img: "./images/24.avif"},
+    { name: "Son Goku UAZ", price: 83.11,chance:0.44, rarity: "rarity-purple", img: "./images/12.avif"},
+    { name: "Beerus Style", price: 65.66,chance:0.45, rarity: "rarity-purple", img: "./images/13.avif"},
+    { name: "Octosurprise", price: 1,chance:0.22, rarity: "rarity-purple", img: "./images/14.avif"},
+    { name: "Shrine Keeper", price: 4.50, rarity: "rarity-purple", img: "./images/15.avif"},
+    { name: "Wings Of Dawn", price: 9.50, rarity: "rarity-purple", img: "./images/16.avif"},
+    { name: "Silly Chicken", price: 8.10, rarity: "rarity-purple", img: "./images/17.avif"},
+     { name: "Legend Of The Fjord", price: 17.9, rarity: "rarity-purple", img: "./images/18.avif"},
+    { name: "Blood Rain", price: 300, rarity: "rarity-purple", img: "./images/19.avif"},
+    { name: "Black Tortoise Defender", price: 250, rarity: "rarity-purple", img: "./images/20.avif"},
+    { name: "Thanksgiving Chicken", price: 150, rarity: "rarity-purple", img: "./images/21.avif"},
+    { name: "Rauge Mask", price: 500, rarity: "rarity-purple", img: "./images/22.avif"},
+    { name: "Apocalypse Guardian", price: 500, rarity: "rarity-purple", img: "./images/23.avif"},
+    { name: "Neptune's Grasp", price: 85.87, rarity: "rarity-purple", img: "./images/24.avif"},
 ];
 
 function getRandomItem(caseItems) {
@@ -337,7 +337,7 @@ const caseData = [
     {
         categoryTitle: '<img src="./images/noob.avif" class="cat-icon"> Sehrgar gunohlari',
         cases: [
-            { id: "Lanatlangan Aralashma", name: "Lanatlangan Aralashma", price: 19.13, img: "./images/1000.avif", skins: allSkins.slice(0, 10) },
+            { id: "Lanatlangan Aralashma", name: "Lanatlangan Aralashma", price: 19.13, img: "./images/1000.avif", skins: allSkins.slice(0, 29) },
             { id: "Oltin Halokat", name: "Oltin Halokat", price: 39.23, img: "./images/1001.avif", skins: allSkins.slice(0, 12) },
             { id: "Songgi Kelishuv", name: "So'nggi Kelishuv", price: 59.82, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
             { id: "Birinchi Damlama", name: "Birinchi Damlama", price: 35, img: "./images/1003.avif", skins: allSkins.slice(0, 14) },
@@ -917,13 +917,8 @@ function claimReward(day) {
     }
 
     // SAVE
-lastClaimedDay = day;
-
-streak++;
-
-currentDay = ((streak - 1) % 7) + 1;
-
-localStorage.setItem("streak", streak);
+    lastClaimedDay = day;
+    currentDay++;
 
     localStorage.setItem("dailyClaimTime", now);
     localStorage.setItem("currentDay", currentDay);
@@ -932,9 +927,6 @@ localStorage.setItem("streak", streak);
     updateGlobalData();
     renderDailyReward();
 
-let streak =
-    parseInt(localStorage.getItem("streak")) || 1;
-   
 let rewardText;
 
 if (day === 7) {
@@ -1106,9 +1098,10 @@ function updateDailyProgress() {
             currentDay = ((streak - 1) % 7) + 1;
         }
     }
-localStorage.setItem("currentDay", 1);
-localStorage.setItem("streak", 1);
-localStorage.setItem("lastClaimedDay", 0);
+
+    localStorage.setItem("streak", streak);
+    localStorage.setItem("currentDay", currentDay);
+    localStorage.setItem("lastLoginTime", now);
 }
 let dailyLastTime =
     parseInt(localStorage.getItem("dailyLastTime")) || 0;
