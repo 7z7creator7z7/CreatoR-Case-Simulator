@@ -238,17 +238,18 @@ const allSkins = [
     { name: "Armored Hunter", price: 102.52,chance:0.17, rarity: "rarity-purple", img: "./images/11.avif"},
     { name: "Son Goku UAZ", price: 83.11,chance:0.44, rarity: "rarity-purple", img: "./images/12.avif"},
     { name: "Beerus Style", price: 65.66,chance:0.45, rarity: "rarity-purple", img: "./images/13.avif"},
-    { name: "Octosurprise", price: 1,chance:0.22, rarity: "rarity-purple", img: "./images/14.avif"},
-    { name: "Shrine Keeper", price: 4.50, rarity: "rarity-purple", img: "./images/15.avif"},
-    { name: "Wings Of Dawn", price: 9.50, rarity: "rarity-purple", img: "./images/16.avif"},
-    { name: "Silly Chicken", price: 8.10, rarity: "rarity-purple", img: "./images/17.avif"},
-     { name: "Legend Of The Fjord", price: 17.9, rarity: "rarity-purple", img: "./images/18.avif"},
-    { name: "Blood Rain", price: 300, rarity: "rarity-purple", img: "./images/19.avif"},
-    { name: "Black Tortoise Defender", price: 250, rarity: "rarity-purple", img: "./images/20.avif"},
+    { name: "Octosurprise", price: 64.99,chance:0.22, rarity: "rarity-purple", img: "./images/14.avif"},
+    { name: "Shrine Keeper", price: 59.40,chance:0.85, rarity: "rarity-purple", img: "./images/15.avif"},
+    { name: "Wings Of Dawn", price: 44.03,chance:0.72, rarity: "rarity-purple", img: "./images/16.avif"},
+    { name: "Silly Chicken", price: 43.40,chance:0.15, rarity: "rarity-purple", img: "./images/17.avif"},
+     { name: "Legend Of The Fjord", price: 43.05,chance:1.08, rarity: "rarity-purple", img: "./images/18.avif"},
+    { name: "Blood Rain", price: 37.27, chance:1.84, rarity: "rarity-purple", img: "./images/19.avif"},
+    { name: "Black Tortoise Defender", price: 32.16,chance:3.26, rarity: "rarity-purple", img: "./images/20.avif"},
     { name: "Thanksgiving Chicken", price: 150, rarity: "rarity-purple", img: "./images/21.avif"},
     { name: "Rauge Mask", price: 500, rarity: "rarity-purple", img: "./images/22.avif"},
     { name: "Apocalypse Guardian", price: 500, rarity: "rarity-purple", img: "./images/23.avif"},
     { name: "Neptune's Grasp", price: 85.87, rarity: "rarity-purple", img: "./images/24.avif"},
+    { name: "...", price: 5,chance:70, rarity: "rarity-purple", img: "./images/22.avif"},
 ];
 
 function getRandomItem(caseItems) {
@@ -1107,6 +1108,37 @@ let dailyLastTime =
     parseInt(localStorage.getItem("dailyLastTime")) || 0;
 let lastLoginTime =
     parseInt(localStorage.getItem("lastLoginTime")) || Date.now();
+const images = [
+    "./images/blaze-bg1.png",
+    "./images/blaze-bg2.png",
+    "./images/blaze-bg3.png"
+];
+
+const bg = document.querySelector(".blaze-bg");
+
+// oxirgi indexni olish
+let index = localStorage.getItem("bgIndex");
+index = index ? parseInt(index) : 0;
+
+// boshlang‘ich rasm
+setBg(index);
+
+function setBg(i){
+    bg.style.backgroundImage = `
+        linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)),
+        url('${images[i]}')
+    `;
+}
+
+// 3 daqiqada almashtirish
+setInterval(() => {
+    index = (index + 1) % images.length;
+
+    setBg(index);
+
+    // saqlab qo'yamiz
+    localStorage.setItem("bgIndex", index);
+}, 1.5 * 60 * 1000);
 // ================= START =================
 updateLanguageUI();
 updateGlobalData();
