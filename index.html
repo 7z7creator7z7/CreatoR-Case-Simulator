@@ -8,26 +8,22 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  <div class="blaze-bg" id="blazeBg"></div>
-<!-- VOUCHER CASE MODAL -->
+  
+<div class="blaze-bg" id="blazeBg"></div>
+
 <div id="voucher-case-modal" class="hidden reward-modal">
     <div class="reward-content">
-<div class="voucher-balance">
-    <img src="./images/mc1.png" alt="">
-    <span id="voucher-balance">0</span>
-</div>
+        <div class="voucher-balance">
+            <img src="./images/blaze.png" alt="">
+            <span id="voucher-balance">0</span>
+        </div>
         <h3>🎁 Voucher Case Select</h3>
-
         <div id="voucher-case-list"></div>
-
-        <button onclick="closeVoucherModal()" class="close-btn">
-            Cancel
-        </button>
-
+        <button onclick="closeVoucherModal()" class="close-btn">Cancel</button>
     </div>
 </div>
-<div id="app">
 
+<div id="app">
     <header>
         <div class="user-info" onclick="showSection('profile')">
             <img id="user-photo" src="https://via.placeholder.com/40" alt="Avatar">
@@ -37,7 +33,7 @@
         <div class="header-right">
             <div class="balance">
                 <span id="balance">100</span>
-                <img src="./images/mc1.png" alt="" class="currency-icon">
+                <img src="./images/blaze.png" alt="" class="currency-icon">
             </div>
             <div class="uc-box">
                 ( <img src="./images/uc.png" alt="UC" class="uc-icon"> <span id="calculated-uc">0,00</span> UC )
@@ -45,39 +41,41 @@
         </div>
     </header>
 
-<!-- Navigatsiya -->
-<nav>
-    <button onclick="showSection('cases')" id="nav-cases">🎁 Keyslar</button>
-    <button onclick="showSection('inventory')" id="nav-inv">🎒 Inventar</button>
-    <button onclick="showSection('games')" id="nav-games">🎮 O'yinlar</button>
-    <button onclick="showSection('profile')" id="nav-profile">👤 Profil</button>
-</nav>
+    <nav>
+        <button onclick="showSection('cases')" id="nav-cases">🎁 Keyslar</button>
+        <button onclick="showSection('inventory')" id="nav-inv">🎒 Inventar</button>
+        <button onclick="showSection('games')" id="nav-games">🎮 O'yinlar</button>
+        <button onclick="showSection('profile')" id="nav-profile">👤 Profil</button>
+    </nav>
 
-<!-- Yangi O'yinlar Bo'limi -->
-<section id="games-section" class="hidden">
-    <h2 id="title-games">🎮 Mini O'yinlar</h2>
-    <div class="games-grid">
-        <div class="game-card" onclick="openGame('Crash')">
-            <img src="./images/crash.png" alt="Crash">
-            <span>Crash</span>
+    <section id="games-section" class="hidden">
+        <h2 id="title-games">🎮 Mini O'yinlar</h2>
+        <div class="games-grid">
+            <div class="game-card" onclick="openGame('Crash')">
+                <img src="./images/crash.png" alt="Crash">
+                <span>Crash</span>
+            </div>
+            <div class="game-card" onclick="openGame('Mines')">
+                <img src="./images/mines.png" alt="Mines">
+                <span>Mines</span>
+            </div>
+            <div class="game-card" onclick="openGame('Upgrade')">
+                <img src="./images/upgrade.png" alt="Upgrade">
+                <span>Upgrade</span>
+            </div>
+            <div class="game-card" onclick="openGame('Wheel')">
+                <img src="./images/wheel.png" alt="Wheel">
+                <span>Wheel</span>
+            </div>
         </div>
-        <div class="game-card" onclick="openGame('Mines')">
-            <img src="./images/mines.png" alt="Mines">
-            <span>Mines</span>
-        </div>
-        <div class="game-card" onclick="openGame('Upgrade')">
-            <img src="./images/upgrade.png" alt="Upgrade">
-            <span>Upgrade</span>
-        </div>
-        <div class="game-card" onclick="openGame('Wheel')">
-            <img src="./images/wheel.png" alt="Wheel">
-            <span>Wheel</span>
-        </div>
-    </div>
-</section>
-
+    </section>
 
     <section id="cases-section">
+        <div class="blaze-central-wrapper" id="blaze-wrapper">
+            <h2 class="blaze-main-text" id="blaze-text">
+                <span>B</span><span>L</span><span>A</span><span>Z</span><span>E</span><span>™</span>
+            </h2>
+        </div>
         <div id="case-list"></div>
     </section>
 
@@ -94,6 +92,42 @@
                 <button onclick="changeLanguage('uz')">🇺🇿 O'zbekcha</button>
                 <button onclick="changeLanguage('en')">🇺🇸 English</button>
             </div>
+            
+            <div class="music-player">
+                <div id="music-title">MUSIC.MP3</div>
+                <div class="progress-bar">
+                    <span id="current-time">00:00</span>
+                    <span>———————————</span>
+                    <span id="duration">00:00</span>
+                </div>
+                <div class="controls">
+                    <button onclick="prevTrack()">⏪</button>
+                    <button id="play-pause-btn" onclick="togglePlay()">▶️</button>
+                    <button onclick="nextTrack()">⏩</button>
+                    <button onclick="toggleLoop()">🔄</button>
+                </div>
+            </div>
+
+            <section id="crash-section" class="hidden">
+                <div class="crash-header">
+                    <button onclick="closeCrashGame()" class="back-btn">⬅️</button>
+                    <span id="game-balance">Balans: 100.00 BZ</span>
+                </div>
+                
+                <div class="history-bar" id="history-bar"></div>
+                
+                <div class="crash-display">
+                    <div id="crash-multiplier">1.00x</div>
+                    <div id="next-round-timer" class="hidden">Keyingi: 15s</div>
+                </div>
+                
+                <div class="bet-controls">
+                    <input type="number" id="bet-amount" placeholder="Summa">
+                    <input type="number" id="auto-stop" placeholder="Stop (x)">
+                    <button onclick="placeBet()" class="bet-btn">🚀 TIKISH</button>
+                </div>
+            </section>
+
             <div class="sound-setting">
                 <span>🔊 Ovoz</span>
                 <label class="switch">
@@ -102,104 +136,65 @@
                 </label>
             </div>
         </div>
+        
         <div class="promo-box">
             <h3>🎁 Promo Code</h3>
             <input type="text" id="promo-input" placeholder="Promo code...">
             <button onclick="usePromoCode()">✅ Activate</button>
         </div>
         <p id="label-stats">📊 Statistika tez kunda...</p>
+        
         <div class="daily-reward-box">
-    <button onclick="openDailyReward()" class="reward-btn">🎁 Daily Reward</button>
-</div>
+            <button onclick="openDailyReward()" class="reward-btn">🎁 Daily Reward</button>
+        </div>
 
-<!-- DAILY REWARD MODAL -->
-<div id="daily-reward-modal" class="hidden reward-modal">
-    <div class="reward-content">
-      <button onclick="closeDailyReward()" class="reward-close">
-✕
-</button>
-
-<div class="reward-balance">
-    <img src="./images/mc1.png">
-    <span id="reward-balance">0.00</span>
-</div>
-
-<div id="daily-counter" class="daily-counter">
-    Daily Counter : Day 1
-</div>
-        <h3>🎉 Daily Reward</h3>
-        <div id="reward-grid" class="reward-grid"></div>
-    </div>
-</div>
+        <div id="daily-reward-modal" class="hidden reward-modal">
+            <div class="reward-content">
+                <button onclick="closeDailyReward()" class="reward-close">✕</button>
+                <div class="reward-balance">
+                    <img src="./images/blaze.png">
+                    <span id="reward-balance">0.00</span>
+                </div>
+                <div id="daily-counter" class="daily-counter">Daily Counter : Day 1</div>
+                <h3>🎉 Daily Reward</h3>
+                <div id="reward-grid" class="reward-grid"></div>
+            </div>
+        </div>
     </section>
 
-    <div id="game-modal" class="hidden">
-        <div class="modal-content">
-            <h3 id="opening-text">⌛ Ochilmoqda...</h3>
-            <div id="case-window">
-                <div id="line"></div>
-                <div id="carousel"></div>
-            </div>
-            <button id="close-modal" class="close-btn hidden" onclick="closeModal()">Yopish</button>
+</div> <div id="game-modal" class="hidden">
+    <div class="modal-content">
+        <h3 id="opening-text">⌛ Ochilmoqda...</h3>
+        <div id="case-window">
+            <div id="line"></div>
+            <div id="carousel"></div>
         </div>
+        <button id="close-modal" class="close-btn hidden" onclick="closeModal()">Yopish</button>
     </div>
-<!-- CASE PREVIEW MODAL -->
-<div id="case-preview-modal" class="case-preview-modal hidden">
-
-    <!-- BACK BUTTON -->
-    <div class="preview-header">
-        <button onclick="closeCasePreview()" class="back-btn">
-            ←
-        </button>
-    </div>
-    <div class="preview-balance">
-    <img src="./images/mc1.png">
-    <span id="preview-balance">0.00</span>
 </div>
 
-    <!-- CASE INFO -->
+<div id="case-preview-modal" class="case-preview-modal hidden">
+    <div class="preview-header">
+        <button onclick="closeCasePreview()" class="back-btn">←</button>
+    </div>
+    <div class="preview-balance">
+        <img src="./images/blaze.png">
+        <span id="preview-balance">0.00</span>
+    </div>
+
     <div class="case-preview-top">
-
-        <img
-            id="preview-case-img"
-            src=""
-            class="preview-case-image"
-        >
-
-        <div
-            id="preview-case-name"
-            class="case-title"
-        ></div>
-
-        <div
-            id="preview-case-price"
-            class="case-price"
-        ></div>
-
-        <button
-            id="preview-open-btn"
-            class="open-btn"
-        >
-            <img
-                src="./images/mc.png"
-                class="open-icon"
-            >
-
+        <img id="preview-case-img" src="" class="preview-case-image">
+        <div id="preview-case-name" class="case-title"></div>
+        <div id="preview-case-price" class="case-price"></div>
+        <button id="preview-open-btn" class="open-btn">
+            <img src="./images/blaze.png" class="open-icon">
             <span>Ochish</span>
         </button>
-
     </div>
 
-    <!-- TITLE -->
-    <div class="case-items-title">
-        ----------- CASE TARKIBI -----------
-    </div>
+    <div class="case-items-title">----------- CASE TARKIBI -----------</div>
 
-    <!-- SKINS -->
-    <div
-        id="preview-skins"
-        class="case-grid"
-    ></div>
+    <div id="preview-skins" class="case-grid"></div>
 
 </div>
 
