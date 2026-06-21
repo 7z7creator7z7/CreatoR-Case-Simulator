@@ -335,6 +335,19 @@ function calculateChance(item, caseItems) {
 }
 // ================= TOIFALANGAN CASES MA'LUMOTI =================
 const caseData = [
+      {
+        categoryTitle: '<img src="./images/blaze.png" class="cat-icon"> BLAZE™',
+        cases: [
+            { id: "blaze-fire", name: "BLAZE FIRE", price: 10, img: "./images/1016.avif", skins: allSkins.slice(0, 29) },
+            { id: "Oltin Halokat", name: "Oltin Halokat", price: 39.23, img: "./images/1017.avif", skins: allSkins.slice(0, 12) },
+            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv", price: 59.82, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
+            { id: "Birinchi Damlama", name: "Birinchi Damlama", price: 35, img: "./images/1003.avif", skins: allSkins.slice(0, 14) },
+            { id: "Shisha Bashorat", name: "Shisha Bashorat", price: 35, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
+            { id: "Lyumenxaym", name: "Lyumenxaym", price: 35, img: "./images/1005.avif", skins: allSkins.slice(0, 14) },
+            { id: "Arximagning Sovgasi", name: "Arximagning Sovg'asi", price: 35, img: "./images/1006.avif", skins: allSkins.slice(0, 14) },
+            { id: "Arkess", name: "Arkess", price: 35, img: "./images/1007.avif", skins: allSkins.slice(0, 14) },
+        ]
+    },
     {
         categoryTitle: '<img src="./images/noob.avif" class="cat-icon"> Sehrgar gunohlari',
         cases: [
@@ -593,7 +606,7 @@ if (tg.initDataUnsafe.user?.photo_url) {
 
 // ================= PROMO CODES =================
 const promoCodes = {
-    // 💰 MC beradiganlar
+    // 💰 BZ beradiganlar
     "FREE100": { type: "balance", value: 100 },
     "CREATOR": { type: "balance", value: 500 },
     "NEWYEAR2026": { type: "balance", value: 100 },
@@ -631,14 +644,14 @@ function usePromoCode() {
         balance += promo.value;
         updateGlobalData();
 
-        showTopPopup(`💰 +${promo.value} MC olindi!`, "lime");
+        showTopPopup(`💰 +${promo.value} BZ olindi!`, "lime");
     }
 
     // VOUCHER
     if (promo.type === "voucher") {
         const voucher = {
             type: "voucher",
-            name: `🎁 Voucher ${promo.value} MC`,
+            name: `🎁 Voucher ${promo.value} BZ`,
             price: promo.value,
             rarity: "rarity-yellow",
             img: "./images/voucher.png",
@@ -648,7 +661,7 @@ function usePromoCode() {
         inventory.push(voucher);
         updateGlobalData();
 
-        showTopPopup(`🎁 Voucher (${promo.value} MC) olindi!`, "lime");
+        showTopPopup(`🎁 Voucher (${promo.value} BZ) olindi!`, "lime");
     }
 
     localStorage.setItem("promo_" + code, "used");
@@ -703,7 +716,7 @@ function renderCases() {
                 <img src="${c.img}" alt="${c.name}" class="case-image">
                 <h3 class="case-name">${c.name}</h3>
                 <button onclick="showCasePreview('${c.id}')" class="uc-button">
-                    <img src="./images/mc.png" class="uc-icon"> ${c.price.toFixed(1)} MC
+                    <img src="./images/blaze.png" class="uc-icon"> ${c.price.toFixed(1)} BZ
                 </button>
             `;
             grid.appendChild(div);
@@ -739,8 +752,8 @@ function showCasePreview(caseId) {
 
     // 4. CASE NARXI
     document.getElementById("preview-case-price").innerHTML = `
-        <img src="./images/mc2.png" class="mc-icon">
-        <span>${selectedCase.price.toFixed(1)} MC</span>
+        <img src="./images/blaze.png" class="bz-icon">
+        <span>${selectedCase.price.toFixed(1)} BZ</span>
     `;
 
     // 5. OCHISH TUGMASI
@@ -931,9 +944,9 @@ function claimReward(day) {
 let rewardText;
 
 if (day === 7) {
-    rewardText = `🎁 Voucher olindi (${100} MC)!`;
+    rewardText = `🎁 Voucher olindi (${100} BZ)!`;
 } else {
-    rewardText = `💰 +${day * 10} MC olindi!`;
+    rewardText = `💰 +${day * 10} BZ olindi!`;
 }
 
 showTopPopup(rewardText, "lime");
@@ -988,7 +1001,7 @@ function renderVoucherCases() {
             div.innerHTML = `
                 <img src="${c.img}">
                 <div>${c.name}</div>
-                <div>${c.price} MC</div>
+                <div>${c.price} BZ</div>
 
                 <button onclick="tryOpenVoucherCase('${c.id}')">
                     OPEN
@@ -1019,7 +1032,7 @@ function tryOpenVoucherCase(caseId) {
             balance += remain;
 
             showTopPopup(
-                `💰 +${remain} MC qaytarildi`,
+                `💰 +${remain} BZ qaytarildi`,
                 "lime"
             );
         }
@@ -1040,7 +1053,7 @@ function tryOpenVoucherCase(caseId) {
         balance -= diff;
 
         showTopPopup(
-            `💰 -${diff} MC`,
+            `💰 -${diff} BZ`,
             "orange"
         );
     }
@@ -1139,6 +1152,234 @@ setInterval(() => {
     // saqlab qo'yamiz
     localStorage.setItem("bgIndex", index);
 }, 1.5 * 60 * 1000);
+// --- MUSIQA MANTIQI ---
+const playlist = [
+  "./audio/music1.mp3",
+  "./audio/music2.mp3",
+  "./audio/music3.mp3"
+  ];
+let currentIndex = parseInt(localStorage.getItem('musicIndex')) || 0;
+let audio = new Audio(playlist[currentIndex]);
+
+// Pleyer boshqaruvi
+function togglePlay() {
+    const btn = document.getElementById('play-pause-btn');
+    if (audio.paused) {
+        audio.play();
+        btn.innerText = '⏸️';
+    } else {
+       (audio.play) 
+        audio.pause();
+        btn.innerText = '▶️';
+    }
+}
+
+// Keyingi musiqa
+function nextTrack() {
+    currentIndex = (currentIndex + 1) % playlist.length;
+    updateTrack();
+}
+
+// Oldingi musiqa
+function prevTrack() {
+    currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+    updateTrack();
+}
+
+// Musiqani yangilash va saqlash
+function updateTrack() {
+    audio.src = playlist[currentIndex];
+    document.getElementById('music-title').innerText = playlist[currentIndex];
+    audio.play();
+    document.getElementById('play-pause-btn').innerText = '⏸️';
+    saveMusicState();
+}
+
+// Avtomatik keyingisiga o'tish (Loop)
+audio.onended = () => nextTrack();
+
+// Vaqtni hisoblash va saqlash
+audio.ontimeupdate = () => {
+    document.getElementById('current-time').innerText = formatTime(audio.currentTime);
+    document.getElementById('duration').innerText = formatTime(audio.duration || 0);
+    localStorage.setItem('musicTime', audio.currentTime);
+};
+
+function formatTime(s) {
+    let m = Math.floor(s / 60);
+    let sec = Math.floor(s % 60);
+    return `${m < 10 ? '0'+m : m}:${sec < 10 ? '0'+sec : sec}`;
+}
+
+// Indexni saqlash
+function saveMusicState() {
+    localStorage.setItem('musicIndex', currentIndex);
+}
+
+// Sahifa yuklanganda holatni tiklash
+window.onload = () => {
+    audio.currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+};
+const wrapper = document.getElementById('blaze-wrapper');
+const spans = document.querySelectorAll('#blaze-text span');
+
+// 20 xil tasodifiy ranglar palitrasi
+const colors20 = [
+    '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', 
+    '#00FFFF', '#FFA500', '#800080', '#FF4500', '#ADFF2F',
+    '#FF1493', '#00BFFF', '#32CD32', '#FF8C00', '#8B0000',
+    '#4B0082', '#008080', '#7FFFD4', '#DC143C', '#7CFC00'
+];
+
+// Glitch effekti uchun 5 xil neon ranglar palitrasi
+const colors5 = [
+    '#FF0000', '#39FF14', '#FFFF00', '#00FFFF', '#FF00FF'
+];
+
+let charQueue = [];
+
+function getAvailableChar() {
+    if (charQueue.length === 0) {
+        charQueue = Array.from(spans);
+    }
+    const randomIndex = Math.floor(Math.random() * charQueue.length);
+    return charQueue.splice(randomIndex, 1)[0];
+}
+
+// ==========================================
+// 1. Asosiy to'kilish, tortishish (Gravity) va sudrash mantig'i
+// ==========================================
+function dropLetter() {
+    const originalChar = getAvailableChar();
+    if (!originalChar) return;
+
+    // Asl harf o'rnida xira oq rangli harf qoldiramiz
+    originalChar.classList.add('char-placeholder');
+
+    const charSpan = document.createElement('div');
+    charSpan.innerText = originalChar.innerText;
+    charSpan.className = 'fallen-char';
+
+    const randomColor = colors20[Math.floor(Math.random() * colors20.length)];
+    charSpan.style.color = randomColor;
+    charSpan.style.textShadow = `0 0 10px ${randomColor}`;
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    
+    // RED ZONE (Qizil chegara hududi): Harflar tushib harakatlanadigan maydon balandligi 320px qilib belgilanadi
+    const zoneHeight = 265; 
+    const zoneWidth = wrapperRect.width > 0 ? wrapperRect.width : 320;
+    
+    charSpan.style.left = `${Math.random() * (zoneWidth - 50)}px`;
+    charSpan.style.top = `-10px`;
+
+    wrapper.appendChild(charSpan);
+
+    // Harflar rasmda chizilgan uzun zonaning eng tagigacha qulab tushadi
+    const targetY = zoneHeight - 75; 
+    
+    setTimeout(() => {
+        charSpan.style.transition = 'top 0.8s cubic-bezier(0.2, 1, 0.3, 1)';
+        charSpan.style.top = `${targetY}px`;
+    }, 50);
+
+    // 15 sekunddan so'ng tushgan harfni olib tashlab, asl xira harfni asl holatga qaytaramiz
+    setTimeout(() => {
+        charSpan.remove();
+        originalChar.classList.remove('char-placeholder');
+    }, 15000);
+
+    // Drag and Drop (Sudrash) mantig'i
+    let activeItem = null;
+    let shiftX, shiftY;
+
+    const moveHandler = (e) => {
+        if (!activeItem) return;
+        e.preventDefault();
+        
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+        // Harakatlanish chegarasini uzun zonaga moslaymiz, toki u qizil chiziq hududidan chiqib ketmasin
+        const newLeft = Math.max(0, Math.min(clientX - shiftX - wrapperRect.left, zoneWidth - activeItem.offsetWidth));
+        const newTop = Math.max(0, Math.min(clientY - shiftY - wrapperRect.top, zoneHeight - activeItem.offsetHeight));
+
+        activeItem.style.left = `${newLeft}px`;
+        activeItem.style.top = `${newTop}px`;
+    };
+
+    const endHandler = () => {
+        if (!activeItem) return;
+        
+        // TORTISHISH KUCHI (Gravity): Foydalanuvchi qo'yib yuborganda temirdek og'ir bo'lib yana pastga - zonaning tubiga qulab tushadi
+        activeItem.style.transition = 'top 0.3s cubic-bezier(0.5, 0, 1, 1)'; 
+        activeItem.style.top = `${targetY}px`;
+
+        activeItem = null;
+        document.removeEventListener('mousemove', moveHandler);
+        document.removeEventListener('touchmove', moveHandler);
+        document.removeEventListener('mouseup', endHandler);
+        document.removeEventListener('touchend', endHandler);
+    };
+
+    const startDrag = (e) => {
+        if (navigator.vibrate) {
+            navigator.vibrate(30);
+        }
+
+        activeItem = charSpan;
+        charSpan.style.transition = 'none'; 
+
+        const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+
+        shiftX = clientX - charSpan.getBoundingClientRect().left;
+        shiftY = clientY - charSpan.getBoundingClientRect().top;
+
+        if (e.type === 'mousedown') {
+            document.addEventListener('mousemove', moveHandler);
+            document.addEventListener('mouseup', endHandler);
+        } else {
+            document.addEventListener('touchmove', moveHandler, { passive: false });
+            document.addEventListener('touchend', endHandler);
+        }
+    };
+
+    charSpan.addEventListener('mousedown', startDrag);
+    charSpan.addEventListener('touchstart', startDrag);
+}
+
+// Har 5 soniyada bitta harf tushishini boshlash
+setInterval(dropLetter, 5000);
+
+// ==========================================
+// 2. 5 xil rangli Glitch effektini qo'shish mexanizmi
+// ==========================================
+function triggerGlitch() {
+    if (spans.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * spans.length);
+    const targetSpan = spans[randomIndex];
+
+    // Agar harf to'kilib ketgan bo'lmasa (xira bo'lmasa), glitch effektini beramiz
+    if (!targetSpan.classList.contains('char-placeholder')) {
+        const randomColor = colors5[Math.floor(Math.random() * colors5.length)];
+        
+        targetSpan.style.color = randomColor;
+        targetSpan.style.textShadow = `0 0 10px ${randomColor}`;
+        targetSpan.classList.add('glitch-active');
+
+        setTimeout(() => {
+            targetSpan.classList.remove('glitch-active');
+            targetSpan.style.color = '#ff4500'; 
+            targetSpan.style.textShadow = '0 0 15px #ff0000';
+        }, 600);
+    }
+}
+
+// Har 1.5 soniyada ixtiyoriy harfda glitch effektini ishga tushiramiz
+setInterval(triggerGlitch, 1500);
+
 // ================= START =================
 updateLanguageUI();
 updateGlobalData();
