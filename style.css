@@ -1241,3 +1241,20 @@ body{
     50% { transform: scale(1.2) rotate(180deg); }
     100% { transform: scale(1) rotate(360deg); }
 }
+.matrix-canvas{
+    opacity: 1;
+    mix-blend-mode:screen;
+}
+.matrix-canvas{
+    z-index:0;
+}
+
+.category-title{
+    background:#111;
+}
+
+.category-title img,
+.category-title{
+    position:relative;
+    z-index:2;
+}
