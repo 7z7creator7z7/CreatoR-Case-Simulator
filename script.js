@@ -245,11 +245,11 @@ const allSkins = [
      { name: "Legend Of The Fjord", price: 43.05,chance:1.08, rarity: "rarity-purple", img: "./images/18.avif"},
     { name: "Blood Rain", price: 37.27, chance:1.84, rarity: "rarity-purple", img: "./images/19.avif"},
     { name: "Black Tortoise Defender", price: 32.16,chance:3.26, rarity: "rarity-purple", img: "./images/20.avif"},
-    { name: "Thanksgiving Chicken", price: 150, rarity: "rarity-purple", img: "./images/21.avif"},
-    { name: "Rauge Mask", price: 500, rarity: "rarity-purple", img: "./images/22.avif"},
-    { name: "Apocalypse Guardian", price: 500, rarity: "rarity-purple", img: "./images/23.avif"},
-    { name: "Neptune's Grasp", price: 85.87, rarity: "rarity-purple", img: "./images/24.avif"},
-    { name: "...", price: 5,chance:70, rarity: "rarity-purple", img: "./images/22.avif"},
+    { name: "Thanksgiving Chicken", price: 150,chance:15.07, rarity: "rarity-purple", img: "./images/21.avif"},
+    { name: "Rauge Mask", price: 50,chance:12.17, rarity: "rarity-purple", img: "./images/22.avif"},
+    { name: "Apocalypse Guardian", price: 50, rarity: "rarity-purple", img: "./images/23.avif"},
+    { name: "Neptune's Grasp", price: 85.87,chance:2.54, rarity: "rarity-purple", img: "./images/24.avif"},
+    { name: "Winter Wonderland", price: 5.75,chance:0.39, rarity: "rarity-purple", img: "./images/25.avif"},
 ];
 
 function getRandomItem(caseItems) {
@@ -339,13 +339,9 @@ const caseData = [
         categoryTitle: '<img src="./images/blaze.png" class="cat-icon"> BLAZE™',
         cases: [
             { id: "blaze-fire", name: "BLAZE FIRE", price: 10, img: "./images/1016.avif", skins: allSkins.slice(0, 29) },
-            { id: "Oltin Halokat", name: "Oltin Halokat", price: 39.23, img: "./images/1017.avif", skins: allSkins.slice(0, 12) },
-            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv", price: 59.82, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
-            { id: "Birinchi Damlama", name: "Birinchi Damlama", price: 35, img: "./images/1003.avif", skins: allSkins.slice(0, 14) },
-            { id: "Shisha Bashorat", name: "Shisha Bashorat", price: 35, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
-            { id: "Lyumenxaym", name: "Lyumenxaym", price: 35, img: "./images/1005.avif", skins: allSkins.slice(0, 14) },
-            { id: "Arximagning Sovgasi", name: "Arximagning Sovg'asi", price: 35, img: "./images/1006.avif", skins: allSkins.slice(0, 14) },
-            { id: "Arkess", name: "Arkess", price: 35, img: "./images/1007.avif", skins: allSkins.slice(0, 14) },
+            { id: "blaze-ice", name: "BLAZE ICE", price: 15, img: "./images/1017.avif", skins: allSkins.slice(0, 12) },
+            { id: "blaze-energe", name: "BLAZE ENERGY", price: 20, img: "./images/1018.avif", skins: allSkins.slice(0, 14) },
+            { id: "blaze", name: "BLAZE™", price: 25, img: "./images/blaze.png", skins: allSkins.slice(0, 14) },
         ]
     },
     {
@@ -353,10 +349,10 @@ const caseData = [
         cases: [
             { id: "Lanatlangan Aralashma", name: "Lanatlangan Aralashma", price: 19.13, img: "./images/1000.avif", skins: allSkins.slice(0, 29) },
             { id: "Oltin Halokat", name: "Oltin Halokat", price: 39.23, img: "./images/1001.avif", skins: allSkins.slice(0, 12) },
-            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv", price: 59.82, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
-            { id: "Birinchi Damlama", name: "Birinchi Damlama", price: 35, img: "./images/1003.avif", skins: allSkins.slice(0, 14) },
-            { id: "Shisha Bashorat", name: "Shisha Bashorat", price: 35, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
-            { id: "Lyumenxaym", name: "Lyumenxaym", price: 35, img: "./images/1005.avif", skins: allSkins.slice(0, 14) },
+            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv",rarity:"rarity-purple", price: 59.82, img: "./images/1002.avif", skins: allSkins.slice(0, 14) },
+            { id: "Birinchi Damlama", name: "Birinchi Damlama",rarity:"rarity-purple", price: 99.62, img: "./images/1003.avif", skins: allSkins.slice(0, 14) },
+            { id: "Shisha Bashorat", name: "Shisha Bashorat",rarity:"rarity-purple", price: 200.23, img: "./images/1004.avif", skins: allSkins.slice(0, 14) },
+            { id: "Lyumenxaym", name: "Lyumenxaym",rarity:"rarity-purple", price: 35, img: "./images/1005.avif", skins: allSkins.slice(0, 14) },
             { id: "Arximagning Sovgasi", name: "Arximagning Sovg'asi", price: 35, img: "./images/1006.avif", skins: allSkins.slice(0, 14) },
             { id: "Arkess", name: "Arkess", price: 35, img: "./images/1007.avif", skins: allSkins.slice(0, 14) },
         ]
@@ -383,7 +379,16 @@ const caseData = [
             { id: "faraun_case", name: "FARAUN",rarity: "rarity-yellow", price: 5000, img: "./images/1014.avif", skins: allSkins.slice(19, 50)},
             { id: "avtomobil", name: "Avtomobillar", price: 7500, img: "./images/1015.avif", skins: allSkins.slice(0, 14) },
         ]
-    }
+    },
+     {
+        categoryTitle: '<img src="./images/premium.avif" class="cat-icon"> PREMIUM',
+        cases: [
+            { id: "platinum", name: "PLATINUM",rarity: "rarity-yellow", price: 1000, img: "./images/1019.avif", skins: allSkins.slice(0, 14) },
+            { id: "brilliant", name: "BRILLIANT",rarity: "rarity-yellow", price: 2500, img: "./images/1020.avif", skins: allSkins.slice(0, 14) },
+            { id: "ruby", name: "RUBY",rarity: "rarity-yellow", price: 5000, img: "./images/1021.avif", skins: allSkins.slice(0, 14) },
+            { id: "gold", name: "GOLD",rarity: "rarity-yellow" ,price: 7500, img: "./images/1022.avif", skins: allSkins.slice(0, 14) }
+        ]
+    },
 ];
 // ================= OPEN CASE BY ID =================
 function openCaseById(caseId, voucherOpen = false) {
