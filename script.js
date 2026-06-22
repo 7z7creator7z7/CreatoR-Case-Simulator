@@ -245,9 +245,9 @@ const allSkins = [
      { name: "Legend Of The Fjord", price: 43.05,chance:1.08, rarity: "rarity-purple", img: "./images/18.avif"},
     { name: "Blood Rain", price: 37.27, chance:1.84, rarity: "rarity-purple", img: "./images/19.avif"},
     { name: "Black Tortoise Defender", price: 32.16,chance:3.26, rarity: "rarity-purple", img: "./images/20.avif"},
-    { name: "Thanksgiving Chicken", price: 150,chance:15.07, rarity: "rarity-purple", img: "./images/21.avif"},
+    { name: "Thanksgiving Chicken", price: 10,chance:15.07, rarity: "rarity-purple", img: "./images/21.avif"},
     { name: "Rauge Mask", price: 50,chance:12.17, rarity: "rarity-purple", img: "./images/22.avif"},
-    { name: "Apocalypse Guardian", price: 50, rarity: "rarity-purple", img: "./images/23.avif"},
+    { name: "Apocalypse Guardian", price: 14.85, rarity: "rarity-purple", img: "./images/23.avif"},
     { name: "Neptune's Grasp", price: 85.87,chance:2.54, rarity: "rarity-purple", img: "./images/24.avif"},
     { name: "Winter Wonderland", price: 5.75,chance:0.39, rarity: "rarity-purple", img: "./images/25.avif"},
 ];
