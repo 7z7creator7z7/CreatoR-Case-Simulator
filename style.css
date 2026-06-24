@@ -1226,7 +1226,7 @@ body{
     cursor: grab;
     user-select: none;
     touch-action: none;
-    z-index: 9999;
+    z-index: 3;
 }
 
 /* Bosilganda aylanib sakrash effekti */
@@ -1257,4 +1257,225 @@ body{
 .category-title{
     position:relative;
     z-index:2;
+}
+#multi-open-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
+padding:10px;
+}
+
+.flip-card{
+height:140px;
+perspective:1000px;
+}
+
+.flip-inner{
+position:relative;
+width:100%;
+height:100%;
+transition:.6s;
+transform-style:preserve-3d;
+}
+
+.flip-card.opened .flip-inner{
+transform:rotateY(180deg);
+}
+
+.flip-front,
+.flip-back{
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
+border-radius:12px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.flip-front{
+background:#111;
+border:2px solid #333;
+font-size:30px;
+}
+
+.flip-back{
+transform:rotateY(180deg);
+}
+
+.flip-back img{
+width:70px;
+height:70px;
+object-fit:contain;
+}
+.open-multiplier{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    margin-bottom:10px;
+}
+
+/* umumiy button style */
+.open-multiplier button{
+    padding:8px 18px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.15);
+    background:rgba(0,0,0,0.4);
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.2s;
+    backdrop-filter: blur(6px);
+}
+
+/* hover effekt */
+.open-multiplier button:hover{
+    transform:scale(1.05);
+    border-color:#ffb300;
+    box-shadow:0 0 10px rgba(255,179,0,0.3);
+}
+
+/* active (tanlangan) */
+.open-multiplier button.active{
+    background:linear-gradient(135deg,#ffb300,#ff6a00);
+    color:#000;
+    box-shadow:0 0 15px rgba(255,179,0,0.5);
+    transform:scale(1.08);
+}
+#multi-window{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    padding:10px;
+}
+
+.multi-item{
+    width:64px;
+    margin:auto;
+    perspective:1000px;
+}
+
+.flip-inner{
+    position:relative;
+    width:64px;
+    height:64px;
+    transform-style:preserve-3d;
+    transition:transform .55s cubic-bezier(.2,.8,.2,1);
+}
+
+.multi-item.opened .flip-inner{
+    transform:rotateY(180deg);
+}
+
+.flip-front,
+.flip-back{
+    position:absolute;
+    inset:0;
+    border-radius:12px;
+    backface-visibility:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.flip-front{
+    background:#161b22;
+    border:2px solid #3a3f46;
+}
+
+.flip-back{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.flip-img{
+    width:85%;
+    height:85%;
+    object-fit:contain;
+
+    display:block;
+
+    margin:0;
+    padding:0;
+
+    position:relative;
+    left:0;
+    right:0;
+}
+
+.question-mark{
+    font-size:30px;
+    font-weight:900;
+    color:#fff;
+}
+
+.multi-price{
+    text-align:center;
+    margin-top:4px;
+    font-size:11px;
+    font-weight:700;
+    color:#ffffff;
+}
+
+.price-gold{
+    color:#ffd700;
+    text-shadow:
+        0 0 4px #ffd700,
+        0 0 10px #ffae00;
+}
+.normal-item .flip-front{
+    background:#1b1f27;
+}
+
+.legendary-item .flip-front{
+    background:
+    radial-gradient(circle,
+    rgba(255,215,0,.8),
+    rgba(255,140,0,.4));
+
+    box-shadow:
+    0 0 12px gold,
+    0 0 24px orange;
+}
+@keyframes legendaryPulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.18);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+.legendary-open{
+    animation:
+        legendaryPulse .6s ease 2;
+}
+.flip-back.rarity-blue{
+    box-shadow:0 0 12px #1f6fff;
+}
+
+.flip-back.rarity-green{
+    box-shadow:0 0 12px #2cff7a;
+}
+
+.flip-back.rarity-purple{
+    box-shadow:0 0 14px #b100ff;
+}
+
+.flip-back.rarity-red{
+    box-shadow:0 0 14px #ff2d2d;
+}
+
+.flip-back.rarity-yellow{
+    box-shadow:0 0 18px gold;
 }
