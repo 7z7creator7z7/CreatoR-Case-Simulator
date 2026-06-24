@@ -169,6 +169,8 @@
             <div id="line"></div>
             <div id="carousel"></div>
         </div>
+        <div id="multi-window" class="hidden">
+</div>
         <button id="close-modal" class="close-btn hidden" onclick="closeModal()">Yopish</button>
     </div>
 </div>
@@ -186,6 +188,11 @@
         <img id="preview-case-img" src="" class="preview-case-image">
         <div id="preview-case-name" class="case-title"></div>
         <div id="preview-case-price" class="case-price"></div>
+        <div class="open-multiplier" style="display: flex; gap: 10px; justify-content: center; margin: 10px 0;">
+    <button id="btn-1x" class="active" onclick="setMode(1)" style="padding: 10px 20px;">×1</button>
+    <button id="btn-10x" onclick="setMode(10)" style="padding: 10px 20px;">×10</button>
+</div>
+
         <button id="preview-open-btn" class="open-btn">
             <img src="./images/blaze.png" class="open-icon">
             <span>Ochish</span>
