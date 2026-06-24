@@ -1,3 +1,10 @@
+let multiSessionProfit = 0;
+function setMode(mode) {
+    currentMode = mode;
+    document.getElementById('btn-1x').classList.toggle('active', mode === 1);
+    document.getElementById('btn-10x').classList.toggle('active', mode === 10);
+}
+
 let activeVoucherIndex = null;
 function showTopPopup(text, color = "red") {
     // Agar avvalgi popup bo'lsa, uni o'chiramiz
@@ -246,10 +253,10 @@ const allSkins = [
     { name: "Blood Rain", price: 37.27, chance:1.84, rarity: "rarity-purple", img: "./images/19.avif"},
     { name: "Black Tortoise Defender", price: 32.16,chance:3.26, rarity: "rarity-purple", img: "./images/20.avif"},
     { name: "Thanksgiving Chicken", price: 10,chance:15.07, rarity: "rarity-purple", img: "./images/21.avif"},
-    { name: "Rauge Mask", price: 50,chance:12.17, rarity: "rarity-purple", img: "./images/22.avif"},
-    { name: "Apocalypse Guardian", price: 14.85, rarity: "rarity-purple", img: "./images/23.avif"},
-    { name: "Neptune's Grasp", price: 85.87,chance:2.54, rarity: "rarity-purple", img: "./images/24.avif"},
-    { name: "Winter Wonderland", price: 5.75,chance:0.39, rarity: "rarity-purple", img: "./images/25.avif"},
+    { name: "Rauge Mask", price: 10,chance:21.17, rarity: "rarity-purple", img: "./images/22.avif"},
+    { name: "Apocalypse Guardian", price: 21, rarity: "rarity-purple", img: "./images/23.avif"},
+    { name: "Neptune's Grasp", price: 13.87,chance:17.54, rarity: "rarity-purple", img: "./images/24.avif"},
+    { name: "Winter Wonderland", price: 0.75,chance:30, rarity: "rarity-purple", img: "./images/25.avif"},
 ];
 
 function getRandomItem(caseItems) {
@@ -338,61 +345,65 @@ const caseData = [
       {
         categoryTitle: '<img src="./images/blaze.png" class="cat-icon"> BLAZE™',
         cases: [
-            { id: "blaze-fire", name: "BLAZE FIRE", price: 15, img: "./images/1016.avif", skins: allSkins.slice(0, 29) },
-            { id: "blaze-ice", name: "BLAZE ICE", price: 25, img: "./images/1017.avif", skins: allSkins.slice(0, 32) },
-            { id: "blaze-energe", name: "BLAZE ENERGY", price: 30, img: "./images/1018.avif", skins: allSkins.slice(0, 24) },
-            { id: "blaze", name: "BLAZE™", price: 45, img: "./images/blaze.png", skins: allSkins.slice(0, 24) },
+            { id: "blaze-fire", name: "BLAZE FIRE", price: 150, img: "./images/1016.avif", skins: allSkins.slice(0, 29) },
+            { id: "blaze-ice", name: "BLAZE ICE", price: 250, img: "./images/1017.avif", skins: allSkins.slice(0, 29) },
+            { id: "blaze-energe", name: "BLAZE ENERGY", price: 350, img: "./images/1018.avif", skins: allSkins.slice(0, 29) },
+            { id: "blaze", name: "BLAZE™", price: 500, img: "./images/blaze.png", skins: allSkins.slice(0, 29) },
         ]
     },
     {
         categoryTitle: '<img src="./images/noob.avif" class="cat-icon"> Sehrgar gunohlari',
         cases: [
             { id: "Lanatlangan Aralashma", name: "Lanatlangan Aralashma", price: 19.13, img: "./images/1000.avif", skins: allSkins.slice(0, 29) },
-            { id: "Oltin Halokat", name: "Oltin Halokat", price: 39.23, img: "./images/1001.avif", skins: allSkins.slice(0, 22) },
-            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv",rarity:"rarity-purple", price: 59.82, img: "./images/1002.avif", skins: allSkins.slice(0, 24) },
-            { id: "Birinchi Damlama", name: "Birinchi Damlama",rarity:"rarity-purple", price: 99.62, img: "./images/1003.avif", skins: allSkins.slice(0, 24) },
-            { id: "Shisha Bashorat", name: "Shisha Bashorat",rarity:"rarity-purple", price: 200.23, img: "./images/1004.avif", skins: allSkins.slice(0, 24) },
-            { id: "Lyumenxaym", name: "Lyumenxaym",rarity:"rarity-purple", price: 35, img: "./images/1005.avif", skins: allSkins.slice(0, 24) },
-            { id: "Arximagning Sovgasi", name: "Arximagning Sovg'asi", price: 35, img: "./images/1006.avif", skins: allSkins.slice(0, 24) },
-            { id: "Arkess", name: "Arkess", price: 35, img: "./images/1007.avif", skins: allSkins.slice(0, 14) },
+            { id: "Oltin Halokat", name: "Oltin Halokat", price: 39.23, img: "./images/1001.avif", skins: allSkins.slice(0, 29) },
+            { id: "Songgi Kelishuv", name: "So'nggi Kelishuv",rarity:"rarity-purple", price: 59.82, img: "./images/1002.avif", skins: allSkins.slice(0, 29) },
+            { id: "Birinchi Damlama", name: "Birinchi Damlama",rarity:"rarity-purple", price: 99.62, img: "./images/1003.avif", skins: allSkins.slice(0, 29) },
+            { id: "Shisha Bashorat", name: "Shisha Bashorat",rarity:"rarity-purple", price: 200.23, img: "./images/1004.avif", skins: allSkins.slice(0, 29) },
+            { id: "Lyumenxaym", name: "Lyumenxaym",rarity:"rarity-purple", price: 35, img: "./images/1005.avif", skins: allSkins.slice(0, 29) },
+            { id: "Arximagning Sovgasi", name: "Arximagning Sovg'asi", price: 35, img: "./images/1006.avif", skins: allSkins.slice(0, 29) },
+            { id: "Arkess", name: "Arkess", price: 35, img: "./images/1007.avif", skins: allSkins.slice(0, 29) },
         ]
     },
     {
         categoryTitle: '<img src="./images/pro.avif" class="cat-icon"> Bepul Case',
         cases: [
-            { id: "telegram", name: "Telegram", price: 0, img: "./images/1008.avif", skins: allSkins.slice(0, 14) },
-            { id: "vk", name: "VK", price: 0, img: "./images/1009.avif", skins: allSkins.slice(0, 14) }
+            { id: "telegram", name: "Telegram", price: 0, img: "./images/1008.avif", skins: allSkins.slice(0, 29) },
+            { id: "vk", name: "VK", price: 0, img: "./images/1009.avif", skins: allSkins.slice(0, 29) }
         ]
     },
         {
         categoryTitle: '<img src="./images/elite.avif" class="cat-icon"> Faqat toplar uchun',
         cases: [
-            { id: "viktor", name: "VIKTOR",rarity: "rarity-yellow", price: 35, img: "./images/1010.avif", skins: allSkins.slice(0, 14) },
-            { id: "sara", name: "SARA", price: 50, img: "./images/1011.avif", skins: allSkins.slice(0, 14) },
-            { id: "andy", name: "ANDY", price: 100, img: "./images/1012.avif", skins: allSkins.slice(0, 14) },
-            { id: "karlo", name: "KARLO", price: 150, img: "./images/1013.avif", skins: allSkins.slice(0, 14) }
+            { id: "viktor", name: "VIKTOR",rarity: "rarity-yellow", price: 35, img: "./images/1010.avif", skins: allSkins.slice(0, 29) },
+            { id: "sara", name: "SARA", price: 50, img: "./images/1011.avif", skins: allSkins.slice(0, 29) },
+            { id: "andy", name: "ANDY", price: 100, img: "./images/1012.avif", skins: allSkins.slice(0, 29) },
+            { id: "karlo", name: "KARLO", price: 150, img: "./images/1013.avif", skins: allSkins.slice(0, 29) }
         ]
     },
     {
         categoryTitle: '<img src="./images/aura.avif" class="cat-icon"> Oyinchilar tanlovi',
         cases: [
-            { id: "faraun_case", name: "FARAUN",rarity: "rarity-yellow", price: 5000, img: "./images/1014.avif", skins: allSkins.slice(19, 50)},
-            { id: "avtomobil", name: "Avtomobillar", price: 7500, img: "./images/1015.avif", skins: allSkins.slice(0, 14) },
+            { id: "faraun_case", name: "FARAUN",rarity: "rarity-yellow", price: 5000, img: "./images/1014.avif", skins: allSkins.slice(0, 29)},
+            { id: "avtomobil", name: "Avtomobillar", price: 7500, img: "./images/1015.avif", skins: allSkins.slice(0, 29) },
         ]
     },
      {
         categoryTitle: '<img src="./images/premium.avif" class="cat-icon"> PREMIUM',
         cases: [
-            { id: "platinum", name: "PLATINUM",rarity: "rarity-yellow", price: 1000, img: "./images/1019.avif", skins: allSkins.slice(0, 14) },
-            { id: "brilliant", name: "BRILLIANT",rarity: "rarity-yellow", price: 2500, img: "./images/1020.avif", skins: allSkins.slice(0, 14) },
-            { id: "ruby", name: "RUBY",rarity: "rarity-yellow", price: 5000, img: "./images/1021.avif", skins: allSkins.slice(0, 14) },
-            { id: "gold", name: "GOLD",rarity: "rarity-yellow" ,price: 7500, img: "./images/1022.avif", skins: allSkins.slice(0, 14) }
+            { id: "platinum", name: "PLATINUM",rarity: "rarity-yellow", price: 1000, img: "./images/1019.avif", skins: allSkins.slice(0, 29) },
+            { id: "brilliant", name: "BRILLIANT",rarity: "rarity-yellow", price: 2500, img: "./images/1020.avif", skins: allSkins.slice(0, 29) },
+            { id: "ruby", name: "RUBY",rarity: "rarity-yellow", price: 5000, img: "./images/1021.avif", skins: allSkins.slice(0, 29) },
+            { id: "gold", name: "GOLD",rarity: "rarity-yellow" ,price: 7500, img: "./images/1022.avif", skins: allSkins.slice(0, 29) }
         ]
     },
 ];
 // ================= OPEN CASE BY ID =================
 function openCaseById(caseId, voucherOpen = false) {
+const caseWindow = document.getElementById("case-window");
+const multi = document.getElementById("multi-window");
 
+caseWindow.classList.remove("hidden");
+multi.classList.add("hidden");
     // Faqat telegram va vk caselariga 24 soatlik limit
     if (caseId === "telegram" || caseId === "vk") {
 
@@ -738,6 +749,17 @@ function showCasePreview(caseId) {
         const found = cat.cases.find(c => c.id === caseId);
         if (found) {
             selectedCase = found;
+            const multiBox = document.querySelector(".open-multiplier");
+
+if (
+    selectedCase.id === "telegram" ||
+    selectedCase.id === "vk"
+) {
+    multiBox.style.display = "none";
+    openMode = 1;
+} else {
+    multiBox.style.display = "flex";
+}
             break;
         }
     }
@@ -756,17 +778,27 @@ function showCasePreview(caseId) {
     document.getElementById("preview-case-name").innerText = selectedCase.name;
 
     // 4. CASE NARXI
-    document.getElementById("preview-case-price").innerHTML = `
-        <img src="./images/blaze.png" class="bz-icon">
-        <span>${selectedCase.price.toFixed(1)} BZ</span>
-    `;
-
+document.getElementById("preview-case-price").innerHTML = `
+    <img src="./images/blaze.png" class="bz-icon">
+    <span>${(selectedCase.price * openMode).toFixed(1)} BZ</span>
+`;
     // 5. OCHISH TUGMASI
-    document.getElementById("preview-open-btn").onclick = () => {
-        closeCasePreview();
-        openCaseById(selectedCase.id);
-    };
+document.getElementById("preview-open-btn").onclick = () => {
 
+    document.getElementById("case-preview-modal")
+        .classList.add("hidden");
+
+    setTimeout(() => {
+
+        if(openMode === 1){
+            openCaseById(selectedCase.id);
+        }else{
+            openTenCases();
+        }
+
+    }, 100);
+
+};
     // 6. ITEMLARni render qilish
     const skinsDiv = document.getElementById("preview-skins");
     skinsDiv.innerHTML = "";
@@ -1384,7 +1416,170 @@ function triggerGlitch() {
 
 // Har 1.5 soniyada ixtiyoriy harfda glitch effektini ishga tushiramiz
 setInterval(triggerGlitch, 1500);
+let openMode = 1;
+function setMode(mode){
+    openMode = mode;
 
+    document.getElementById("btn-1x").classList.toggle("active", mode === 1);
+    document.getElementById("btn-10x").classList.toggle("active", mode === 10);
+
+    if(selectedCase){
+        document.getElementById("preview-case-price").innerHTML = `
+            <img src="./images/blaze.png" class="bz-icon">
+            <span>${(selectedCase.price * openMode).toFixed(1)} BZ</span>
+        `;
+    }
+}
+function openTenCases(){
+multiSessionProfit = 0;
+    if(!selectedCase) return;
+
+    const totalPrice = selectedCase.price * 10;
+
+    if(balance < totalPrice){
+        showTopPopup("❌ Mablag' yetarli emas!", "red");
+        return;
+    }
+
+    balance -= totalPrice;
+    updateGlobalData();
+
+    const modal = document.getElementById("game-modal");
+    const caseWindow = document.getElementById("case-window");
+    const multi = document.getElementById("multi-window");
+
+    modal.classList.remove("hidden");
+    caseWindow.classList.add("hidden");
+    multi.classList.remove("hidden");
+
+    multi.innerHTML = "";
+
+    let winners = [];
+
+    // 🔥 SEQUENTIAL SPAWN (PUBG FEEL)
+    for(let i = 0; i < 10; i++){
+
+const item = getRandomItem(selectedCase.skins);
+        winners.push(item);
+multiSessionProfit += item.price;
+        const card = document.createElement("div");
+        card.className = "multi-item preview-skin";
+const isLegendary = item.price >= 500;
+card.className =
+    `multi-item ${isLegendary ? 'legendary-item' : 'normal-item'}`;
+card.innerHTML = `
+<div class="flip-inner">
+
+    <div class="flip-front">
+        <div class="question-mark">?</div>
+    </div>
+
+    <div class="flip-back ${item.rarity}">
+        <img src="${item.img}" class="flip-img">
+
+        <div class="multi-price ${item.price >= 500 ? 'price-gold' : ''}">
+            $${item.price}
+        </div>
+
+    </div>
+
+</div>
+`;
+        multi.appendChild(card);
+
+        // 🔥 SEQUENTIAL FLIP DELAY
+const delay =
+    item.price >= 500
+    ? i * 500 + 10
+    : i * 550;
+
+setTimeout(() => {
+
+    if(item.price >= 500){
+        card.classList.add("legendary-open");
+        tickSound(1200);
+    }else{
+        tickSound(700);
+    }
+
+    card.classList.add("opened");
+
+}, delay)
+}
+
+    // 🎯 FINAL REWARD PUSH
+    setTimeout(() => {
+
+        winners.forEach(item => inventory.push(item));
+
+        updateGlobalData();
+        levelUpSound();
+
+        document.getElementById("close-modal").classList.remove("hidden");
+        const spent = selectedCase.price * 10;
+        const profit = multiSessionProfit - spent;
+let resultText = "";
+let color = "";
+
+if (profit >= 0) {
+    resultText = `💰 +${profit.toFixed(2)} BZ FOYDA`;
+    color = "lime";
+} else {
+    resultText = `❌ ${profit.toFixed(2)} BZ ZARAR`;
+    color = "red";
+}
+
+showTopPopup(resultText, color);
+    }, 10 * 500 + 1200);
+}
+function createFlipCard(item, index) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "skin-card flip-card-temp";
+
+    wrapper.innerHTML = `
+        <div class="flip-inner">
+            <div class="flip-front">?</div>
+            <div class="flip-back rarity-${item.rarity}">
+                <img src="${item.image}" />
+                <span>${item.name}</span>
+            </div>
+        </div>
+    `;
+
+    // start animation after append
+    setTimeout(() => {
+        wrapper.querySelector(".flip-inner")
+            .classList.add("flipped");
+    }, 50);
+
+    return wrapper;
+}
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+function getWeightedItem(items) {
+
+    let total = 0;
+
+    // 1. hamma chance yig'iladi
+    items.forEach(i => {
+        total += i.chance;
+    });
+
+    // 2. random 0 - 100
+    let rand = Math.random() * total;
+
+    // 3. tanlash
+    for (let i of items) {
+        rand -= i.chance;
+
+        if (rand <= 0) {
+            return i;
+        }
+    }
+
+    return items[items.length - 1];
+}
 // ================= START =================
 updateLanguageUI();
 updateGlobalData();
