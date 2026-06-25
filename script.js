@@ -1191,26 +1191,93 @@ setInterval(() => {
 }, 1.5 * 60 * 1000);
 // --- MUSIQA MANTIQI ---
 const playlist = [
-  "./audio/music1.mp3",
-  "./audio/music2.mp3",
-  "./audio/music3.mp3"
-  ];
+    "./audio/music1.mp3",
+    "./audio/music2.mp3",
+    "./audio/music3.mp3",
+    "./audio/music4.mp3"
+];
+// QO'SHIQ NOMLAR
+const musicNames = [
+    "VIRAL PHONK.MP3",
+    "PHONK NIGHT.MP3",
+    "CreatoR 1-qism.MP3",
+    "CreatoR 2-qism.MP3"
+];
+// VIDEO FONLAR
+const videoList = [
+    "./videos/bg1.mp4",
+    "./videos/bg2.mp4",
+    "./videos/bg3.mp4",
+    "./videos/bg4.mp4"
+];
 let currentIndex = parseInt(localStorage.getItem('musicIndex')) || 0;
 let audio = new Audio(playlist[currentIndex]);
 
 // Pleyer boshqaruvi
 function togglePlay() {
-    const btn = document.getElementById('play-pause-btn');
+
+    const btn =
+        document.getElementById('play-pause-btn');
+
+    const video =
+        document.querySelector(".music-bg-video");
+
     if (audio.paused) {
+
         audio.play();
+
+        if(video){
+            video.play().catch(()=>{});
+        }
+
         btn.innerText = '⏸️';
+
     } else {
-       (audio.play) 
+
         audio.pause();
+
+        if(video){
+            video.pause();
+        }
+
         btn.innerText = '▶️';
     }
 }
+// Oldinga va Orqaga FUNKSIYASI
+function skip10Seconds() {
 
+    const newTime =
+        Math.min(
+            audio.currentTime + 10,
+            audio.duration || audio.currentTime + 10
+        );
+
+    audio.currentTime = newTime;
+
+    const video =
+        document.querySelector(".music-bg-video");
+
+    if(video){
+        video.currentTime = newTime;
+    }
+}
+function back10Seconds() {
+
+    const newTime =
+        Math.max(
+            audio.currentTime - 10,
+            0
+        );
+
+    audio.currentTime = newTime;
+
+    const video =
+        document.querySelector(".music-bg-video");
+
+    if(video){
+        video.currentTime = newTime;
+    }
+}
 // Keyingi musiqa
 function nextTrack() {
     currentIndex = (currentIndex + 1) % playlist.length;
@@ -1225,13 +1292,51 @@ function prevTrack() {
 
 // Musiqani yangilash va saqlash
 function updateTrack() {
+
+    const video =
+        document.querySelector(".music-bg-video");
+
     audio.src = playlist[currentIndex];
-    document.getElementById('music-title').innerText = playlist[currentIndex];
-    audio.play();
-    document.getElementById('play-pause-btn').innerText = '⏸️';
-    saveMusicState();
+
+    document.getElementById("music-title").innerText =
+        musicNames[currentIndex];
+
+    if(video){
+
+        video.src =
+            videoList[currentIndex % videoList.length];
+
+        video.load();
+
+        video.onloadeddata = () => {
+
+            audio.currentTime = 0;
+            video.currentTime = 0;
+
+            video.play().catch(()=>{});
+            audio.play();
+
+        };
+
+    }else{
+
+        audio.play();
+        const video =
+    document.querySelector(".music-bg-video");
+
+if(video){
+
+    video.currentTime = 0;
+
+    video.play().catch(()=>{});
 }
 
+    }
+
+    document.getElementById('play-pause-btn').innerText = '⏸️';
+
+    saveMusicState();
+}
 // Avtomatik keyingisiga o'tish (Loop)
 audio.onended = () => nextTrack();
 
@@ -1255,7 +1360,24 @@ function saveMusicState() {
 
 // Sahifa yuklanganda holatni tiklash
 window.onload = () => {
-    audio.currentTime = parseFloat(localStorage.getItem('musicTime')) || 0;
+
+    audio.currentTime =
+        parseFloat(localStorage.getItem('musicTime')) || 0;
+
+    document.getElementById('music-title').innerText =
+        musicNames[currentIndex];
+
+    const video =
+        document.querySelector(".music-bg-video");
+
+    if(video){
+
+        video.src =
+            videoList[currentIndex % videoList.length];
+
+        video.play().catch(()=>{});
+    }
+
 };
 const wrapper = document.getElementById('blaze-wrapper');
 const spans = document.querySelectorAll('#blaze-text span');
@@ -1580,6 +1702,27 @@ function getWeightedItem(items) {
 
     return items[items.length - 1];
 }
+audio.addEventListener("pause", () => {
+
+    const video =
+        document.querySelector(".music-bg-video");
+
+    if(video){
+        video.pause();
+    }
+
+});
+
+audio.addEventListener("play", () => {
+
+    const video =
+        document.querySelector(".music-bg-video");
+
+    if(video){
+        video.play().catch(()=>{});
+    }
+
+});
 // ================= START =================
 updateLanguageUI();
 updateGlobalData();
