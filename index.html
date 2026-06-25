@@ -94,6 +94,7 @@
             </div>
             
             <div class="music-player">
+              <video class="music-bg-video" autoplay muted loop playsinline></video>
                 <div id="music-title">MUSIC.MP3</div>
                 <div class="progress-bar">
                     <span id="current-time">00:00</span>
@@ -101,10 +102,11 @@
                     <span id="duration">00:00</span>
                 </div>
                 <div class="controls">
+                  <button onclick ="back10Seconds()">⏮️</button>
                     <button onclick="prevTrack()">⏪</button>
                     <button id="play-pause-btn" onclick="togglePlay()">▶️</button>
                     <button onclick="nextTrack()">⏩</button>
-                    <button onclick="toggleLoop()">🔄</button>
+                    <button onclick="skip10Seconds()">⏭️</button>
                 </div>
             </div>
 
